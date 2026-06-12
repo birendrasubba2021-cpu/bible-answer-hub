@@ -14,17 +14,11 @@ import {
 } from "lucide-react";
 import { getDepartment } from "@/lib/departments";
 import {
-  getAllQuestionSlugs,
   getQuestionBySlug,
   getRelatedQuestions,
 } from "@/lib/content";
 import { QuestionCard } from "@/components/question-card";
 import type { QuestionAnswer } from "@/lib/types";
-
-export async function generateStaticParams() {
-  const slugs = await getAllQuestionSlugs();
-  return slugs.map((slug) => ({ slug }));
-}
 
 export async function generateMetadata({
   params,

@@ -4,6 +4,8 @@ import { getAllQuestions } from "@/lib/content";
 
 const BASE = "https://bibleanswerhub.org";
 
+export const dynamic = "force-dynamic";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const questions = await getAllQuestions();
   const staticRoutes = [
