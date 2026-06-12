@@ -43,6 +43,7 @@ function toQuestionAnswer(row: QuestionRow): QuestionAnswer {
     references: (row.references as string[]) ?? [],
     relatedSlugs: row.relatedTo.map((r) => r.slug),
     author: row.author.name,
+    featuredImage: row.featuredImage,
   };
 }
 

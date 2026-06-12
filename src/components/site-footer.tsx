@@ -1,23 +1,16 @@
 import Link from "next/link";
-import { BookMarked } from "lucide-react";
+import { BrandLogo } from "@/components/brand/logo";
 import { departments } from "@/lib/departments";
 import { SITE } from "@/lib/content";
 
 export function SiteFooter() {
   return (
-    <footer className="mt-20 border-t border-stone-200 bg-brand-700 text-stone-200">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
+    <footer className="mt-20 border-t border-brand-800 bg-brand-900 text-stone-200">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
         <div className="grid gap-10 md:grid-cols-4">
           <div className="md:col-span-1">
-            <div className="flex items-center gap-2.5">
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white text-brand-700">
-                <BookMarked className="h-5 w-5" />
-              </span>
-              <span className="font-serif text-lg font-bold text-white">
-                {SITE.name}
-              </span>
-            </div>
-            <p className="mt-4 text-sm leading-relaxed text-stone-300">
+            <BrandLogo size={44} variant="light" />
+            <p className="mt-5 text-sm leading-relaxed text-stone-400">
               {SITE.tagline}
             </p>
           </div>

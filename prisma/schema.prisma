@@ -75,6 +75,7 @@ model Question {
   difficulty   Difficulty    @default(INTRODUCTORY)
   trending     Boolean       @default(false)
   views        Int           @default(0)
+  featuredImage String?
 
   shortAnswer              String  @db.Text
   detailedAnswer           Json    // string[] paragraphs

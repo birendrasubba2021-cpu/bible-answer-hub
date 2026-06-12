@@ -1,17 +1,29 @@
 @import "tailwindcss";
 
+/* ─── Design tokens ─── */
 :root {
-  --background: #fbfaf7;
-  --foreground: #1c1917;
+  --background: #faf9f6;
+  --foreground: #1a1814;
+  --paper: #ffffff;
+  --muted: #6b6560;
+  --border: #e8e4dc;
+  --accent: #1e3a5f;
+  --accent-light: #eef4fb;
+  --gold: #b8922a;
+  --gold-light: #f5eed9;
+  --reading-width: 42rem;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter);
-  --font-serif: var(--font-lora);
+  --color-paper: var(--paper);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --font-sans: var(--font-jakarta);
+  --font-serif: var(--font-source-serif);
+  --font-display: var(--font-source-serif);
 
-  /* Brand palette */
   --color-brand-50: #eef4fb;
   --color-brand-100: #d6e4f5;
   --color-brand-200: #adc8ea;
@@ -23,13 +35,17 @@
   --color-brand-800: #13243b;
   --color-brand-900: #0d1a2b;
 
-  --color-gold-400: #d9b44a;
-  --color-gold-500: #c9a227;
-  --color-gold-600: #a6831c;
+  --color-gold-400: #d4b04a;
+  --color-gold-500: #b8922a;
+  --color-gold-600: #967618;
 }
 
 * {
-  border-color: var(--color-stone-200);
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -37,22 +53,109 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 h1,
 h2,
 h3,
 h4,
-.font-serif {
-  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+.font-serif,
+.font-display {
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+}
+
+/* ─── Reading typography ─── */
+.prose-answer {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  color: #3d3832;
 }
 
 .prose-answer p {
-  margin-bottom: 1rem;
-  line-height: 1.8;
-  color: var(--color-stone-700);
+  margin-bottom: 1.25rem;
 }
 
 .prose-answer p:last-child {
   margin-bottom: 0;
+}
+
+.prose-answer strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+/* ─── Scripture table ─── */
+.scripture-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.9375rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.scripture-table thead {
+  background: linear-gradient(180deg, #f8f6f1 0%, #f3f0e8 100%);
+}
+
+.scripture-table th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.scripture-table td {
+  padding: 0.875rem 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.scripture-table tbody tr:hover {
+  background: #eef4fb;
+}
+
+.scripture-table .ref {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* ─── Section anchor targets ─── */
+.answer-section {
+  scroll-margin-top: 6rem;
+}
+
+/* ─── Subtle page texture ─── */
+.bg-paper-texture {
+  background-color: var(--paper);
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgb(0 0 0 / 0.025) 1px,
+    transparent 0
+  );
+  background-size: 24px 24px;
+}
+
+/* ─── Card elevation ─── */
+.card-elevated {
+  background: var(--paper);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.04),
+    0 4px 16px rgb(0 0 0 / 0.04);
+}
+
+.card-elevated:hover {
+  box-shadow:
+    0 2px 4px rgb(0 0 0 / 0.05),
+    0 8px 24px rgb(0 0 0 / 0.07);
 }

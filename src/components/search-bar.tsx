@@ -41,16 +41,16 @@ export function SearchBar({
           onChange={(e) => setValue(e.target.value)}
           placeholder={placeholder}
           aria-label="Search questions"
-          className={`w-full rounded-full border border-stone-300 bg-white text-stone-900 shadow-sm outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-200 ${
+          className={`w-full rounded-xl border border-stone-200/80 bg-white text-stone-900 shadow-sm outline-none transition focus:border-brand-500 focus:ring-2 focus:ring-brand-200/80 ${
             large
-              ? "py-4 pl-13 pr-32 text-lg"
+              ? "py-4 pl-13 pr-32 text-lg shadow-md"
               : "py-2.5 pl-11 pr-4 text-sm"
           }`}
         />
         {large && (
           <button
             type="submit"
-            className="absolute right-2 rounded-full bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-700"
+            className="absolute right-2 rounded-lg bg-brand-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700"
           >
             Search
           </button>

@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { BookMarked, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { BrandLogo } from "@/components/brand/logo";
 import { SearchBar } from "./search-bar";
 
 const NAV = [
@@ -12,42 +13,41 @@ const NAV = [
   { href: "/videos", label: "Videos" },
   { href: "/resources", label: "Resources" },
   { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
 ];
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-stone-200 bg-background/90 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-border/80 bg-paper/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6">
-        <Link href="/" className="flex items-center gap-2.5 shrink-0">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand-600 text-white">
-            <BookMarked className="h-5 w-5" />
-          </span>
-          <span className="font-serif text-xl font-bold tracking-tight text-brand-700">
-            Bible Answer Hub
-          </span>
-        </Link>
+        <BrandLogo size={44} />
 
-        <nav className="ml-auto hidden items-center gap-1 lg:flex">
+        <nav className="ml-auto hidden items-center gap-0.5 xl:flex">
           {NAV.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-md px-3 py-2 text-sm font-medium text-stone-600 transition hover:bg-stone-100 hover:text-brand-700"
+              className="rounded-lg px-3 py-2 text-sm font-medium text-stone-600 transition hover:bg-stone-100 hover:text-brand-700"
             >
               {item.label}
             </Link>
           ))}
         </nav>
 
-        <div className="ml-auto hidden w-64 lg:block">
+        <div className="ml-auto hidden w-56 xl:block 2xl:w-64">
           <SearchBar size="small" placeholder="Search..." />
         </div>
 
+        <Link
+          href="/contact"
+          className="hidden rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700 lg:inline-flex"
+        >
+          Contact
+        </Link>
+
         <button
-          className="ml-auto rounded-md p-2 text-stone-700 lg:hidden"
+          className="ml-auto rounded-lg p-2 text-stone-700 xl:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
         >
@@ -56,17 +56,15 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <div className="border-t border-stone-200 bg-background px-4 py-4 lg:hidden">
-          <div className="mb-3">
-            <SearchBar size="small" placeholder="Search questions..." />
-          </div>
-          <nav className="flex flex-col">
-            {NAV.map((item) => (
+        <div className="border-t border-border bg-paper px-4 py-4 xl:hidden">
+          <SearchBar size="small" placeholder="Search questions..." />
+          <nav className="mt-3 flex flex-col">
+            {[...NAV, { href: "/contact", label: "Contact" }].map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="rounded-md px-3 py-2.5 text-base font-medium text-stone-700 transition hover:bg-stone-100"
+                className="rounded-lg px-3 py-2.5 text-base font-medium text-stone-700 hover:bg-stone-50"
               >
                 {item.label}
               </Link>

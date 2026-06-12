@@ -44,11 +44,13 @@ export default async function Home() {
             <Sparkles className="h-4 w-4 text-gold-400" />
             Building the world&apos;s largest biblical knowledge base
           </span>
-          <h1 className="mt-6 font-serif text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-6xl">
+          <h1 className="mt-6 font-display text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl md:text-[3.25rem]">
             Trusted Answers to Every
-            <span className="block text-gold-400">Question of Faith</span>
+            <span className="mt-1 block bg-gradient-to-r from-gold-400 to-gold-500 bg-clip-text text-transparent">
+              Question of Faith
+            </span>
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-stone-200">
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-stone-300">
             Find biblical, scholarly answers about Scripture, theology,
             apologetics, church history, Christian living, biblical languages,
             ministry, and more.

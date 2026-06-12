@@ -36,4 +36,6 @@ export interface QuestionAnswer {
   references: string[];
   relatedSlugs: string[];
   author: string;
+  /** Optional hero image URL — add via admin later (e.g. /images/questions/trinity.jpg) */
+  featuredImage?: string | null;
 }
