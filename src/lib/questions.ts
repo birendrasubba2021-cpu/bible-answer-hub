@@ -1,0 +1,516 @@
+import type { QuestionAnswer } from "./types";
+
+// Phase 1 seed content. Written to demonstrate the full question structure
+// defined in the spec: short answer, detailed answer, biblical basis,
+// theological explanation, common misunderstandings, practical application,
+// references, related questions, and author.
+export const questions: QuestionAnswer[] = [
+  {
+    slug: "what-is-the-trinity",
+    question: "What is the Trinity?",
+    department: "theology",
+    category: "Theology Proper",
+    topics: ["trinity", "god", "doctrine"],
+    trending: true,
+    difficulty: "intermediate",
+    views: 18420,
+    publishedAt: "2026-01-12",
+    shortAnswer:
+      "The Trinity is the biblical teaching that there is one God who eternally exists as three distinct persons — the Father, the Son, and the Holy Spirit — each fully and equally God, yet there is only one God.",
+    detailedAnswer: [
+      "The word 'Trinity' is not found in the Bible, but the doctrine it describes is taught throughout Scripture. It can be summarized in three statements that must all be held together: (1) there is only one God; (2) the Father, the Son, and the Holy Spirit are each fully God; and (3) the Father, Son, and Spirit are distinct persons, not three names for one person.",
+      "Christianity is strictly monotheistic. The Trinity does not teach three gods (tritheism), nor that one God simply appears in three modes at different times (modalism). Rather, the one divine being exists eternally as three co-equal, co-eternal persons who are distinct in their relationships yet united in essence, will, and glory.",
+      "This is a mystery that exceeds full human comprehension, but it is not a contradiction. We are not saying God is one and three in the same way. God is one in being (essence) and three in persons.",
+    ],
+    biblicalBasis: [
+      { reference: "Deuteronomy 6:4", version: "ESV" },
+      { reference: "Matthew 28:19", version: "ESV" },
+      { reference: "John 1:1-14", version: "ESV" },
+      { reference: "2 Corinthians 13:14", version: "ESV" },
+      { reference: "John 10:30", version: "ESV" },
+    ],
+    theologicalExplanation: [
+      "The doctrine was clarified by the early church at the Councils of Nicaea (325) and Constantinople (381) in response to errors such as Arianism, which denied the full deity of the Son. The Nicene Creed confesses the Son as 'true God from true God, begotten not made, of one substance (homoousios) with the Father.'",
+      "Each person is distinguished by relations of origin: the Father is unbegotten, the Son is eternally begotten of the Father, and the Spirit eternally proceeds. These distinctions never divide the one divine essence.",
+    ],
+    commonMisunderstandings: [
+      "That the Trinity means three gods — it does not; Scripture insists there is one God.",
+      "That the persons are merely 'masks' or modes God wears at different times (modalism) — Scripture shows the persons relating to one another simultaneously (e.g., the Son praying to the Father).",
+      "That the Son or the Spirit is a created or lesser being — both are confessed as fully and equally God.",
+    ],
+    practicalApplication: [
+      "Worship is directed to the triune God; the Christian life is lived in relationship with Father, Son, and Spirit (Ephesians 2:18).",
+      "The Trinity grounds the gospel: the Father sends the Son, the Son accomplishes salvation, and the Spirit applies it to believers.",
+    ],
+    references: [
+      "The Nicene Creed (381)",
+      "Wayne Grudem, Systematic Theology, ch. 14",
+      "Athanasius, On the Incarnation",
+    ],
+    relatedSlugs: ["who-is-jesus-christ", "what-is-the-gospel"],
+    author: "Apologist Birendra Subba",
+  },
+  {
+    slug: "what-is-speaking-in-tongues",
+    question: "What is speaking in tongues?",
+    department: "contemporary-issues",
+    category: "Speaking in Tongues",
+    topics: ["tongues", "holy-spirit", "spiritual-gifts", "trending"],
+    trending: true,
+    difficulty: "intermediate",
+    views: 24310,
+    publishedAt: "2026-02-03",
+    shortAnswer:
+      "Speaking in tongues (glossolalia) is a spiritual gift mentioned in the New Testament in which a person speaks in a language they have not learned. In Acts it appears as real human languages; in 1 Corinthians it is a gift that Paul regulates and says must be done in an orderly way and with interpretation in the church.",
+    detailedAnswer: [
+      "The Bible describes tongues in two main settings. At Pentecost (Acts 2) the disciples spoke in known foreign languages so that visitors from many nations heard the gospel in their own tongue. In 1 Corinthians 12–14, Paul treats tongues as one of several spiritual gifts given by the Spirit for the building up of the church.",
+      "Paul values the gift but insists on order: in a gathering, tongues should be limited, taken in turn, and always interpreted so the church is edified. Without interpretation, he says, it is better to speak words people understand (1 Corinthians 14:19).",
+      "Sincere Christians differ on whether this gift continues today. Continuationists believe all the gifts remain active. Cessationists believe the miraculous sign-gifts served the apostolic era and have ceased. Both sides agree the gift must never be used in disorder or as a measure of someone's spiritual maturity or salvation.",
+    ],
+    biblicalBasis: [
+      { reference: "Acts 2:1-13", version: "ESV" },
+      { reference: "1 Corinthians 12:7-11", version: "ESV" },
+      { reference: "1 Corinthians 14:1-40", version: "ESV" },
+      { reference: "Mark 16:17", version: "ESV" },
+    ],
+    theologicalExplanation: [
+      "Tongues is listed among gifts the Spirit distributes 'as he wills' (1 Corinthians 12:11), which means no single gift is required of every believer. Paul explicitly asks, 'Do all speak with tongues?' expecting the answer 'no' (1 Corinthians 12:30).",
+      "The governing principle for all gifts is love and edification (1 Corinthians 13–14). A gift used without love or order does not honor God regardless of how impressive it seems.",
+    ],
+    commonMisunderstandings: [
+      "That speaking in tongues is proof a person is saved or 'baptized in the Spirit' — Scripture never makes tongues the test of salvation.",
+      "That every Christian must speak in tongues — Paul teaches the Spirit gives different gifts to different people.",
+      "That tongues may be practiced publicly without interpretation — Paul forbids this in the gathered church.",
+    ],
+    practicalApplication: [
+      "Whatever one's view, gifts are for serving others, not self-display; pursue love above all (1 Corinthians 14:1).",
+      "In church, everything should be done 'decently and in order' (1 Corinthians 14:40).",
+    ],
+    references: [
+      "Gordon Fee, The First Epistle to the Corinthians",
+      "D. A. Carson, Showing the Spirit",
+    ],
+    relatedSlugs: ["what-is-being-slain-in-the-spirit", "is-the-prosperity-gospel-biblical"],
+    author: "Apologist Birendra Subba",
+  },
+  {
+    slug: "what-is-being-slain-in-the-spirit",
+    question: "What is being 'slain in the Spirit'? Is it biblical?",
+    department: "contemporary-issues",
+    category: "Slain in the Spirit",
+    topics: ["slain-in-the-spirit", "holy-spirit", "trending"],
+    trending: true,
+    difficulty: "intermediate",
+    views: 15730,
+    publishedAt: "2026-02-10",
+    shortAnswer:
+      "'Slain in the Spirit' refers to a modern phenomenon in some charismatic settings where a person falls to the ground, often after a minister's touch, supposedly overwhelmed by the Holy Spirit. The exact practice is not taught or commanded anywhere in Scripture, so it must be tested carefully against the Bible.",
+    detailedAnswer: [
+      "The Bible does record people falling down in God's presence — for example, when overwhelmed by a vision of God's glory or in fear and reverence (Ezekiel 1:28; Daniel 8:17; Revelation 1:17). The soldiers arresting Jesus fell back (John 18:6), and Saul fell at his conversion (Acts 9:4).",
+      "However, none of these passages describe the specific contemporary practice of a minister causing people to fall backward by a touch, with catchers waiting behind them, as a repeatable church ritual. The biblical instances are spontaneous responses to a genuine encounter with God's holiness, usually marked by fear, repentance, and worship — not by emotional excitement or showmanship.",
+      "Because the practice is not commanded in Scripture, Christians should evaluate it by its fruit and its faithfulness to God's Word. Anything that draws attention to a human minister, produces disorder, or replaces the clear teaching of Scripture with experiences should be approached with caution (1 Thessalonians 5:21).",
+    ],
+    biblicalBasis: [
+      { reference: "Ezekiel 1:28", version: "ESV" },
+      { reference: "Daniel 8:17-18", version: "ESV" },
+      { reference: "John 18:6", version: "ESV" },
+      { reference: "Revelation 1:17", version: "ESV" },
+      { reference: "1 Corinthians 14:33", version: "ESV" },
+    ],
+    theologicalExplanation: [
+      "Scripture is the final authority for testing all spiritual experiences (Acts 17:11; 1 John 4:1). An experience is not validated simply because it feels powerful; it must align with God's revealed truth.",
+      "God 'is not a God of confusion but of peace' (1 Corinthians 14:33). The Spirit's work characteristically produces self-control (Galatians 5:23) and edification, not chaos.",
+    ],
+    commonMisunderstandings: [
+      "That falling down automatically proves the Holy Spirit is at work — the cause could be emotion, suggestion, or human pressure.",
+      "That the biblical examples of people falling endorse the modern ritual — the contexts are quite different.",
+      "That questioning the practice means resisting the Spirit — testing all things is itself commanded by the Spirit-inspired Word.",
+    ],
+    practicalApplication: [
+      "Test every spiritual experience against Scripture and look for lasting fruit: repentance, holiness, love, and sound doctrine.",
+      "Seek God himself rather than dramatic experiences, and beware of any ministry centered on a personality.",
+    ],
+    references: [
+      "1 Thessalonians 5:19-22",
+      "John MacArthur, Strange Fire (for a cessationist critique)",
+    ],
+    relatedSlugs: ["what-is-speaking-in-tongues", "is-the-prosperity-gospel-biblical"],
+    author: "Apologist Birendra Subba",
+  },
+  {
+    slug: "is-the-prosperity-gospel-biblical",
+    question: "Is the prosperity gospel biblical?",
+    department: "contemporary-issues",
+    category: "Prosperity Gospel",
+    topics: ["prosperity-gospel", "false-teaching", "money", "trending"],
+    trending: true,
+    difficulty: "introductory",
+    views: 20110,
+    publishedAt: "2026-01-28",
+    shortAnswer:
+      "No. The prosperity gospel — the teaching that God guarantees health and wealth to those who have enough faith or give enough money — is not biblical. It distorts the gospel, misuses Scripture, and contradicts Jesus' and the apostles' teaching about suffering, contentment, and the true treasure of knowing Christ.",
+    detailedAnswer: [
+      "The prosperity gospel claims that faith, positive confession, and financial 'seed' giving obligate God to grant material wealth and physical health. In this system, poverty or sickness is treated as a sign of weak faith or sin.",
+      "This contradicts the Bible at its core. Jesus had no place to lay his head (Matthew 8:20), warned that we cannot serve both God and money (Matthew 6:24), and called disciples to take up their cross. The apostle Paul learned contentment in both plenty and need (Philippians 4:11-13) and listed his many sufferings as marks of faithful ministry, not failure (2 Corinthians 11:23-28).",
+      "The true gospel is the good news that Jesus Christ died for sinners and rose again, offering forgiveness and eternal life by grace through faith. Its central promise is God himself, not material things. Godliness with contentment is great gain (1 Timothy 6:6); the love of money is a root of all kinds of evil (1 Timothy 6:10).",
+    ],
+    biblicalBasis: [
+      { reference: "1 Timothy 6:5-10", version: "ESV" },
+      { reference: "Philippians 4:11-13", version: "ESV" },
+      { reference: "Matthew 6:19-24", version: "ESV" },
+      { reference: "2 Corinthians 8:9", version: "ESV" },
+      { reference: "Mark 8:34-36", version: "ESV" },
+    ],
+    theologicalExplanation: [
+      "Prosperity teaching often rests on misreading verses like 3 John 2 ('that you may prosper') or 2 Corinthians 8:9, ignoring their actual context. Sound interpretation reads each verse in light of the whole of Scripture.",
+      "Suffering is part of the normal Christian life (John 16:33; Romans 8:17). God does promise to meet our needs and may grant material blessing, but he never guarantees wealth as a reward for faith.",
+    ],
+    commonMisunderstandings: [
+      "That God wants every believer to be rich and never sick — Scripture promises neither.",
+      "That giving money to a ministry will force God to bless you financially — this treats God like a vending machine.",
+      "That wanting Christians to avoid materialism means wealth is automatically sinful — the issue is the heart's trust and treasure.",
+    ],
+    practicalApplication: [
+      "Measure every teacher and message by Scripture, especially when money is involved (Acts 17:11).",
+      "Pursue contentment, generosity, and treasure in heaven rather than earthly guarantees (Matthew 6:20).",
+    ],
+    references: [
+      "John Piper, 'Why I Abominate the Prosperity Gospel'",
+      "David W. Jones & Russell Woodbridge, Health, Wealth, and Happiness",
+    ],
+    relatedSlugs: ["what-is-the-gospel", "what-is-being-slain-in-the-spirit"],
+    author: "Apologist Birendra Subba",
+  },
+  {
+    slug: "what-does-the-bible-say-about-homosexuality",
+    question: "What does the Bible say about homosexuality?",
+    department: "contemporary-issues",
+    category: "Marriage & Family",
+    topics: ["sexuality", "marriage", "ethics", "lgbtq", "trending"],
+    trending: true,
+    difficulty: "intermediate",
+    views: 28940,
+    publishedAt: "2026-03-01",
+    shortAnswer:
+      "The Bible consistently teaches that God designed sexual intimacy for the covenant of marriage between one man and one woman, and it describes homosexual practice as outside that design. At the same time, Scripture calls Christians to treat every person with love, dignity, and compassion, since all people are made in God's image and all sinners are invited to find grace in Christ.",
+    detailedAnswer: [
+      "From the beginning, the Bible presents marriage as the union of a man and a woman (Genesis 2:24), affirmed by Jesus himself (Matthew 19:4-6). Within this framework, both Old and New Testaments describe homosexual acts as contrary to God's design (Leviticus 18:22; Romans 1:26-27; 1 Corinthians 6:9-11).",
+      "It is important to distinguish between temptation and action, and between a person's identity and their conduct. Experiencing same-sex attraction is not itself the same as acting on it, and the Bible's call to holiness in this area is the same call to sexual faithfulness it gives to everyone, including heterosexual people, who are equally called to chastity outside marriage and faithfulness within it.",
+      "Crucially, 1 Corinthians 6:9-11 lists many sins — including greed, slander, and drunkenness — and then says, 'And such were some of you. But you were washed, you were sanctified, you were justified.' The gospel offers cleansing and a new identity in Christ to all who come to him, whatever their past.",
+    ],
+    biblicalBasis: [
+      { reference: "Genesis 2:24", version: "ESV" },
+      { reference: "Matthew 19:4-6", version: "ESV" },
+      { reference: "Romans 1:26-27", version: "ESV" },
+      { reference: "1 Corinthians 6:9-11", version: "ESV" },
+    ],
+    theologicalExplanation: [
+      "The biblical sexual ethic flows from the doctrine of creation: God made humanity male and female and gave marriage as a picture of Christ and the church (Ephesians 5:31-32). Sexuality is therefore not a private preference but part of God's good created order.",
+      "Because all have sinned (Romans 3:23), the church approaches this topic with humility, never with self-righteousness, holding together both truth and grace as Jesus did (John 1:14).",
+    ],
+    commonMisunderstandings: [
+      "That the Bible singles out this sin as uniquely unforgivable — it does not; it is listed alongside many others, all of which Christ forgives.",
+      "That holding the biblical view requires hostility toward LGBTQ people — Scripture commands love of neighbor and kindness toward all.",
+      "That experiencing same-sex attraction is itself a sin to be ashamed of, rather than a temptation to bring honestly before God.",
+    ],
+    practicalApplication: [
+      "Speak the truth in love (Ephesians 4:15), welcoming people while remaining faithful to Scripture.",
+      "Offer friendship, prayer, and the hope of the gospel rather than condemnation; remember that every Christian lives by grace.",
+    ],
+    references: [
+      "Kevin DeYoung, What Does the Bible Really Teach about Homosexuality?",
+      "Sam Allberry, Is God Anti-Gay?",
+    ],
+    relatedSlugs: ["what-does-the-bible-say-about-transgender-identity", "what-is-the-gospel"],
+    author: "Apologist Birendra Subba",
+  },
+  {
+    slug: "what-does-the-bible-say-about-transgender-identity",
+    question: "What does the Bible say about transgender identity?",
+    department: "contemporary-issues",
+    category: "Marriage & Family",
+    topics: ["transgender", "gender", "identity", "ethics", "lgbtq", "trending"],
+    trending: true,
+    difficulty: "intermediate",
+    views: 21560,
+    publishedAt: "2026-03-08",
+    shortAnswer:
+      "The Bible teaches that God created humanity male and female as a good and intentional part of his design, and that our identity is ultimately defined by God rather than by our feelings. It calls Christians to respond to those wrestling with gender identity with both biblical conviction and Christlike compassion.",
+    detailedAnswer: [
+      "Scripture opens with the statement that God created humanity 'male and female' in his image (Genesis 1:27), a distinction Jesus reaffirmed (Matthew 19:4). The Bible presents our bodies as good gifts from God, not mistakes to be overcome (Psalm 139:13-14).",
+      "The Bible does not address modern medical and cultural questions about gender dysphoria directly, but its overall teaching is that our maleness or femaleness is part of how God made us, and that lasting identity and worth are found in being God's image-bearers and, for believers, in being united to Christ (Galatians 2:20).",
+      "Many people experience real and painful distress about their gender. The right Christian response is neither mockery nor dismissal, but compassion, patience, and a willingness to walk alongside people as they seek God's truth — pointing them to the One who knows them fully and loves them.",
+    ],
+    biblicalBasis: [
+      { reference: "Genesis 1:27", version: "ESV" },
+      { reference: "Psalm 139:13-14", version: "ESV" },
+      { reference: "Matthew 19:4", version: "ESV" },
+      { reference: "1 Corinthians 6:19-20", version: "ESV" },
+    ],
+    theologicalExplanation: [
+      "Christian anthropology teaches that human beings are embodied souls; the body is not separate from or opposed to the true self but integral to it (1 Corinthians 6:19-20).",
+      "In a fallen world, our desires and self-perceptions can be disordered (Jeremiah 17:9), which is why Scripture, not feelings, is our guide for identity and conduct.",
+    ],
+    commonMisunderstandings: [
+      "That biblical conviction on this issue justifies cruelty or ridicule — it never does.",
+      "That feelings about gender are the final measure of truth — Scripture locates identity in God's design and grace.",
+      "That the church has nothing compassionate to offer — the gospel offers belonging, love, and hope to all.",
+    ],
+    practicalApplication: [
+      "Listen well and love genuinely before speaking; people are not projects but image-bearers.",
+      "Anchor your own identity, and help others anchor theirs, in Christ rather than in shifting feelings.",
+    ],
+    references: [
+      "Andrew T. Walker, God and the Transgender Debate",
+      "Preston Sprinkle, Embodied",
+    ],
+    relatedSlugs: ["what-does-the-bible-say-about-homosexuality", "who-is-jesus-christ"],
+    author: "Apologist Birendra Subba",
+  },
+  {
+    slug: "what-is-the-gospel",
+    question: "What is the gospel?",
+    department: "theology",
+    category: "Soteriology",
+    topics: ["gospel", "salvation", "grace"],
+    difficulty: "introductory",
+    views: 16880,
+    publishedAt: "2026-01-05",
+    shortAnswer:
+      "The gospel is the good news that Jesus Christ, the Son of God, died on the cross for our sins and rose again from the dead, so that everyone who repents and trusts in him is forgiven, reconciled to God, and given eternal life — entirely by God's grace, not by our works.",
+    detailedAnswer: [
+      "The word 'gospel' means 'good news.' Paul summarizes it in 1 Corinthians 15:3-4: 'Christ died for our sins in accordance with the Scriptures, that he was buried, that he was raised on the third day.'",
+      "The gospel addresses humanity's deepest problem: we have all sinned and fallen short of God's glory (Romans 3:23), and the just penalty for sin is death (Romans 6:23). We cannot save ourselves by good works (Ephesians 2:8-9).",
+      "In love, God sent his Son to live the righteous life we could not live and to die the death we deserved, taking our punishment in our place. By raising Jesus, God declared his sacrifice accepted and his victory over sin and death complete. The proper response is repentance (turning from sin) and faith (trusting in Christ).",
+    ],
+    biblicalBasis: [
+      { reference: "1 Corinthians 15:1-4", version: "ESV" },
+      { reference: "Romans 3:23-26", version: "ESV" },
+      { reference: "Ephesians 2:8-9", version: "ESV" },
+      { reference: "John 3:16", version: "ESV" },
+    ],
+    theologicalExplanation: [
+      "The gospel is received by grace alone, through faith alone, in Christ alone. Salvation is God's gift, not a wage we earn (Romans 4:4-5).",
+      "Saving faith is not mere intellectual agreement but trust that results in a transformed life (James 2:17).",
+    ],
+    commonMisunderstandings: [
+      "That the gospel is advice about how to live a better life — it is news about what God has done in Christ.",
+      "That we are saved by being good enough — Scripture says salvation is by grace, not works.",
+      "That the gospel is only about going to heaven — it is also about reconciliation with God and new life now.",
+    ],
+    practicalApplication: [
+      "Respond to the gospel by repenting and trusting in Jesus Christ.",
+      "Let the gospel shape daily life with gratitude, holiness, and a desire to share it with others.",
+    ],
+    references: [
+      "Greg Gilbert, What Is the Gospel?",
+      "The Apostles' Creed",
+    ],
+    relatedSlugs: ["who-is-jesus-christ", "what-is-the-trinity"],
+    author: "Apologist Birendra Subba",
+  },
+  {
+    slug: "who-is-jesus-christ",
+    question: "Who is Jesus Christ?",
+    department: "theology",
+    category: "Christology",
+    topics: ["jesus", "christology", "incarnation"],
+    difficulty: "introductory",
+    views: 19230,
+    publishedAt: "2026-01-08",
+    shortAnswer:
+      "Jesus Christ is the eternal Son of God who became man — fully God and fully human in one person. He lived a sinless life, died for sinners, rose bodily from the dead, and is the only Savior and Lord of all.",
+    detailedAnswer: [
+      "Jesus is not merely a great teacher or prophet. The New Testament presents him as the eternal Word who 'was God' and 'became flesh' (John 1:1, 14). He is the second person of the Trinity, who took on a true human nature without ceasing to be God.",
+      "In his earthly life Jesus taught with authority, performed miracles, forgave sins, and claimed a unique relationship with the Father. He was crucified under Pontius Pilate, died, and was buried — and on the third day rose bodily from the grave, witnessed by many.",
+      "His resurrection vindicates his claims and guarantees salvation for those who trust him. He has ascended to the Father's right hand and will return to judge the living and the dead.",
+    ],
+    biblicalBasis: [
+      { reference: "John 1:1-14", version: "ESV" },
+      { reference: "Colossians 1:15-20", version: "ESV" },
+      { reference: "Philippians 2:5-11", version: "ESV" },
+      { reference: "Hebrews 1:1-4", version: "ESV" },
+    ],
+    theologicalExplanation: [
+      "The Council of Chalcedon (451) confessed that Jesus is one person in two natures — truly God and truly man — 'without confusion, without change, without division, without separation.'",
+      "Because he is fully God, his sacrifice has infinite worth; because he is fully man, he can represent humanity and be our mediator (1 Timothy 2:5).",
+    ],
+    commonMisunderstandings: [
+      "That Jesus was only a man whom God adopted, or only God appearing to be human — Scripture affirms both natures fully.",
+      "That Jesus never claimed to be God — his words and deeds repeatedly assume divine authority.",
+    ],
+    practicalApplication: [
+      "Trust Jesus as Savior and follow him as Lord of all of life.",
+      "Worship Jesus as God, knowing that to honor the Son is to honor the Father (John 5:23).",
+    ],
+    references: [
+      "The Chalcedonian Definition (451)",
+      "C. S. Lewis, Mere Christianity (the 'trilemma')",
+    ],
+    relatedSlugs: ["what-is-the-trinity", "what-is-the-gospel"],
+    author: "Apologist Birendra Subba",
+  },
+  {
+    slug: "is-the-bible-reliable",
+    question: "Is the Bible reliable?",
+    department: "apologetics-philosophy",
+    category: "Christian Apologetics",
+    topics: ["bible", "manuscripts", "reliability", "apologetics"],
+    difficulty: "intermediate",
+    views: 14120,
+    publishedAt: "2026-02-18",
+    shortAnswer:
+      "Yes. The Bible is supported by an exceptional manuscript record, internal consistency across many authors and centuries, archaeological corroboration, and fulfilled prophecy. While faith is involved, there are strong historical and rational grounds for trusting Scripture.",
+    detailedAnswer: [
+      "The New Testament is the best-attested document of the ancient world, with thousands of Greek manuscripts and many more in other languages, far exceeding any other classical text in quantity and closeness to the originals. This wealth of evidence lets scholars reconstruct the text with a very high degree of confidence.",
+      "The Bible was written by dozens of authors over roughly 1,500 years, yet tells one unified story centered on God's redemption in Christ. Many historical details have been confirmed by archaeology, and its prophecies and their fulfillment add further weight.",
+      "No reliability claim removes the need for faith, but Christian faith is not a leap into the dark. It rests on testimony that can be examined, especially the eyewitness accounts of Jesus' resurrection (1 Corinthians 15:3-8).",
+    ],
+    biblicalBasis: [
+      { reference: "2 Timothy 3:16-17", version: "ESV" },
+      { reference: "2 Peter 1:16-21", version: "ESV" },
+      { reference: "Luke 1:1-4", version: "ESV" },
+    ],
+    theologicalExplanation: [
+      "Christians confess that Scripture is 'God-breathed' (2 Timothy 3:16) — fully inspired by God while written through real human authors in real history.",
+      "The doctrine of inspiration is closely tied to the trustworthiness of Christ, who treated the Scriptures as the authoritative Word of God (Matthew 5:17-18).",
+    ],
+    commonMisunderstandings: [
+      "That the Bible was changed and corrupted over time — the manuscript evidence shows remarkable stability of the text.",
+      "That faith and evidence are opposites — biblical faith is trust grounded in testimony and reason.",
+    ],
+    practicalApplication: [
+      "Study the Bible with confidence that it is God's reliable Word.",
+      "Be ready to give a reasoned defense of your hope with gentleness and respect (1 Peter 3:15).",
+    ],
+    references: [
+      "F. F. Bruce, The New Testament Documents: Are They Reliable?",
+      "Daniel B. Wallace (on New Testament manuscripts)",
+    ],
+    relatedSlugs: ["how-do-we-know-god-exists", "what-is-the-pentateuch"],
+    author: "Apologist Birendra Subba",
+  },
+  {
+    slug: "how-do-we-know-god-exists",
+    question: "How do we know God exists?",
+    department: "apologetics-philosophy",
+    category: "Philosophy of Religion",
+    topics: ["god", "existence", "apologetics", "arguments"],
+    difficulty: "intermediate",
+    views: 13760,
+    publishedAt: "2026-02-22",
+    shortAnswer:
+      "There are strong reasons to believe God exists: the universe had a beginning and a cause, it is finely tuned for life, objective moral values point to a moral Lawgiver, and human beings universally sense the transcendent. Scripture adds that God reveals himself in creation, in conscience, and supremely in Jesus Christ.",
+    detailedAnswer: [
+      "Several classic arguments point toward God. The cosmological argument observes that whatever begins to exist has a cause; since the universe began to exist, it has a cause beyond itself. The teleological (design) argument notes the remarkable fine-tuning of the universe for life. The moral argument reasons that objective right and wrong require a transcendent moral Lawgiver.",
+      "Beyond arguments, people across all cultures and ages have an awareness of the divine. The Bible says this is because God has made himself known in what he has created, so that his existence is evident (Romans 1:19-20).",
+      "Christianity claims that God has not only left clues but has personally entered history in Jesus Christ, the clearest revelation of who God is (Hebrews 1:1-3).",
+    ],
+    biblicalBasis: [
+      { reference: "Psalm 19:1-4", version: "ESV" },
+      { reference: "Romans 1:19-20", version: "ESV" },
+      { reference: "Acts 17:24-28", version: "ESV" },
+    ],
+    theologicalExplanation: [
+      "Theologians distinguish general revelation (God known through creation and conscience) from special revelation (God known through Scripture and Christ). Both testify that God is.",
+      "Arguments can show that belief in God is reasonable, but saving knowledge of God comes through his self-revelation in Christ and the work of the Spirit.",
+    ],
+    commonMisunderstandings: [
+      "That belief in God is irrational or unscientific — many rigorous philosophical arguments support it.",
+      "That arguments alone produce saving faith — they remove obstacles, but trust in God is personal.",
+    ],
+    practicalApplication: [
+      "Use good reasons for faith to engage honest questions with confidence and humility.",
+      "Move beyond merely arguing about God to actually knowing him through Christ.",
+    ],
+    references: [
+      "William Lane Craig, Reasonable Faith",
+      "Timothy Keller, The Reason for God",
+    ],
+    relatedSlugs: ["is-the-bible-reliable", "who-is-jesus-christ"],
+    author: "Apologist Birendra Subba",
+  },
+  {
+    slug: "what-is-the-pentateuch",
+    question: "What is the Pentateuch?",
+    department: "biblical-studies",
+    category: "Old Testament",
+    topics: ["pentateuch", "torah", "old-testament", "moses"],
+    difficulty: "introductory",
+    views: 9840,
+    publishedAt: "2026-01-15",
+    shortAnswer:
+      "The Pentateuch is the first five books of the Bible — Genesis, Exodus, Leviticus, Numbers, and Deuteronomy — traditionally attributed to Moses. They are also called the Torah ('instruction' or 'law') and form the foundation of the rest of Scripture.",
+    detailedAnswer: [
+      "The word 'Pentateuch' comes from Greek meaning 'five scrolls.' These books tell the story of creation, the fall, the flood, the patriarchs (Abraham, Isaac, Jacob), the exodus from Egypt, the giving of the Law at Sinai, and Israel's journey toward the Promised Land.",
+      "In Jewish tradition these books are 'the Torah,' the heart of the Hebrew Scriptures. They establish key themes carried through the whole Bible: covenant, sacrifice, holiness, and God's promise to bless the nations through Abraham's offspring — ultimately fulfilled in Christ.",
+      "Jesus and the New Testament writers repeatedly cite the Pentateuch as authoritative, and Jesus referred to 'the Law of Moses' as pointing to himself (Luke 24:44).",
+    ],
+    biblicalBasis: [
+      { reference: "Genesis 1:1", version: "ESV" },
+      { reference: "Exodus 20:1-17", version: "ESV" },
+      { reference: "Deuteronomy 6:4-9", version: "ESV" },
+      { reference: "Luke 24:44", version: "ESV" },
+    ],
+    theologicalExplanation: [
+      "The Pentateuch lays the theological groundwork for the entire biblical storyline: a good creation, human sin, and God's covenant plan of redemption.",
+      "Its sacrificial system and law anticipate and find their fulfillment in Jesus Christ, the true and better sacrifice (Hebrews 10:1-14).",
+    ],
+    commonMisunderstandings: [
+      "That the Old Testament law is irrelevant to Christians — it reveals God's character and points to Christ, even where its ceremonial aspects are fulfilled in him.",
+      "That Genesis is merely myth — it presents itself as the true account of God's creation and dealings with humanity.",
+    ],
+    practicalApplication: [
+      "Read the Pentateuch to understand the foundation of the gospel and God's covenant faithfulness.",
+      "See how its promises and patterns are fulfilled in Jesus.",
+    ],
+    references: [
+      "T. Desmond Alexander, From Paradise to the Promised Land",
+      "ESV Study Bible, Introduction to the Pentateuch",
+    ],
+    relatedSlugs: ["is-the-bible-reliable", "what-is-the-gospel"],
+    author: "Apologist Birendra Subba",
+  },
+  {
+    slug: "what-is-calvinism",
+    question: "What is Calvinism?",
+    department: "theology",
+    category: "Soteriology",
+    topics: ["calvinism", "reformed", "soteriology", "grace"],
+    difficulty: "advanced",
+    views: 12410,
+    publishedAt: "2026-02-26",
+    shortAnswer:
+      "Calvinism is a stream of Reformed theology, named after John Calvin, that emphasizes the sovereignty of God in salvation. It is often summarized by five points (TULIP): total depravity, unconditional election, limited atonement, irresistible grace, and the perseverance of the saints.",
+    detailedAnswer: [
+      "Calvinism stresses that salvation is entirely a work of God's grace from beginning to end. Because of sin, no one seeks God on their own (total depravity); God graciously chooses to save people not because of foreseen merit (unconditional election); Christ's death effectively secures salvation for his people; God's saving grace effectively draws those he calls; and those truly saved will persevere to the end.",
+      "Calvinism is one historic Protestant understanding of how God saves. Other faithful Christians hold Arminian or other views that place more emphasis on human free response. The debate concerns how to put together the Bible's teaching on God's sovereignty and human responsibility.",
+      "Both Calvinists and their counterparts affirm that salvation is by grace through faith in Christ, that the gospel must be preached to all, and that no one is saved apart from God's grace.",
+    ],
+    biblicalBasis: [
+      { reference: "Ephesians 1:3-14", version: "ESV" },
+      { reference: "Romans 8:28-30", version: "ESV" },
+      { reference: "John 6:37-44", version: "ESV" },
+      { reference: "Romans 9:10-24", version: "ESV" },
+    ],
+    theologicalExplanation: [
+      "The five points were articulated at the Synod of Dort (1618–1619) in response to the Remonstrants (followers of Jacobus Arminius).",
+      "Scripture holds together divine sovereignty and genuine human responsibility; different traditions weight and relate these truths differently while affirming both.",
+    ],
+    commonMisunderstandings: [
+      "That Calvinism makes evangelism pointless — historically Calvinists have been zealous in mission, since God ordains both the ends and the means.",
+      "That it makes humans robots — Reformed theology affirms real human choices, while insisting God is sovereign over all.",
+      "That disagreeing on these points divides true Christians — sincere believers hold different views within orthodoxy.",
+    ],
+    practicalApplication: [
+      "Let the doctrines of grace produce humility, gratitude, and assurance, not pride or passivity.",
+      "Hold convictions with charity toward fellow Christians who differ.",
+    ],
+    references: [
+      "The Canons of Dort (1619)",
+      "John Calvin, Institutes of the Christian Religion",
+    ],
+    relatedSlugs: ["what-is-the-gospel", "what-is-the-trinity"],
+    author: "Apologist Birendra Subba",
+  },
+];

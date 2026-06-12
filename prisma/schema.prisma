@@ -1,0 +1,192 @@
+// Bible Answer Hub — Production database schema (blueprint).
+//
+// Phase 1 of the app runs on a TypeScript content layer (src/lib) so it works
+// with zero external setup. When you are ready to move to a real database:
+//   1. Provision PostgreSQL (e.g. Supabase, Neon, or local Postgres).
+//   2. Set DATABASE_URL in .env.
+//   3. Run: npx prisma migrate dev --name init
+//   4. Seed the database from the existing content in src/lib.
+//
+// This schema is designed to scale to 50,000+ questions, plus articles,
+// videos, and resources, with full-text search handled by Postgres or an
+// external engine (Meilisearch/Typesense) layered on top.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ContentStatus {
+  DRAFT
+  IN_REVIEW
+  PUBLISHED
+  ARCHIVED
+}
+
+enum Difficulty {
+  INTRODUCTORY
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum UserRole {
+  READER
+  AUTHOR
+  EDITOR
+  ADMIN
+}
+
+model Department {
+  id          String     @id @default(cuid())
+  slug        String     @unique
+  name        String
+  description String
+  icon        String
+  order       Int        @default(0)
+  categories  Category[]
+  questions   Question[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Category {
+  id           String     @id @default(cuid())
+  slug         String     @unique
+  name         String
+  description  String?
+  department   Department @relation(fields: [departmentId], references: [id])
+  departmentId String
+  questions    Question[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@index([departmentId])
+}
+
+model Question {
+  id           String        @id @default(cuid())
+  slug         String        @unique
+  question     String
+  status       ContentStatus @default(PUBLISHED)
+  difficulty   Difficulty    @default(INTRODUCTORY)
+  trending     Boolean       @default(false)
+  views        Int           @default(0)
+
+  shortAnswer              String  @db.Text
+  detailedAnswer           Json    // string[] paragraphs
+  theologicalExplanation   Json    // string[] paragraphs
+  commonMisunderstandings  Json    // string[]
+  practicalApplication     Json    // string[]
+  biblicalBasis            Json    // { reference, version }[]
+  references               Json    // string[]
+  topics                   String[]
+
+  department   Department @relation(fields: [departmentId], references: [id])
+  departmentId String
+  category     Category   @relation(fields: [categoryId], references: [id])
+  categoryId   String
+  author       Author     @relation(fields: [authorId], references: [id])
+  authorId     String
+  tags         Tag[]
+  comments     Comment[]
+
+  relatedTo   Question[] @relation("RelatedQuestions")
+  relatedFrom Question[] @relation("RelatedQuestions")
+
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([departmentId])
+  @@index([categoryId])
+  @@index([trending])
+  @@index([publishedAt])
+}
+
+model Article {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  title       String
+  excerpt     String
+  body        String        @db.Text
+  featuredImg String?
+  status      ContentStatus @default(PUBLISHED)
+  author      Author        @relation(fields: [authorId], references: [id])
+  authorId    String
+  tags        Tag[]
+  publishedAt DateTime      @default(now())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([authorId])
+}
+
+model Video {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String   @db.Text
+  youtubeId   String
+  category    String
+  tags        Tag[]
+  publishedAt DateTime @default(now())
+  createdAt   DateTime @default(now())
+}
+
+model Resource {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String
+  type        String // Book, PDF, Outline, Study Guide, Chart, Infographic
+  fileUrl     String?
+  tags        Tag[]
+  createdAt   DateTime @default(now())
+}
+
+model Tag {
+  id        String     @id @default(cuid())
+  slug      String     @unique
+  name      String
+  questions Question[]
+  articles  Article[]
+  videos    Video[]
+  resources Resource[]
+}
+
+model Author {
+  id        String     @id @default(cuid())
+  slug      String     @unique
+  name      String
+  title     String?
+  bio       String?    @db.Text
+  avatar    String?
+  questions Question[]
+  articles  Article[]
+}
+
+model User {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  name      String?
+  role      UserRole  @default(READER)
+  comments  Comment[]
+  createdAt DateTime  @default(now())
+}
+
+model Comment {
+  id         String   @id @default(cuid())
+  body       String   @db.Text
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId String
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  approved   Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  @@index([questionId])
+}
