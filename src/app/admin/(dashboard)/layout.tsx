@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BookMarked, FileText, LayoutDashboard, ListChecks, LogOut, Plus, ExternalLink } from "lucide-react";
+import { FileText, LayoutDashboard, ListChecks, LogOut, Plus, ExternalLink } from "lucide-react";
 import { logout } from "@/app/admin/actions";
+import { BrandLogo } from "@/components/brand/logo";
 
 export const metadata: Metadata = {
   title: "Admin",
@@ -24,16 +25,11 @@ export default function AdminLayout({
   return (
     <div className="min-h-screen bg-stone-100 lg:flex">
       <aside className="flex flex-col border-b border-stone-200 bg-brand-700 text-stone-200 lg:min-h-screen lg:w-64 lg:border-b-0 lg:border-r">
-        <div className="flex items-center gap-2.5 px-5 py-5">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-white text-brand-700">
-            <BookMarked className="h-5 w-5" />
-          </span>
-          <div>
-            <p className="font-serif text-base font-bold text-white">
-              Bible Answer Hub
-            </p>
-            <p className="text-xs text-stone-300">Admin</p>
-          </div>
+        <div className="border-b border-brand-600 px-4 py-5">
+          <BrandLogo variant="light" />
+          <p className="mt-2 text-xs font-medium uppercase tracking-widest text-gold-400">
+            Admin
+          </p>
         </div>
 
         <nav className="flex flex-row gap-1 px-3 pb-3 lg:flex-1 lg:flex-col lg:pb-0">

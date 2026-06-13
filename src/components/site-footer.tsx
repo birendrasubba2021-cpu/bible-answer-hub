@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BrandLogo } from "@/components/brand/logo";
+import { BrandLogoFooter } from "@/components/brand/logo";
 import { departments } from "@/lib/departments";
 import { SITE } from "@/lib/content";
 
@@ -9,8 +9,8 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
         <div className="grid gap-10 md:grid-cols-4">
           <div className="md:col-span-1">
-            <BrandLogo height={52} variant="light" />
-            <p className="mt-5 text-sm leading-relaxed text-stone-400">
+            <BrandLogoFooter />
+            <p className="mt-6 text-sm leading-relaxed text-stone-400">
               {SITE.tagline}
             </p>
           </div>

@@ -1,51 +1,120 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const LOGO_WIDTH = 904;
-const LOGO_HEIGHT = 691;
-
-/** Brand lockup lives at /public/logo.png (primary) or /public/logo.svg */
-export function BrandLogo({
-  height = 44,
-  showWordmark = false,
-  variant = "default",
+function LogoMark({
+  size,
+  variant,
 }: {
-  /** Display height in pixels — width scales from the image aspect ratio */
-  height?: number;
-  /** Off by default: logo.png already includes the Bible Answer Hub wordmark */
-  showWordmark?: boolean;
-  variant?: "default" | "light";
+  size: number;
+  variant: "default" | "light";
 }) {
-  const textClass =
-    variant === "light" ? "text-white" : "text-brand-700";
+  const isLight = variant === "light";
 
   return (
-    <Link href="/" className="flex items-center gap-3 shrink-0 group">
+    <span
+      className={`relative flex shrink-0 items-center justify-center rounded-xl ${
+        isLight
+          ? "bg-white shadow-md ring-1 ring-white/20"
+          : "bg-white shadow-sm ring-1 ring-brand-100"
+      }`}
+      style={{ width: size, height: size }}
+    >
       <Image
-        src="/logo.png"
-        alt="Bible Answer Hub"
-        width={LOGO_WIDTH}
-        height={LOGO_HEIGHT}
-        className="w-auto object-contain transition group-hover:opacity-90"
-        style={{ height: `${height}px` }}
+        src="/logo-icon.svg"
+        alt=""
+        width={size}
+        height={size}
+        unoptimized
+        className="object-contain p-1.5"
+        style={{ width: size - 4, height: size - 4 }}
         priority
       />
-      {showWordmark && (
-        <div className="leading-tight">
-          <span
-            className={`block font-display text-lg font-bold tracking-tight ${textClass}`}
-          >
-            Bible Answer Hub
-          </span>
-          <span
-            className={`hidden text-[10px] font-medium uppercase tracking-widest sm:block ${
-              variant === "light" ? "text-stone-300" : "text-muted"
-            }`}
-          >
-            Biblical Q&amp;A
-          </span>
-        </div>
+    </span>
+  );
+}
+
+function LogoWordmark({
+  variant,
+  showTagline = true,
+  align = "left",
+  hideTaglineOnMobile = false,
+}: {
+  variant: "default" | "light";
+  showTagline?: boolean;
+  align?: "left" | "center";
+  hideTaglineOnMobile?: boolean;
+}) {
+  const isLight = variant === "light";
+  const alignClass = align === "center" ? "text-center" : "text-left";
+
+  return (
+    <span className={`leading-tight ${alignClass}`}>
+      <span
+        className={`block whitespace-nowrap font-display text-[0.9375rem] font-bold tracking-tight sm:text-[1.125rem] ${
+          isLight ? "text-white" : "text-brand-700"
+        }`}
+      >
+        Bible Answer Hub
+      </span>
+      {showTagline && (
+        <span
+          className={`mt-0.5 block whitespace-nowrap text-[10px] font-bold uppercase tracking-[0.14em] sm:mt-1 sm:text-[11px] ${
+            hideTaglineOnMobile ? "hidden sm:block" : ""
+          } ${isLight ? "text-gold-400" : "text-gold-600"}`}
+        >
+          Biblical Q&amp;A
+        </span>
       )}
+    </span>
+  );
+}
+
+/** Navbar — icon + title side by side */
+export function BrandLogo({
+  variant = "default",
+}: {
+  variant?: "default" | "light";
+}) {
+  return (
+    <Link
+      href="/"
+      className="group flex shrink-0 items-center gap-2.5 sm:gap-3"
+      aria-label="Bible Answer Hub — home"
+    >
+      <LogoMark size={44} variant={variant} />
+      <LogoWordmark
+        variant={variant}
+        showTagline
+        hideTaglineOnMobile
+      />
     </Link>
+  );
+}
+
+/** Footer — stacked, larger, always shows tagline */
+export function BrandLogoFooter() {
+  return (
+    <Link
+      href="/"
+      className="group inline-flex flex-col items-start gap-3"
+      aria-label="Bible Answer Hub — home"
+    >
+      <LogoMark size={56} variant="light" />
+      <LogoWordmark variant="light" showTagline align="left" />
+    </Link>
+  );
+}
+
+/** Hero / about — centered stacked logo */
+export function BrandLogoStacked({
+  variant = "default",
+}: {
+  variant?: "default" | "light";
+}) {
+  return (
+    <div className="flex flex-col items-center gap-3 text-center">
+      <LogoMark size={72} variant={variant} />
+      <LogoWordmark variant={variant} showTagline align="center" />
+    </div>
   );
 }

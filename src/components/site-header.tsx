@@ -19,11 +19,13 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/80 bg-paper/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6">
-        <BrandLogo height={40} />
+    <header className="sticky top-0 z-50 border-b border-border/80 bg-white/95 backdrop-blur-md">
+      <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-2.5 sm:px-6 sm:py-3">
+        <div className="shrink-0">
+          <BrandLogo />
+        </div>
 
-        <nav className="ml-auto hidden items-center gap-0.5 xl:flex">
+        <nav className="hidden items-center gap-0.5 lg:flex xl:ml-4">
           {NAV.map((item) => (
             <Link
               key={item.href}
@@ -35,19 +37,19 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="ml-auto hidden w-56 xl:block 2xl:w-64">
+        <div className="ml-auto hidden w-48 lg:block xl:w-56">
           <SearchBar size="small" placeholder="Search..." />
         </div>
 
         <Link
           href="/contact"
-          className="hidden rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700 lg:inline-flex"
+          className="hidden shrink-0 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700 md:inline-flex"
         >
           Contact
         </Link>
 
         <button
-          className="ml-auto rounded-lg p-2 text-stone-700 xl:hidden"
+          className="ml-auto shrink-0 rounded-lg p-2 text-stone-700 lg:hidden"
           onClick={() => setOpen((v) => !v)}
           aria-label="Toggle menu"
         >
@@ -56,7 +58,7 @@ export function SiteHeader() {
       </div>
 
       {open && (
-        <div className="border-t border-border bg-paper px-4 py-4 xl:hidden">
+        <div className="border-t border-border bg-white px-4 py-4 lg:hidden">
           <SearchBar size="small" placeholder="Search questions..." />
           <nav className="mt-3 flex flex-col">
             {[...NAV, { href: "/contact", label: "Contact" }].map((item) => (

@@ -40,8 +40,8 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image" },
   icons: {
-    icon: "/logo.png",
-    apple: "/logo.png",
+    icon: "/logo-icon.svg",
+    apple: "/logo-icon.svg",
   },
 };
 
