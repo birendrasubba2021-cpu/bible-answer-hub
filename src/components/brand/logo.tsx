@@ -1,29 +1,33 @@
 import Image from "next/image";
 import Link from "next/link";
 
-/** Drop your logo at /public/logo.png or /public/logo.svg to replace the default. */
+const LOGO_WIDTH = 904;
+const LOGO_HEIGHT = 691;
+
+/** Brand lockup lives at /public/logo.png (primary) or /public/logo.svg */
 export function BrandLogo({
-  size = 40,
-  showWordmark = true,
+  height = 44,
+  showWordmark = false,
   variant = "default",
 }: {
-  size?: number;
+  /** Display height in pixels — width scales from the image aspect ratio */
+  height?: number;
+  /** Off by default: logo.png already includes the Bible Answer Hub wordmark */
   showWordmark?: boolean;
   variant?: "default" | "light";
 }) {
   const textClass =
-    variant === "light"
-      ? "text-white"
-      : "text-brand-700";
+    variant === "light" ? "text-white" : "text-brand-700";
 
   return (
     <Link href="/" className="flex items-center gap-3 shrink-0 group">
       <Image
-        src="/logo.svg"
-        alt=""
-        width={size}
-        height={size}
-        className="rounded-xl transition group-hover:opacity-90"
+        src="/logo.png"
+        alt="Bible Answer Hub"
+        width={LOGO_WIDTH}
+        height={LOGO_HEIGHT}
+        className="w-auto object-contain transition group-hover:opacity-90"
+        style={{ height: `${height}px` }}
         priority
       />
       {showWordmark && (

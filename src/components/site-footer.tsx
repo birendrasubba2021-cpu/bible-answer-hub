@@ -9,7 +9,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6">
         <div className="grid gap-10 md:grid-cols-4">
           <div className="md:col-span-1">
-            <BrandLogo size={44} variant="light" />
+            <BrandLogo height={52} variant="light" />
             <p className="mt-5 text-sm leading-relaxed text-stone-400">
               {SITE.tagline}
             </p>
