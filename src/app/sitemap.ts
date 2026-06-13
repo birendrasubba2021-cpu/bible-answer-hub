@@ -1,13 +1,16 @@
 import type { MetadataRoute } from "next";
 import { departments } from "@/lib/departments";
-import { getAllQuestions } from "@/lib/content";
+import { getAllQuestions, getAllArticles } from "@/lib/content";
 
 const BASE = "https://bibleanswerhub.org";
 
 export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const questions = await getAllQuestions();
+  const [questions, articles] = await Promise.all([
+    getAllQuestions(),
+    getAllArticles(),
+  ]);
   const staticRoutes = [
     "",
     "/questions",
@@ -38,5 +41,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...deptRoutes, ...questionRoutes];
+  const articleRoutes = articles.map((a) => ({
+    url: `${BASE}/articles/${a.slug}`,
+    lastModified: new Date(a.publishedAt),
+    changeFrequency: "monthly" as const,
+    priority: 0.75,
+  }));
+
+  return [...staticRoutes, ...deptRoutes, ...questionRoutes, ...articleRoutes];
 }

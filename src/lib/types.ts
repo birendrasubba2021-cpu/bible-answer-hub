@@ -39,3 +39,16 @@ export interface QuestionAnswer {
   /** Optional hero image URL — add via admin later (e.g. /images/questions/trinity.jpg) */
   featuredImage?: string | null;
 }
+
+export interface Article {
+  slug: string;
+  title: string;
+  excerpt: string;
+  body: string;
+  featuredImg?: string | null;
+  status?: string;
+  author: string;
+  tags: string[];
+  publishedAt: string;
+  readMinutes: number;
+}

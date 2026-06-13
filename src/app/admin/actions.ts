@@ -106,6 +106,42 @@ function revalidatePublic(slug?: string) {
   if (slug) revalidatePath(`/questions/${slug}`);
 }
 
+function revalidateArticles(slug?: string) {
+  revalidatePath("/articles");
+  if (slug) revalidatePath(`/articles/${slug}`);
+}
+
+async function uniqueArticleSlug(
+  base: string,
+  excludeSlug?: string,
+): Promise<string> {
+  let candidate = base || "article";
+  let n = 1;
+  while (true) {
+    const existing = await prisma.article.findUnique({
+      where: { slug: candidate },
+      select: { slug: true },
+    });
+    if (!existing || existing.slug === excludeSlug) return candidate;
+    n += 1;
+    candidate = `${base}-${n}`;
+  }
+}
+
+async function upsertTags(names: string[]) {
+  const tags = [];
+  for (const name of names) {
+    const slug = slugify(name);
+    const tag = await prisma.tag.upsert({
+      where: { slug },
+      update: { name },
+      create: { slug, name },
+    });
+    tags.push({ id: tag.id });
+  }
+  return tags;
+}
+
 // ---------- auth ----------
 export async function login(
   _prev: ActionState,
@@ -267,4 +303,95 @@ export async function setStatus(formData: FormData) {
     revalidatePublic(slug);
   }
   redirect("/admin/questions");
+}
+
+// ---------- articles ----------
+function readArticleData(formData: FormData) {
+  return {
+    title: String(formData.get("title") ?? "").trim(),
+    excerpt: String(formData.get("excerpt") ?? "").trim(),
+    body: String(formData.get("body") ?? "").trim(),
+    featuredImg: String(formData.get("featuredImg") ?? "").trim(),
+    tags: csv(formData.get("tags")),
+    status:
+      STATUS[String(formData.get("status") ?? "DRAFT")] ?? ContentStatus.DRAFT,
+  };
+}
+
+export async function createArticle(
+  _prev: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
+  const d = readArticleData(formData);
+  if (!d.title) return { error: "Title is required." };
+  if (!d.excerpt) return { error: "Excerpt is required." };
+  if (!d.body) return { error: "Article body is required." };
+
+  const slugBase = slugify(String(formData.get("slug") || d.title));
+  const slug = await uniqueArticleSlug(slugBase);
+  const authorId = await ensureAuthorId();
+  const tagConnect = await upsertTags(d.tags);
+
+  await prisma.article.create({
+    data: {
+      slug,
+      title: d.title,
+      excerpt: d.excerpt,
+      body: d.body,
+      featuredImg: d.featuredImg || null,
+      status: d.status,
+      authorId,
+      tags: { connect: tagConnect },
+    },
+  });
+
+  revalidateArticles(slug);
+  redirect("/admin/articles");
+}
+
+export async function updateArticle(
+  slug: string,
+  _prev: ActionState,
+  formData: FormData,
+): Promise<ActionState> {
+  const d = readArticleData(formData);
+  if (!d.title) return { error: "Title is required." };
+  if (!d.excerpt) return { error: "Excerpt is required." };
+  if (!d.body) return { error: "Article body is required." };
+
+  const tagConnect = await upsertTags(d.tags);
+
+  await prisma.article.update({
+    where: { slug },
+    data: {
+      title: d.title,
+      excerpt: d.excerpt,
+      body: d.body,
+      featuredImg: d.featuredImg || null,
+      status: d.status,
+      tags: { set: tagConnect },
+    },
+  });
+
+  revalidateArticles(slug);
+  redirect("/admin/articles");
+}
+
+export async function deleteArticle(formData: FormData) {
+  const slug = String(formData.get("slug") ?? "");
+  if (slug) {
+    await prisma.article.delete({ where: { slug } });
+    revalidateArticles(slug);
+  }
+  redirect("/admin/articles");
+}
+
+export async function setArticleStatus(formData: FormData) {
+  const slug = String(formData.get("slug") ?? "");
+  const status = STATUS[String(formData.get("status") ?? "")];
+  if (slug && status) {
+    await prisma.article.update({ where: { slug }, data: { status } });
+    revalidateArticles(slug);
+  }
+  redirect("/admin/articles");
 }

@@ -86,6 +86,11 @@ h4,
   font-weight: 600;
 }
 
+.prose-article em {
+  font-style: italic;
+  color: #4a443c;
+}
+
 /* ─── Scripture table ─── */
 .scripture-table {
   width: 100%;

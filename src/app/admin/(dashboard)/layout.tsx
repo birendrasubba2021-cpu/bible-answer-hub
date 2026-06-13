@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BookMarked, LayoutDashboard, ListChecks, LogOut, Plus, ExternalLink } from "lucide-react";
+import { BookMarked, FileText, LayoutDashboard, ListChecks, LogOut, Plus, ExternalLink } from "lucide-react";
 import { logout } from "@/app/admin/actions";
 
 export const metadata: Metadata = {
@@ -12,6 +12,8 @@ const NAV = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/questions", label: "Questions", icon: ListChecks },
   { href: "/admin/questions/new", label: "New Question", icon: Plus },
+  { href: "/admin/articles", label: "Articles", icon: FileText },
+  { href: "/admin/articles/new", label: "New Article", icon: Plus },
 ];
 
 export default function AdminLayout({

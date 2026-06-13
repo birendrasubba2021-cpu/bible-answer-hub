@@ -8,12 +8,14 @@ import {
 } from "lucide-react";
 import { SearchBar } from "@/components/search-bar";
 import { QuestionCard } from "@/components/question-card";
+import { ArticleCard } from "@/components/article/article-card";
 import { DepartmentCard } from "@/components/department-card";
 import { departments } from "@/lib/departments";
 import {
   getDepartmentCounts,
   getQuestionCount,
   getRecentQuestions,
+  getRecentArticles,
   getTrendingQuestions,
   SITE,
 } from "@/lib/content";
@@ -27,9 +29,10 @@ const EXAMPLES = [
 ];
 
 export default async function Home() {
-  const [trending, recent, counts, totalQuestions] = await Promise.all([
+  const [trending, recent, articles, counts, totalQuestions] = await Promise.all([
     getTrendingQuestions(6),
     getRecentQuestions(3),
+    getRecentArticles(3),
     getDepartmentCounts(),
     getQuestionCount(),
   ]);
@@ -139,6 +142,26 @@ export default async function Home() {
           ))}
         </div>
       </section>
+
+      {/* Featured articles */}
+      {articles.length > 0 && (
+        <section className="border-y border-border bg-stone-50 py-16">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6">
+            <SectionHeading
+              eyebrow="Long-Form Teaching"
+              title="Featured Articles"
+              subtitle="In-depth biblical and theological articles for serious study."
+              href="/articles"
+              linkLabel="All articles"
+            />
+            <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {articles.map((article) => (
+                <ArticleCard key={article.slug} article={article} />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Departments */}
       <section className="bg-stone-50 py-16">

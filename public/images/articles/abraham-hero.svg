@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-label="Abraham  faith and covenant">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d1a2b"/>
+      <stop offset="55%" stop-color="#182f4d"/>
+      <stop offset="100%" stop-color="#1e3a5f"/>
+    </linearGradient>
+    <linearGradient id="sand" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c4a574"/>
+      <stop offset="100%" stop-color="#8b6914"/>
+    </linearGradient>
+    <radialGradient id="stars" cx="50%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#d4b04a" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#d4b04a" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <rect y="520" width="1600" height="380" fill="url(#sand)"/>
+  <circle cx="800" cy="180" r="420" fill="url(#stars)"/>
+  <g fill="#f5eed9" opacity="0.9">
+    <circle cx="220" cy="120" r="2"/>
+    <circle cx="480" cy="80" r="2.5"/>
+    <circle cx="760" cy="60" r="2"/>
+    <circle cx="1040" cy="95" r="2"/>
+    <circle cx="1320" cy="130" r="2.5"/>
+    <circle cx="350" cy="200" r="1.5"/>
+    <circle cx="1180" cy="180" r="1.5"/>
+    <circle cx="920" cy="140" r="2"/>
+  </g>
+  <path d="M700 520 L820 320 L940 520 Z" fill="#13243b" opacity="0.55"/>
+  <path d="M560 520 L700 380 L840 520 Z" fill="#182f4d" opacity="0.45"/>
+  <path d="M880 520 L1020 360 L1160 520 Z" fill="#182f4d" opacity="0.45"/>
+  <ellipse cx="800" cy="760" rx="520" ry="60" fill="#0d1a2b" opacity="0.15"/>
+  <text x="800" y="430" text-anchor="middle" fill="#d4b04a" font-family="Georgia, serif" font-size="54" font-weight="700">Abraham</text>
+  <text x="800" y="490" text-anchor="middle" fill="#eef4fb" font-family="Georgia, serif" font-size="28" opacity="0.9">Faith · Covenant · Promise</text>
+  <text x="800" y="860" text-anchor="middle" fill="#f5eed9" font-family="Arial, sans-serif" font-size="18" opacity="0.55">Bible Answer Hub  replace with your image at public/images/articles/abraham-hero.jpg</text>
+</svg>

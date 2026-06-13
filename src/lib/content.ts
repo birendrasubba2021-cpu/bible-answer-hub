@@ -1,10 +1,11 @@
 import { Prisma } from "@prisma/client";
 import { prisma } from "./prisma";
 import { departments, getDepartment } from "./departments";
-import type { Department, QuestionAnswer, ScriptureRef } from "./types";
+import { estimateReadMinutes } from "./article-markdown";
+import type { Department, QuestionAnswer, ScriptureRef, Article } from "./types";
 
 export { departments, getDepartment };
-export type { Department, QuestionAnswer };
+export type { Department, QuestionAnswer, Article };
 
 export const SITE = {
   name: "Bible Answer Hub",
@@ -147,4 +148,60 @@ export async function getDepartmentCounts(): Promise<Record<string, number>> {
     if (slug) counts[slug] = g._count._all;
   }
   return counts;
+}
+
+// ─── Articles ───
+
+const articleInclude = {
+  author: { select: { name: true } },
+  tags: { select: { name: true } },
+} satisfies Prisma.ArticleInclude;
+
+type ArticleRow = Prisma.ArticleGetPayload<{ include: typeof articleInclude }>;
+
+function toArticle(row: ArticleRow): Article {
+  return {
+    slug: row.slug,
+    title: row.title,
+    excerpt: row.excerpt,
+    body: row.body,
+    featuredImg: row.featuredImg,
+    status: row.status,
+    author: row.author.name,
+    tags: row.tags.map((t) => t.name),
+    publishedAt: row.publishedAt.toISOString(),
+    readMinutes: estimateReadMinutes(row.body),
+  };
+}
+
+export async function getAllArticles(): Promise<Article[]> {
+  const rows = await prisma.article.findMany({
+    where: { status: "PUBLISHED" },
+    include: articleInclude,
+    orderBy: { publishedAt: "desc" },
+  });
+  return rows.map(toArticle);
+}
+
+export async function getArticleBySlug(slug: string): Promise<Article | null> {
+  const row = await prisma.article.findUnique({
+    where: { slug },
+    include: articleInclude,
+  });
+  if (!row || row.status !== "PUBLISHED") return null;
+  return toArticle(row);
+}
+
+export async function getRecentArticles(limit = 3): Promise<Article[]> {
+  const rows = await prisma.article.findMany({
+    where: { status: "PUBLISHED" },
+    include: articleInclude,
+    orderBy: { publishedAt: "desc" },
+    take: limit,
+  });
+  return rows.map(toArticle);
+}
+
+export async function getArticleCount(): Promise<number> {
+  return prisma.article.count({ where: { status: "PUBLISHED" } });
 }

@@ -101,7 +101,7 @@ export async function getQuestionEditData(
 }
 
 export async function getAdminStats() {
-  const [total, published, draft, inReview, departments, categories] =
+  const [total, published, draft, inReview, departments, categories, articles, articlesPublished] =
     await Promise.all([
       prisma.question.count(),
       prisma.question.count({ where: { status: "PUBLISHED" } }),
@@ -109,6 +109,68 @@ export async function getAdminStats() {
       prisma.question.count({ where: { status: "IN_REVIEW" } }),
       prisma.department.count(),
       prisma.category.count(),
+      prisma.article.count(),
+      prisma.article.count({ where: { status: "PUBLISHED" } }),
     ]);
-  return { total, published, draft, inReview, departments, categories };
+  return {
+    total,
+    published,
+    draft,
+    inReview,
+    departments,
+    categories,
+    articles,
+    articlesPublished,
+  };
+}
+
+export interface AdminArticleRow {
+  slug: string;
+  title: string;
+  status: string;
+  authorName: string;
+  updatedAt: string;
+}
+
+export async function getAdminArticles(): Promise<AdminArticleRow[]> {
+  const rows = await prisma.article.findMany({
+    include: { author: { select: { name: true } } },
+    orderBy: { updatedAt: "desc" },
+  });
+  return rows.map((r) => ({
+    slug: r.slug,
+    title: r.title,
+    status: r.status,
+    authorName: r.author.name,
+    updatedAt: r.updatedAt.toISOString(),
+  }));
+}
+
+export interface ArticleEditData {
+  slug: string;
+  title: string;
+  excerpt: string;
+  body: string;
+  featuredImg: string;
+  tags: string;
+  status: string;
+}
+
+export async function getArticleEditData(
+  slug: string,
+): Promise<ArticleEditData | null> {
+  const r = await prisma.article.findUnique({
+    where: { slug },
+    include: { tags: { select: { name: true } } },
+  });
+  if (!r) return null;
+  return {
+    slug: r.slug,
+    title: r.title,
+    excerpt: r.excerpt,
+    body: r.body,
+    featuredImg: r.featuredImg ?? "",
+    tags: r.tags.map((t) => t.name).join(", "),
+    status: r.status,
+  };
 }
