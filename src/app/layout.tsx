@@ -37,6 +37,14 @@ export const metadata: Metadata = {
       "The world's growing library of trustworthy, biblical answers to questions of faith, theology, and life.",
     siteName: SITE.name,
     type: "website",
+    images: [
+      {
+        url: "/logo.png",
+        width: 916,
+        height: 699,
+        alt: `${SITE.name} logo`,
+      },
+    ],
   },
   twitter: { card: "summary_large_image" },
   icons: {
