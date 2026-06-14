@@ -3,10 +3,8 @@ import Link from "next/link";
 
 const LOGO_FULL = "/logo.svg";
 const LOGO_ICON = "/logo-icon.svg";
-const LOGO_BLUE = "#112248";
 
 const FULL_ASPECT = 902.66 / 689.98;
-const ICON_ASPECT = 580 / 485;
 
 function LogoImage({
   src,
@@ -17,13 +15,13 @@ function LogoImage({
   height: number;
   className?: string;
 }) {
-  const aspect = src === LOGO_ICON ? ICON_ASPECT : FULL_ASPECT;
+  const aspect = src === LOGO_ICON ? 580 / 485 : FULL_ASPECT;
   const width = Math.round(height * aspect);
 
   return (
     <Image
       src={src}
-      alt=""
+      alt="Bible Answer Hub"
       width={width}
       height={height}
       unoptimized
@@ -34,7 +32,7 @@ function LogoImage({
   );
 }
 
-/** Navbar — icon + title (icon is transparent; text matches logo blue) */
+/** Navbar — full logo artwork (yellow ?, Bible, BIBLE ANSWER HUB text) */
 export function BrandLogo({
   variant = "default",
 }: {
@@ -45,25 +43,17 @@ export function BrandLogo({
   return (
     <Link
       href="/"
-      className="group flex shrink-0 items-center gap-2.5 transition-opacity hover:opacity-90 sm:gap-3"
+      className="group inline-flex shrink-0 items-center transition-opacity hover:opacity-90"
       aria-label="Bible Answer Hub — home"
     >
       <span
         className={
           onDark
-            ? "inline-flex shrink-0 items-center justify-center rounded-xl bg-white px-1.5 py-1 shadow-md ring-1 ring-white/20"
-            : "inline-flex shrink-0 items-center justify-center"
+            ? "inline-flex rounded-xl bg-white px-2.5 py-1.5 shadow-md ring-1 ring-white/20"
+            : "inline-flex"
         }
       >
-        <LogoImage src={LOGO_ICON} height={onDark ? 38 : 46} />
-      </span>
-      <span
-        className={`leading-tight ${onDark ? "text-white" : ""}`}
-        style={onDark ? undefined : { color: LOGO_BLUE }}
-      >
-        <span className="block whitespace-nowrap font-display text-[0.9375rem] font-bold tracking-tight sm:text-[1.0625rem]">
-          Bible Answer Hub
-        </span>
+        <LogoImage src={LOGO_FULL} height={onDark ? 46 : 52} />
       </span>
     </Link>
   );
@@ -78,7 +68,7 @@ export function BrandLogoFooter() {
       aria-label="Bible Answer Hub — home"
     >
       <span className="inline-flex rounded-2xl bg-white px-4 py-3 shadow-lg ring-1 ring-white/10">
-        <LogoImage src={LOGO_FULL} height={96} />
+        <LogoImage src={LOGO_FULL} height={100} />
       </span>
     </Link>
   );
@@ -101,7 +91,7 @@ export function BrandLogoStacked({
             : "inline-flex"
         }
       >
-        <LogoImage src={LOGO_FULL} height={120} />
+        <LogoImage src={LOGO_FULL} height={128} />
       </span>
     </div>
   );
