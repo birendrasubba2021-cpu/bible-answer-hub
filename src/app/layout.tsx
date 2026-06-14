@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image" },
   icons: {
-    icon: [{ url: "/logo-icon.png", type: "image/png" }],
+    icon: [{ url: "/logo-icon.svg", type: "image/svg+xml" }],
     apple: [{ url: "/logo-icon.png", type: "image/png" }],
   },
 };
