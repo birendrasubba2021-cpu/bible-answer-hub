@@ -48,8 +48,8 @@ export const metadata: Metadata = {
   },
   twitter: { card: "summary_large_image" },
   icons: {
-    icon: [{ url: "/logo.png", type: "image/png" }],
-    apple: [{ url: "/logo.png", type: "image/png" }],
+    icon: [{ url: "/logo-icon.png", type: "image/png" }],
+    apple: [{ url: "/logo-icon.png", type: "image/png" }],
   },
 };
 

@@ -2,25 +2,20 @@ import Image from "next/image";
 import Link from "next/link";
 
 const LOGO_FULL = "/logo.svg";
-const LOGO_ICON = "/logo-icon.svg";
-
-const FULL_ASPECT = 902.66 / 689.98;
+const LOGO_ASPECT = 915.55 / 697.32;
 
 function LogoImage({
-  src,
   height,
   className = "",
 }: {
-  src: string;
   height: number;
   className?: string;
 }) {
-  const aspect = src === LOGO_ICON ? 580 / 485 : FULL_ASPECT;
-  const width = Math.round(height * aspect);
+  const width = Math.round(height * LOGO_ASPECT);
 
   return (
     <Image
-      src={src}
+      src={LOGO_FULL}
       alt="Bible Answer Hub"
       width={width}
       height={height}
@@ -53,7 +48,7 @@ export function BrandLogo({
             : "inline-flex"
         }
       >
-        <LogoImage src={LOGO_FULL} height={onDark ? 46 : 52} />
+        <LogoImage height={onDark ? 46 : 52} />
       </span>
     </Link>
   );
@@ -68,7 +63,7 @@ export function BrandLogoFooter() {
       aria-label="Bible Answer Hub — home"
     >
       <span className="inline-flex rounded-2xl bg-white px-4 py-3 shadow-lg ring-1 ring-white/10">
-        <LogoImage src={LOGO_FULL} height={100} />
+        <LogoImage height={100} />
       </span>
     </Link>
   );
@@ -91,7 +86,7 @@ export function BrandLogoStacked({
             : "inline-flex"
         }
       >
-        <LogoImage src={LOGO_FULL} height={128} />
+        <LogoImage height={128} />
       </span>
     </div>
   );
