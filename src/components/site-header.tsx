@@ -19,9 +19,9 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/80 bg-white/95 backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-2.5 sm:px-6 sm:py-3">
-        <div className="shrink-0">
+    <header className="sticky top-0 z-50 overflow-visible border-b border-border/80 bg-white/95 backdrop-blur-md">
+      <div className="mx-auto flex max-w-7xl items-center gap-3 overflow-visible px-4 py-3 sm:px-6 sm:py-3.5">
+        <div className="shrink-0 overflow-visible">
           <BrandLogo />
         </div>
 

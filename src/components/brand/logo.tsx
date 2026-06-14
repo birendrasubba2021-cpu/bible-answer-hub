@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -6,23 +7,28 @@ const LOGO_FULL = "/logo.svg";
 const LOGO_BLUE = "#112248";
 const LOGO_GOLD = "#f7bf2d";
 
-const ICON_ASPECT = 690 / 545;
+const ICON_ASPECT = 780 / 610;
 const FULL_ASPECT = 915.55 / 697.32;
 
 function LogoMark({ height }: { height: number }) {
   const width = Math.round(height * ICON_ASPECT);
 
   return (
-    <Image
-      src={LOGO_ICON}
-      alt=""
-      width={width}
-      height={height}
-      unoptimized
-      priority
-      className="block object-contain"
-      style={{ height, width: "auto", maxWidth: width }}
-    />
+    <span
+      className="inline-flex items-end justify-center overflow-visible"
+      style={{ minHeight: height + 6, minWidth: width }}
+    >
+      <Image
+        src={LOGO_ICON}
+        alt=""
+        width={width}
+        height={height}
+        unoptimized
+        priority
+        className="block object-contain object-bottom"
+        style={{ height, width: "auto", maxWidth: width }}
+      />
+    </span>
   );
 }
 
@@ -78,6 +84,36 @@ function FullLogoImage({ height }: { height: number }) {
   );
 }
 
+function LogoMarkFrame({
+  children,
+  variant,
+}: {
+  children: ReactNode;
+  variant: "default" | "light" | "footer";
+}) {
+  if (variant === "default") {
+    return (
+      <span className="inline-flex shrink-0 items-end justify-center overflow-visible px-0.5 pb-0.5 pt-2.5">
+        {children}
+      </span>
+    );
+  }
+
+  if (variant === "footer") {
+    return (
+      <span className="inline-flex shrink-0 items-end justify-center overflow-visible rounded-xl bg-white px-3 pb-2 pt-3.5 shadow-md ring-1 ring-white/10">
+        {children}
+      </span>
+    );
+  }
+
+  return (
+    <span className="inline-flex shrink-0 items-end justify-center overflow-visible rounded-xl bg-white px-1.5 pb-1 pt-2.5 shadow-md ring-1 ring-white/20">
+      {children}
+    </span>
+  );
+}
+
 /** Navbar — icon + large readable title */
 export function BrandLogo({
   variant = "default",
@@ -89,18 +125,12 @@ export function BrandLogo({
   return (
     <Link
       href="/"
-      className="group flex shrink-0 items-center gap-2.5 transition-opacity hover:opacity-90 sm:gap-3"
+      className="group flex shrink-0 items-center gap-2.5 overflow-visible transition-opacity hover:opacity-90 sm:gap-3"
       aria-label="Bible Answer Hub — home"
     >
-      <span
-        className={
-          onDark
-            ? "inline-flex shrink-0 items-center justify-center rounded-xl bg-white px-1.5 pb-1 pt-2 shadow-md ring-1 ring-white/20"
-            : "inline-flex shrink-0 items-center justify-center pb-0.5 pt-1.5"
-        }
-      >
-        <LogoMark height={onDark ? 40 : 44} />
-      </span>
+      <LogoMarkFrame variant={onDark ? "light" : "default"}>
+        <LogoMark height={onDark ? 38 : 40} />
+      </LogoMarkFrame>
       <LogoWordmark variant={variant} />
     </Link>
   );
@@ -111,12 +141,12 @@ export function BrandLogoFooter() {
   return (
     <Link
       href="/"
-      className="group inline-flex max-w-[17rem] flex-col items-start gap-3.5 transition-opacity hover:opacity-90"
+      className="group inline-flex max-w-[17rem] flex-col items-start gap-3.5 overflow-visible transition-opacity hover:opacity-90"
       aria-label="Bible Answer Hub — home"
     >
-      <span className="inline-flex shrink-0 rounded-xl bg-white px-2.5 pb-1.5 pt-2.5 shadow-md ring-1 ring-white/10">
-        <LogoMark height={46} />
-      </span>
+      <LogoMarkFrame variant="footer">
+        <LogoMark height={42} />
+      </LogoMarkFrame>
       <LogoWordmark variant="light" size="footer" />
     </Link>
   );
