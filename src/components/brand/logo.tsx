@@ -6,7 +6,7 @@ const LOGO_FULL = "/logo.svg";
 const LOGO_BLUE = "#112248";
 const LOGO_GOLD = "#f7bf2d";
 
-const ICON_ASPECT = 690 / 530;
+const ICON_ASPECT = 690 / 545;
 const FULL_ASPECT = 915.55 / 697.32;
 
 function LogoMark({ height }: { height: number }) {
@@ -20,7 +20,7 @@ function LogoMark({ height }: { height: number }) {
       height={height}
       unoptimized
       priority
-      className="block object-contain overflow-visible"
+      className="block object-contain"
       style={{ height, width: "auto", maxWidth: width }}
     />
   );
@@ -31,18 +31,18 @@ function LogoWordmark({
   size = "default",
 }: {
   variant: "default" | "light";
-  size?: "default" | "large";
+  size?: "default" | "footer";
 }) {
   const onDark = variant === "light";
   const titleSize =
-    size === "large"
-      ? "text-xl sm:text-2xl"
+    size === "footer"
+      ? "text-[1.05rem] leading-snug sm:text-lg"
       : "text-base sm:text-lg md:text-xl";
 
   return (
-    <span className="leading-none">
+    <span className="min-w-0">
       <span
-        className={`block whitespace-nowrap font-sans font-extrabold uppercase tracking-wide ${titleSize} ${
+        className={`block font-sans font-extrabold uppercase tracking-[0.06em] ${titleSize} ${
           onDark ? "text-white" : ""
         }`}
         style={onDark ? undefined : { color: LOGO_BLUE }}
@@ -50,7 +50,7 @@ function LogoWordmark({
         Bible Answer Hub
       </span>
       <span
-        className={`mt-1 block whitespace-nowrap font-sans text-[10px] font-semibold uppercase tracking-[0.2em] sm:text-[11px] ${
+        className={`mt-1.5 block font-sans text-[10px] font-semibold uppercase tracking-[0.18em] sm:text-[11px] ${
           onDark ? "text-gold-400" : ""
         }`}
         style={onDark ? undefined : { color: LOGO_GOLD }}
@@ -95,8 +95,8 @@ export function BrandLogo({
       <span
         className={
           onDark
-            ? "inline-flex shrink-0 items-center justify-center rounded-xl bg-white px-1.5 py-1 shadow-md ring-1 ring-white/20"
-            : "inline-flex shrink-0 items-center justify-center py-0.5"
+            ? "inline-flex shrink-0 items-center justify-center rounded-xl bg-white px-1.5 pb-1 pt-2 shadow-md ring-1 ring-white/20"
+            : "inline-flex shrink-0 items-center justify-center pb-0.5 pt-1.5"
         }
       >
         <LogoMark height={onDark ? 40 : 44} />
@@ -106,18 +106,18 @@ export function BrandLogo({
   );
 }
 
-/** Footer — icon + large title on dark background */
+/** Footer — stacked brand block, stays inside its column */
 export function BrandLogoFooter() {
   return (
     <Link
       href="/"
-      className="group inline-flex flex-col items-start gap-3 transition-opacity hover:opacity-90 sm:flex-row sm:items-center sm:gap-4"
+      className="group inline-flex max-w-[17rem] flex-col items-start gap-3.5 transition-opacity hover:opacity-90"
       aria-label="Bible Answer Hub — home"
     >
-      <span className="inline-flex shrink-0 rounded-xl bg-white px-2 py-1.5 shadow-md ring-1 ring-white/10">
-        <LogoMark height={52} />
+      <span className="inline-flex shrink-0 rounded-xl bg-white px-2.5 pb-1.5 pt-2.5 shadow-md ring-1 ring-white/10">
+        <LogoMark height={46} />
       </span>
-      <LogoWordmark variant="light" size="large" />
+      <LogoWordmark variant="light" size="footer" />
     </Link>
   );
 }
