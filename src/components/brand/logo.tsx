@@ -6,7 +6,7 @@ const LOGO_FULL = "/logo.svg";
 const LOGO_BLUE = "#112248";
 const LOGO_GOLD = "#f7bf2d";
 
-const ICON_ASPECT = 680 / 480;
+const ICON_ASPECT = 690 / 530;
 const FULL_ASPECT = 915.55 / 697.32;
 
 function LogoMark({ height }: { height: number }) {
@@ -20,7 +20,7 @@ function LogoMark({ height }: { height: number }) {
       height={height}
       unoptimized
       priority
-      className="block object-contain"
+      className="block object-contain overflow-visible"
       style={{ height, width: "auto", maxWidth: width }}
     />
   );
@@ -96,7 +96,7 @@ export function BrandLogo({
         className={
           onDark
             ? "inline-flex shrink-0 items-center justify-center rounded-xl bg-white px-1.5 py-1 shadow-md ring-1 ring-white/20"
-            : "inline-flex shrink-0 items-center justify-center"
+            : "inline-flex shrink-0 items-center justify-center py-0.5"
         }
       >
         <LogoMark height={onDark ? 40 : 44} />
