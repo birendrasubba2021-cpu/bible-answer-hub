@@ -70,8 +70,9 @@ export interface QuestionEditData {
   topics: string[];
   difficulty: string;
   trending: boolean;
-  views: number;
-  status: string;
+    views: number;
+    status: string;
+    featuredImage: string;
 }
 
 export async function getQuestionEditData(
@@ -97,6 +98,7 @@ export async function getQuestionEditData(
     trending: r.trending,
     views: r.views,
     status: r.status,
+    featuredImage: r.featuredImage ?? "",
   };
 }
 

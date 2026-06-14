@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Save } from "lucide-react";
 import type { ActionState } from "@/app/admin/actions";
 import type { ArticleEditData } from "@/lib/admin";
+import { articleHeroPath } from "@/lib/media-paths";
+import { ImageFolderGuide } from "@/components/admin/image-folder-guide";
 
 type FormAction = (
   state: ActionState,
@@ -17,12 +19,17 @@ const inputCls =
 export function ArticleForm({
   action,
   initial,
+  contentSlug,
   submitLabel = "Save article",
 }: {
   action: FormAction;
   initial?: ArticleEditData;
+  /** URL slug — used to show the correct image folder */
+  contentSlug?: string;
   submitLabel?: string;
 }) {
+  const slug = contentSlug ?? initial?.slug;
+  const heroPlaceholder = slug ? articleHeroPath(slug) : "/images/articles/your-slug/hero.jpg";
   const [state, formAction, pending] = useActionState<ActionState, FormData>(
     action,
     {},
@@ -35,6 +42,8 @@ export function ArticleForm({
           {state.error}
         </p>
       )}
+
+      <ImageFolderGuide type="article" slug={slug} />
 
       <Group title="Basics">
         <Field label="Title" required>
@@ -72,12 +81,12 @@ export function ArticleForm({
 
         <Field
           label="Featured image path"
-          hint="e.g. /images/articles/abraham-hero.svg — file goes in public/"
+          hint="Put hero.jpg in this article's folder (see guide above)."
         >
           <input
             name="featuredImg"
             defaultValue={initial?.featuredImg}
-            placeholder="/images/articles/my-article.jpg"
+            placeholder={heroPlaceholder}
             className={inputCls}
           />
         </Field>
@@ -109,7 +118,7 @@ export function ArticleForm({
         <Field
           label="Content (Markdown-lite)"
           required
-          hint="Use ## for section headings, blank lines for paragraphs, ![caption](/path) for images, and numbered lists for sources."
+          hint={`Use ## for headings. Inline photo example: ![Caption](/images/articles/${slug ?? "your-slug"}/01-intro.jpg)`}
         >
           <textarea
             name="body"

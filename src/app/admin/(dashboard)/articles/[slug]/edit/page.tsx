@@ -33,6 +33,7 @@ export default async function EditArticlePage({
       <ArticleForm
         action={boundUpdate}
         initial={initial}
+        contentSlug={slug}
         submitLabel="Save changes"
       />
     </div>

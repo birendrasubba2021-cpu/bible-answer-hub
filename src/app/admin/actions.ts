@@ -197,6 +197,7 @@ function readQuestionData(formData: FormData) {
     views: Number(formData.get("views") ?? 0) || 0,
     status:
       STATUS[String(formData.get("status") ?? "DRAFT")] ?? ContentStatus.DRAFT,
+    featuredImage: String(formData.get("featuredImage") ?? "").trim(),
   };
 }
 
@@ -235,6 +236,7 @@ export async function createQuestion(
       trending: d.trending,
       views: d.views,
       status: d.status,
+      featuredImage: d.featuredImage || null,
       departmentId: category.departmentId,
       categoryId: d.categoryId,
       authorId,
@@ -277,6 +279,7 @@ export async function updateQuestion(
       trending: d.trending,
       views: d.views,
       status: d.status,
+      featuredImage: d.featuredImage || null,
       departmentId: category.departmentId,
       categoryId: d.categoryId,
     },

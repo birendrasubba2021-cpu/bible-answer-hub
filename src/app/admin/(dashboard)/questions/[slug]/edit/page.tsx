@@ -48,6 +48,7 @@ export default async function EditQuestionPage({
         action={action}
         categories={categories}
         initial={initial}
+        contentSlug={slug}
         submitLabel="Save changes"
       />
     </div>

@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Save } from "lucide-react";
 import type { ActionState } from "@/app/admin/actions";
 import type { CategoryOption, QuestionEditData } from "@/lib/admin";
+import { questionHeroPath } from "@/lib/media-paths";
+import { ImageFolderGuide } from "@/components/admin/image-folder-guide";
 
 type FormAction = (
   state: ActionState,
@@ -15,13 +17,19 @@ export function QuestionForm({
   action,
   categories,
   initial,
+  contentSlug,
   submitLabel = "Save question",
 }: {
   action: FormAction;
   categories: CategoryOption[];
   initial?: QuestionEditData;
+  contentSlug?: string;
   submitLabel?: string;
 }) {
+  const slug = contentSlug ?? initial?.slug;
+  const heroPlaceholder = slug
+    ? questionHeroPath(slug)
+    : "/images/questions/your-slug/hero.jpg";
   const [state, formAction, pending] = useActionState<ActionState, FormData>(
     action,
     {},
@@ -47,6 +55,8 @@ export function QuestionForm({
           {state.error}
         </p>
       )}
+
+      <ImageFolderGuide type="question" slug={slug} />
 
       <Group title="Basics">
         <Field label="Question" required>
@@ -104,6 +114,20 @@ export function QuestionForm({
             </select>
           </Field>
         </div>
+      </Group>
+
+      <Group title="Photo">
+        <Field
+          label="Featured image path"
+          hint="Put hero.jpg in this question's folder (see guide above). Shows on cards and answer page."
+        >
+          <input
+            name="featuredImage"
+            defaultValue={initial?.featuredImage}
+            placeholder={heroPlaceholder}
+            className={inputCls}
+          />
+        </Field>
       </Group>
 
       <Group title="Answer">

@@ -5,7 +5,7 @@ export const abrahamArticle = {
     "Who Was Abraham in the Bible? Faith, Covenant, and God's Promise to the Nations",
   excerpt:
     "Abraham is one of the most important figures in the Bible — the father of the covenant, a model of faith, and the beginning of God's promise to bless all nations. This article explores his calling, family, character, and lasting significance.",
-  featuredImg: "/images/articles/abraham-hero.svg",
+  featuredImg: "/images/articles/who-was-abraham-in-the-bible/hero.svg",
   tags: ["Abraham", "Genesis", "Covenant", "Faith", "Patriarchs", "Old Testament"],
   body: `## Introduction
 
@@ -13,7 +13,7 @@ Abraham is one of the most important figures in the Bible. He is the ancestor of
 
 In the Old Testament, Abraham is not presented merely as a private individual. He becomes the beginning of Israel's identity as the people of God. God calls him, promises him descendants, gives him the hope of land, and declares that through him all the families of the earth will be blessed. For this reason, Abraham is central not only to the Pentateuch but also to the whole biblical story.
 
-![Abraham's journey of faith — illustration placeholder](/images/articles/abraham-hero.svg)
+![Abraham's journey of faith — illustration](/images/articles/who-was-abraham-in-the-bible/hero.svg)
 
 ## What Does the Name Abraham Mean?
 
