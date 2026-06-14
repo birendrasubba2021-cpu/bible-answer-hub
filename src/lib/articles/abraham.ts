@@ -5,7 +5,7 @@ export const abrahamArticle = {
     "Who Was Abraham in the Bible? Faith, Covenant, and God's Promise to the Nations",
   excerpt:
     "Abraham is one of the most important figures in the Bible — the father of the covenant, a model of faith, and the beginning of God's promise to bless all nations. This article explores his calling, family, character, and lasting significance.",
-  featuredImg: "/images/articles/who-was-abraham-in-the-bible/hero.svg",
+  featuredImg: "/images/articles/who-was-abraham-in-the-bible/hero.jpg",
   tags: ["Abraham", "Genesis", "Covenant", "Faith", "Patriarchs", "Old Testament"],
   body: `## Introduction
 
@@ -13,7 +13,7 @@ Abraham is one of the most important figures in the Bible. He is the ancestor of
 
 In the Old Testament, Abraham is not presented merely as a private individual. He becomes the beginning of Israel's identity as the people of God. God calls him, promises him descendants, gives him the hope of land, and declares that through him all the families of the earth will be blessed. For this reason, Abraham is central not only to the Pentateuch but also to the whole biblical story.
 
-![Abraham's journey of faith — illustration](/images/articles/who-was-abraham-in-the-bible/hero.svg)
+![Abraham — called by God to leave his homeland](/images/articles/who-was-abraham-in-the-bible/01-intro.jpg)
 
 ## What Does the Name Abraham Mean?
 
@@ -29,6 +29,8 @@ God's promise to Abraham has three main parts: descendants, land, and blessing. 
 
 Yet Abraham's faith was not perfect. During famine, he went down to Egypt and presented Sarah as his sister, placing her and the promised line in danger. Later, a similar event happened with Abimelech. These stories show Abraham's weakness, but they also show God's faithfulness. God protected Sarah and preserved the promise.
 
+![God's covenant promise to Abraham](/images/articles/who-was-abraham-in-the-bible/02-covenant.jpg)
+
 ## Why Are Lot, Ishmael, and Isaac Important?
 
 Lot is important because he appears early in Abraham's story as a possible heir. Since Abraham and Sarah had no child, Lot's role raises the question of how God's promise would be fulfilled. However, Lot separates from Abraham, and God renews the promise of land and descendants directly to Abraham.
@@ -36,6 +38,8 @@ Lot is important because he appears early in Abraham's story as a possible heir.
 Ishmael is also important. Abraham had Ishmael through Hagar, Sarah's Egyptian servant. Ishmael receives blessing and the promise of many descendants, but he is not the covenant heir. God makes clear that the covenant line will continue through Isaac, the son of Sarah.
 
 Isaac is therefore central. Through Isaac, the special line of Abraham continues. The promise of blessing to the nations will not come through every descendant of Abraham in the same way, but through the covenant line chosen by God.
+
+![Abraham's family — Lot, Hagar, Sarah, and Isaac](/images/articles/who-was-abraham-in-the-bible/03-family.jpg)
 
 ## What Kind of Character Did Abraham Have?
 
