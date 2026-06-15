@@ -3,8 +3,13 @@ import { departments } from "../src/lib/departments";
 import { questions } from "../src/lib/questions";
 import { abrahamArticle } from "../src/lib/articles/abraham";
 import { abrahamFamilyTreeArticle } from "../src/lib/articles/abraham-family-tree";
+import { jacobTwelveTribesArticle } from "../src/lib/articles/jacob-twelve-tribes";
 
-const seedArticles = [abrahamArticle, abrahamFamilyTreeArticle];
+const seedArticles = [
+  abrahamArticle,
+  abrahamFamilyTreeArticle,
+  jacobTwelveTribesArticle,
+];
 
 const prisma = new PrismaClient();
 
