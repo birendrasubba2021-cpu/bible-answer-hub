@@ -84,17 +84,33 @@ export function renderArticleMarkdown(body: string): React.ReactNode[] {
     const imageMatch = line.match(IMAGE_RE);
     if (imageMatch) {
       const [, alt, src] = imageMatch;
+      const isChart = /chart|family-tree|diagram|timeline/i.test(src);
+
       nodes.push(
         <figure key={key++} className="my-8 overflow-hidden rounded-2xl border border-border bg-paper shadow-sm">
-          <div className="relative aspect-[16/9] w-full bg-brand-50">
-            <Image
-              src={src}
-              alt={alt || ""}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 720px"
-            />
-          </div>
+          {isChart ? (
+            <div className="w-full bg-brand-50 p-2 sm:p-4">
+              <Image
+                src={src}
+                alt={alt || ""}
+                width={1920}
+                height={1080}
+                unoptimized
+                className="h-auto w-full object-contain"
+                sizes="(max-width: 768px) 100vw, 720px"
+              />
+            </div>
+          ) : (
+            <div className="relative aspect-[16/9] w-full bg-brand-50">
+              <Image
+                src={src}
+                alt={alt || ""}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 720px"
+              />
+            </div>
+          )}
           {alt ? (
             <figcaption className="border-t border-border px-4 py-3 text-center text-sm text-muted">
               {alt}

@@ -2,6 +2,9 @@ import { PrismaClient, Difficulty, Prisma } from "@prisma/client";
 import { departments } from "../src/lib/departments";
 import { questions } from "../src/lib/questions";
 import { abrahamArticle } from "../src/lib/articles/abraham";
+import { abrahamFamilyTreeArticle } from "../src/lib/articles/abraham-family-tree";
+
+const seedArticles = [abrahamArticle, abrahamFamilyTreeArticle];
 
 const prisma = new PrismaClient();
 
@@ -116,39 +119,41 @@ async function main() {
     });
   }
 
-  // Abraham article (first published article)
-  const articleTags = [];
-  for (const name of abrahamArticle.tags) {
-    const tagSlug = slugify(name);
-    const tag = await prisma.tag.upsert({
-      where: { slug: tagSlug },
-      update: { name },
-      create: { slug: tagSlug, name },
-    });
-    articleTags.push({ id: tag.id });
-  }
+  // Published articles
+  for (const article of seedArticles) {
+    const articleTags = [];
+    for (const name of article.tags) {
+      const tagSlug = slugify(name);
+      const tag = await prisma.tag.upsert({
+        where: { slug: tagSlug },
+        update: { name },
+        create: { slug: tagSlug, name },
+      });
+      articleTags.push({ id: tag.id });
+    }
 
-  await prisma.article.upsert({
-    where: { slug: abrahamArticle.slug },
-    update: {
-      title: abrahamArticle.title,
-      excerpt: abrahamArticle.excerpt,
-      body: abrahamArticle.body,
-      featuredImg: abrahamArticle.featuredImg,
-      status: "PUBLISHED",
-      tags: { set: articleTags },
-    },
-    create: {
-      slug: abrahamArticle.slug,
-      title: abrahamArticle.title,
-      excerpt: abrahamArticle.excerpt,
-      body: abrahamArticle.body,
-      featuredImg: abrahamArticle.featuredImg,
-      status: "PUBLISHED",
-      authorId: author.id,
-      tags: { connect: articleTags },
-    },
-  });
+    await prisma.article.upsert({
+      where: { slug: article.slug },
+      update: {
+        title: article.title,
+        excerpt: article.excerpt,
+        body: article.body,
+        featuredImg: article.featuredImg,
+        status: "PUBLISHED",
+        tags: { set: articleTags },
+      },
+      create: {
+        slug: article.slug,
+        title: article.title,
+        excerpt: article.excerpt,
+        body: article.body,
+        featuredImg: article.featuredImg,
+        status: "PUBLISHED",
+        authorId: author.id,
+        tags: { connect: articleTags },
+      },
+    });
+  }
 
   const counts = {
     departments: await prisma.department.count(),
