@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Source_Serif_4 } from "next/font/google";
+import { GoogleAnalytics } from "@/components/analytics/google-analytics";
 import "./globals.css";
 import { SITE } from "@/lib/content";
 
@@ -64,6 +65,7 @@ export default function RootLayout({
       className={`${jakarta.variable} ${sourceSerif.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
+        <GoogleAnalytics />
         {children}
       </body>
     </html>
