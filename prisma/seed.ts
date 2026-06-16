@@ -4,11 +4,13 @@ import { questions } from "../src/lib/questions";
 import { abrahamArticle } from "../src/lib/articles/abraham";
 import { abrahamFamilyTreeArticle } from "../src/lib/articles/abraham-family-tree";
 import { jacobTwelveTribesArticle } from "../src/lib/articles/jacob-twelve-tribes";
+import { abrahamBeyondArticle } from "../src/lib/articles/abraham-beyond";
 
 const seedArticles = [
   abrahamArticle,
   abrahamFamilyTreeArticle,
   jacobTwelveTribesArticle,
+  abrahamBeyondArticle,
 ];
 
 const prisma = new PrismaClient();
