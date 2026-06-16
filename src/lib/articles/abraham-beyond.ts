@@ -4,7 +4,7 @@ export const abrahamBeyondArticle = {
   title: "Abraham in the Bible and Beyond: History, Tradition, Family, and Faith",
   excerpt:
     "A scholarly study of Abraham through the biblical narrative, historical debate, literary structure, family conflict, covenant theology, and later Jewish, Christian, and Islamic interpretation.",
-  featuredImg: "",
+  featuredImg: "/images/articles/abraham-in-the-bible-and-beyond/hero.jpg",
   tags: [
     "Abraham",
     "Genesis",
