@@ -8,8 +8,6 @@ import { ArticleTableOfContents } from "@/components/article/article-toc";
 import { extractArticleHeadings } from "@/lib/article-markdown";
 import { getArticleBySlug } from "@/lib/content";
 
-export const dynamic = "force-dynamic";
-
 export async function generateMetadata({
   params,
 }: {

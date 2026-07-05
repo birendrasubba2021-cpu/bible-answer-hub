@@ -19,7 +19,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 overflow-visible border-b border-border/80 bg-white/95 backdrop-blur-md">
+    <header className="sticky top-0 z-50 overflow-visible border-b border-border/60 bg-white/90 shadow-[0_1px_0_rgb(0_0_0/0.03)] backdrop-blur-lg">
       <div className="mx-auto flex max-w-7xl items-center gap-3 overflow-visible px-4 py-3 sm:px-6 sm:py-3.5">
         <div className="shrink-0 overflow-visible">
           <BrandLogo />
@@ -30,7 +30,7 @@ export function SiteHeader() {
             <Link
               key={item.href}
               href={item.href}
-              className="rounded-lg px-3 py-2 text-sm font-medium text-stone-600 transition hover:bg-stone-100 hover:text-brand-700"
+              className="rounded-lg px-3 py-2 text-sm font-medium text-stone-600 transition hover:bg-brand-50 hover:text-brand-700"
             >
               {item.label}
             </Link>
@@ -43,7 +43,7 @@ export function SiteHeader() {
 
         <Link
           href="/contact"
-          className="hidden shrink-0 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700 md:inline-flex"
+          className="hidden shrink-0 rounded-full bg-brand-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-800 md:inline-flex"
         >
           Contact
         </Link>

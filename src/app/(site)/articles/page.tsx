@@ -9,8 +9,6 @@ export const metadata: Metadata = {
     "In-depth biblical and theological articles on Scripture, theology, apologetics, and Christian living.",
 };
 
-export const dynamic = "force-dynamic";
-
 export default async function ArticlesPage() {
   const articles = await getAllArticles();
 

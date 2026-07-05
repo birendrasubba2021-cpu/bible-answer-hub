@@ -48,7 +48,7 @@ function FooterColumn({
 
 export function SiteFooter() {
   return (
-    <footer className="mt-20 border-t border-brand-800 bg-brand-900 text-stone-200">
+    <footer className="mt-20 border-t border-brand-800 bg-gradient-to-b from-brand-900 to-[#0a1524] text-stone-200">
       <div className="mx-auto max-w-7xl px-4 py-14 pb-10 sm:px-6 lg:py-16 lg:pb-12">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-10 xl:gap-14">
           {/* Brand — own column, no overlap with link columns */}

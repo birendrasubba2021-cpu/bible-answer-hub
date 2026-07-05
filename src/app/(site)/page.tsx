@@ -3,7 +3,8 @@ import {
   ArrowRight,
   BookOpen,
   GraduationCap,
-  PlayCircle,
+  Library,
+  ShieldCheck,
   Sparkles,
 } from "lucide-react";
 import { SearchBar } from "@/components/search-bar";
@@ -40,89 +41,96 @@ export default async function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-brand-700 text-white">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(201,162,39,0.18),_transparent_55%)]" />
-        <div className="relative mx-auto max-w-4xl px-4 py-20 text-center sm:px-6 sm:py-28">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-sm text-stone-200">
-            <Sparkles className="h-4 w-4 text-gold-400" />
-            Building the world&apos;s largest biblical knowledge base
-          </span>
-          <h1 className="mt-6 font-display text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl md:text-[3.25rem]">
-            Trusted Answers to Every
-            <span className="mt-1 block bg-gradient-to-r from-gold-400 to-gold-500 bg-clip-text text-transparent">
-              Question of Faith
+      <section className="relative overflow-hidden bg-brand-900 text-white">
+        <div className="hero-grid absolute inset-0" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(212,176,74,0.14),_transparent_55%)]" />
+        <div className="absolute -right-24 top-0 h-96 w-96 rounded-full bg-brand-600/20 blur-3xl" />
+        <div className="relative mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24 lg:py-28">
+          <div className="mx-auto max-w-4xl text-center">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.16em] text-stone-200">
+              <Sparkles className="h-3.5 w-3.5 text-gold-400" />
+              Trusted biblical Q&amp;A
             </span>
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-stone-300">
-            Find biblical, scholarly answers about Scripture, theology,
-            apologetics, church history, Christian living, biblical languages,
-            ministry, and more.
-          </p>
+            <h1 className="mt-8 font-display text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl md:text-6xl">
+              Scholarly Answers to
+              <span className="mt-2 block bg-gradient-to-r from-gold-300 via-gold-400 to-gold-500 bg-clip-text text-transparent">
+                Every Question of Faith
+              </span>
+            </h1>
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-stone-300">
+              Scripture-grounded answers on theology, apologetics, church history,
+              Christian living, and contemporary issues — written for pastors,
+              students, and seekers.
+            </p>
 
-          <div className="mx-auto mt-8 max-w-2xl">
-            <SearchBar />
-          </div>
+            <div className="mx-auto mt-9 max-w-2xl">
+              <SearchBar />
+            </div>
 
-          <div className="mt-5 flex flex-wrap items-center justify-center gap-2 text-sm">
-            <span className="text-stone-300">Try:</span>
-            {EXAMPLES.map((ex) => (
-              <Link
-                key={ex}
-                href={`/search?q=${encodeURIComponent(ex)}`}
-                className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-stone-200 transition hover:border-gold-400 hover:text-white"
-              >
-                {ex}
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-2 text-sm">
+              <span className="text-stone-400">Try:</span>
+              {EXAMPLES.slice(0, 4).map((ex) => (
+                <Link
+                  key={ex}
+                  href={`/search?q=${encodeURIComponent(ex)}`}
+                  className="rounded-full border border-white/12 bg-white/5 px-3 py-1 text-stone-200 transition hover:border-gold-400/50 hover:text-white"
+                >
+                  {ex}
+                </Link>
+              ))}
+            </div>
+
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+              <Link href="/questions" className="btn-primary">
+                <BookOpen className="h-4 w-4" /> Explore Answers
               </Link>
-            ))}
+              <Link href="/articles" className="btn-secondary">
+                <Library className="h-4 w-4" /> Read Articles
+              </Link>
+              <Link href="/departments" className="btn-secondary">
+                Browse Departments
+              </Link>
+            </div>
           </div>
 
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href="/questions"
-              className="inline-flex items-center gap-2 rounded-full bg-gold-500 px-6 py-3 text-sm font-semibold text-brand-900 transition hover:bg-gold-400"
-            >
-              <BookOpen className="h-4 w-4" /> Explore Answers
-            </Link>
-            <Link
-              href="/departments"
-              className="inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-            >
-              Browse Departments
-            </Link>
-            <Link
-              href="/articles"
-              className="inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-            >
-              Read Articles
-            </Link>
-            <Link
-              href="/videos"
-              className="inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-            >
-              <PlayCircle className="h-4 w-4" /> Watch Videos
-            </Link>
+          <div className="mx-auto mt-14 grid max-w-4xl grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+            {[
+              { value: SITE.totalQuestionsGoal, label: "Questions (goal)" },
+              { value: `${departments.length}`, label: "Departments" },
+              {
+                value: `${departments.reduce((n, d) => n + d.categories.length, 0)}`,
+                label: "Categories",
+              },
+              { value: "Free", label: "Always open" },
+            ].map((s) => (
+              <div
+                key={s.label}
+                className="stat-pill rounded-2xl px-4 py-4 text-center sm:px-5 sm:py-5"
+              >
+                <div className="font-display text-2xl font-bold text-white sm:text-3xl">
+                  {s.value}
+                </div>
+                <div className="mt-1 text-xs font-medium uppercase tracking-wide text-stone-400">
+                  {s.label}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Stats strip */}
-      <section className="border-b border-stone-200 bg-white">
-        <div className="mx-auto grid max-w-5xl grid-cols-2 gap-4 px-4 py-8 text-center sm:grid-cols-4 sm:px-6">
+      {/* Trust strip */}
+      <section className="section-band">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-10 gap-y-4 px-4 py-5 text-sm text-stone-600 sm:px-6">
           {[
-            { value: SITE.totalQuestionsGoal, label: "Questions (goal)" },
-            { value: `${departments.length}`, label: "Departments" },
-            {
-              value: `${departments.reduce((n, d) => n + d.categories.length, 0)}`,
-              label: "Categories",
-            },
-            { value: "Free", label: "Always accessible" },
-          ].map((s) => (
-            <div key={s.label}>
-              <div className="font-serif text-3xl font-bold text-brand-700">
-                {s.value}
-              </div>
-              <div className="mt-1 text-sm text-stone-500">{s.label}</div>
-            </div>
+            { icon: ShieldCheck, text: "Biblical & scholarly" },
+            { icon: GraduationCap, text: "Founded by a theologian (B.Th., M.Div., M.Th.)" },
+            { icon: BookOpen, text: "Structured like a theological library" },
+          ].map(({ icon: Icon, text }) => (
+            <span key={text} className="inline-flex items-center gap-2">
+              <Icon className="h-4 w-4 text-brand-600" />
+              {text}
+            </span>
           ))}
         </div>
       </section>
@@ -145,7 +153,7 @@ export default async function Home() {
 
       {/* Featured articles */}
       {articles.length > 0 && (
-        <section className="border-y border-border bg-stone-50 py-16">
+        <section className="border-y border-border bg-gradient-to-b from-stone-50 to-white py-16">
           <div className="mx-auto max-w-7xl px-4 sm:px-6">
             <SectionHeading
               eyebrow="Long-Form Teaching"
@@ -198,10 +206,12 @@ export default async function Home() {
       </section>
 
       {/* About founder */}
-      <section className="bg-brand-700 text-white">
-        <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
+      <section className="relative overflow-hidden bg-brand-900 text-white">
+        <div className="hero-grid absolute inset-0 opacity-60" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_rgba(212,176,74,0.12),_transparent_50%)]" />
+        <div className="relative mx-auto max-w-5xl px-4 py-16 sm:px-6 lg:py-20">
           <div className="grid items-center gap-10 md:grid-cols-[auto_1fr]">
-            <div className="mx-auto flex h-32 w-32 items-center justify-center rounded-full bg-gold-500 text-brand-900">
+            <div className="mx-auto flex h-32 w-32 items-center justify-center rounded-2xl bg-gradient-to-br from-gold-400 to-gold-600 text-brand-900 shadow-lg ring-4 ring-white/10">
               <GraduationCap className="h-14 w-14" />
             </div>
             <div>
@@ -220,7 +230,7 @@ export default async function Home() {
               </p>
               <Link
                 href="/about"
-                className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-sm font-semibold text-brand-700 transition hover:bg-stone-100"
+                className="btn-primary mt-5"
               >
                 Read more <ArrowRight className="h-4 w-4" />
               </Link>
@@ -231,55 +241,16 @@ export default async function Home() {
 
       {/* Final CTA */}
       <section className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
-        <h2 className="font-serif text-3xl font-bold text-stone-900">
-          Have a question about the Bible?
-        </h2>
-        <p className="mt-3 text-stone-600">
-          Search {totalQuestions}+ answers and growing — built to become the
-          world&apos;s largest biblical Q&amp;A library.
-        </p>
-        <div className="mx-auto mt-6 max-w-xl">
+        <SectionHeading
+          align="center"
+          eyebrow="Start here"
+          title="Have a question about the Bible?"
+          subtitle={`Search ${totalQuestions}+ answers and growing — built to become the world's largest biblical Q&A library.`}
+        />
+        <div className="mx-auto mt-8 max-w-xl">
           <SearchBar />
         </div>
       </section>
     </>
-  );
-}
-
-function SectionHeading({
-  eyebrow,
-  title,
-  subtitle,
-  href,
-  linkLabel,
-}: {
-  eyebrow: string;
-  title: string;
-  subtitle?: string;
-  href?: string;
-  linkLabel?: string;
-}) {
-  return (
-    <div className="flex flex-wrap items-end justify-between gap-4">
-      <div>
-        <p className="text-sm font-semibold uppercase tracking-wide text-gold-600">
-          {eyebrow}
-        </p>
-        <h2 className="mt-1 font-serif text-3xl font-bold text-stone-900">
-          {title}
-        </h2>
-        {subtitle && (
-          <p className="mt-2 max-w-2xl text-stone-600">{subtitle}</p>
-        )}
-      </div>
-      {href && linkLabel && (
-        <Link
-          href={href}
-          className="inline-flex items-center gap-1 text-sm font-semibold text-brand-600 transition hover:gap-2 hover:text-brand-700"
-        >
-          {linkLabel} <ArrowRight className="h-4 w-4" />
-        </Link>
-      )}
-    </div>
   );
 }
