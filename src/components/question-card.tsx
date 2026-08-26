@@ -59,3 +59,29 @@ export function QuestionCard({ q }: { q: QuestionAnswer }) {
     </Link>
   );
 }
+
+export function QuestionRow({ q }: { q: QuestionAnswer }) {
+  const dept = getDepartment(q.department);
+
+  return (
+    <Link
+      href={`/questions/${q.slug}`}
+      className="group flex items-start gap-4 rounded-2xl border border-transparent px-3 py-3.5 transition hover:border-border hover:bg-white hover:shadow-sm"
+    >
+      <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-700 ring-1 ring-brand-100">
+        <BookOpen className="h-4 w-4" />
+      </span>
+      <span className="min-w-0 flex-1">
+        <span className="block font-display text-base font-semibold leading-snug text-stone-900 group-hover:text-brand-700">
+          {q.question}
+        </span>
+        <span className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted">
+          <span>{dept?.name ?? q.department}</span>
+          <span aria-hidden>•</span>
+          <span>{(q.views ?? 0).toLocaleString()} reads</span>
+        </span>
+      </span>
+      <ArrowUpRight className="mt-1 h-4 w-4 shrink-0 text-stone-300 transition group-hover:text-brand-600" />
+    </Link>
+  );
+}

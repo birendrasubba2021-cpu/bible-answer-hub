@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { BrandLogo } from "@/components/brand/logo";
@@ -17,6 +18,11 @@ const NAV = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  function isActive(href: string) {
+    return pathname === href || pathname.startsWith(`${href}/`);
+  }
 
   return (
     <header className="sticky top-0 z-50 overflow-visible border-b border-border/60 bg-white/90 shadow-[0_1px_0_rgb(0_0_0/0.03)] backdrop-blur-lg">
@@ -26,15 +32,23 @@ export function SiteHeader() {
         </div>
 
         <nav className="hidden items-center gap-0.5 lg:flex xl:ml-4">
-          {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="rounded-lg px-3 py-2 text-sm font-medium text-stone-600 transition hover:bg-brand-50 hover:text-brand-700"
-            >
-              {item.label}
-            </Link>
-          ))}
+          {NAV.map((item) => {
+            const active = isActive(item.href);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+                className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
+                  active
+                    ? "bg-brand-50 text-brand-800"
+                    : "text-stone-600 hover:bg-brand-50 hover:text-brand-700"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="ml-auto hidden w-48 lg:block xl:w-56">
@@ -61,16 +75,24 @@ export function SiteHeader() {
         <div className="border-t border-border bg-white px-4 py-4 lg:hidden">
           <SearchBar size="small" placeholder="Search questions..." />
           <nav className="mt-3 flex flex-col">
-            {[...NAV, { href: "/contact", label: "Contact" }].map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-2.5 text-base font-medium text-stone-700 hover:bg-stone-50"
-              >
-                {item.label}
-              </Link>
-            ))}
+            {[...NAV, { href: "/contact", label: "Contact" }].map((item) => {
+              const active = isActive(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  aria-current={active ? "page" : undefined}
+                  className={`rounded-lg px-3 py-2.5 text-base font-medium ${
+                    active
+                      ? "bg-brand-50 text-brand-800"
+                      : "text-stone-700 hover:bg-stone-50"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
           </nav>
         </div>
       )}

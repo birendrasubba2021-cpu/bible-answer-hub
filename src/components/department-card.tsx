@@ -12,8 +12,9 @@ export function DepartmentCard({
   return (
     <Link
       href={`/departments/${dept.slug}`}
-      className="group card-elevated flex flex-col overflow-hidden transition duration-300 hover:-translate-y-1"
+      className="group card-elevated relative flex flex-col overflow-hidden transition duration-300 hover:-translate-y-1"
     >
+      <span className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-gold-400 to-brand-500 opacity-0 transition group-hover:opacity-100" />
       <div className="p-6">
         <span className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-600 ring-1 ring-brand-100 transition group-hover:bg-brand-700 group-hover:text-white group-hover:ring-brand-600">
           <DepartmentIcon name={dept.icon} className="h-6 w-6" />
