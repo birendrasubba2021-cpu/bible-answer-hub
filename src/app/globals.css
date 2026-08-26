@@ -35,9 +35,11 @@
   --color-brand-800: #13243b;
   --color-brand-900: #0d1a2b;
 
+  --color-gold-300: #e4c76a;
   --color-gold-400: #d4b04a;
   --color-gold-500: #b8922a;
   --color-gold-600: #967618;
+  --color-gold-light: var(--gold-light);
 }
 
 * {
@@ -175,7 +177,10 @@ h4,
 }
 
 .section-band {
-  border-y border-border/80 bg-white/70 backdrop-blur-sm;
+  border-top: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  background: rgb(255 255 255 / 0.78);
+  backdrop-filter: blur(10px);
 }
 
 .stat-pill {
@@ -222,4 +227,39 @@ h4,
 .btn-secondary:hover {
   border-color: rgb(255 255 255 / 0.35);
   background: rgb(255 255 255 / 0.12);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.75rem 0.25rem 0.75rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: rgb(226 216 196);
+  transition: color 0.2s, gap 0.2s;
+}
+
+.btn-ghost:hover {
+  color: white;
+  gap: 0.75rem;
+}
+
+.search-on-dark input {
+  border-color: rgb(255 255 255 / 0.18);
+  box-shadow:
+    0 10px 40px rgb(0 0 0 / 0.25),
+    0 0 0 1px rgb(212 176 74 / 0.18);
+}
+
+.ornament-line {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(212 176 74 / 0.65),
+    transparent
+  );
 }
