@@ -4,7 +4,6 @@ import { notFound } from "next/navigation";
 import {
   BookOpenCheck,
   ChevronRight,
-  CircleHelp,
   Lightbulb,
   ListChecks,
   Quote,
@@ -17,9 +16,14 @@ import {
   ShortAnswerCallout,
 } from "@/components/answer/answer-section";
 import { AnswerTableOfContents } from "@/components/answer/answer-toc";
+import {
+  BibliographyApparatus,
+  NotesApparatus,
+} from "@/components/answer/citation-apparatus";
 import { ScriptureTable } from "@/components/answer/scripture-table";
 import { QuestionCard } from "@/components/question-card";
 import { getDepartment } from "@/lib/departments";
+import { renderWithFootnotes } from "@/lib/footnotes";
 import { getQuestionBySlug, getRelatedQuestions } from "@/lib/content";
 
 export async function generateMetadata({
@@ -119,7 +123,7 @@ export default async function QuestionPage({
             >
               <div className="prose-answer">
                 {q.detailedAnswer.map((p, i) => (
-                  <p key={i}>{p}</p>
+                  <p key={i}>{renderWithFootnotes(p, `da-${i}`)}</p>
                 ))}
               </div>
             </AnswerSection>
@@ -141,7 +145,7 @@ export default async function QuestionPage({
             >
               <div className="prose-answer">
                 {q.theologicalExplanation.map((p, i) => (
-                  <p key={i}>{p}</p>
+                  <p key={i}>{renderWithFootnotes(p, `te-${i}`)}</p>
                 ))}
               </div>
             </AnswerSection>
@@ -188,23 +192,12 @@ export default async function QuestionPage({
               </ul>
             </AnswerSection>
 
-            <AnswerSection
-              id="references"
-              icon={<CircleHelp className="h-5 w-5" />}
-              title="Further Reading"
-              subtitle="Books, creeds, and scholarly sources"
-            >
-              <ul className="divide-y divide-border rounded-lg border border-border bg-stone-50/50">
-                {q.references.map((r, i) => (
-                  <li
-                    key={i}
-                    className="px-4 py-3 text-sm leading-relaxed text-stone-700"
-                  >
-                    {r}
-                  </li>
-                ))}
-              </ul>
-            </AnswerSection>
+            <NotesApparatus notes={q.footnotes ?? []} />
+
+            <BibliographyApparatus
+              entries={q.bibliography ?? []}
+              fallback={q.references}
+            />
 
             {/* Author */}
             <div className="scholarly-card flex flex-col gap-5 bg-white p-6 sm:flex-row sm:items-center sm:p-8">

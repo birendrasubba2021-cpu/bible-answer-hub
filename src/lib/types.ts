@@ -16,6 +16,30 @@ export interface ScriptureRef {
   version?: string; // e.g. "ESV"
 }
 
+/**
+ * A numbered note in the Turabian/SBL notes-bibliography apparatus. Referenced
+ * from body text with a `[^n]` marker and rendered as a superscript.
+ *
+ * Modern works are cited with exact pagination; classical and confessional
+ * sources are cited by their own internal divisions (e.g. Institutes 1.13.2),
+ * which are stable across editions and printings.
+ */
+export interface Footnote {
+  id: number;
+  text: string;
+}
+
+/** A bibliography entry, alphabetised by author surname and hanging-indented. */
+export interface BibliographyEntry {
+  /** Surname-first, as it sorts: "Grudem, Wayne". */
+  author: string;
+  title: string;
+  /** Imprint: "Grand Rapids: Zondervan Academic, 2020". */
+  publication?: string;
+  /** Edition, series, translator, or a note on the text used. */
+  detail?: string;
+}
+
 export interface QuestionAnswer {
   slug: string;
   question: string;
@@ -34,6 +58,10 @@ export interface QuestionAnswer {
   commonMisunderstandings: string[];
   practicalApplication: string[];
   references: string[];
+  /** Numbered notes keyed to `[^n]` markers in the answer body. */
+  footnotes?: Footnote[];
+  /** Structured bibliography; falls back to `references` when absent. */
+  bibliography?: BibliographyEntry[];
   relatedSlugs: string[];
   author: string;
   /** Optional hero image URL — add via admin later (e.g. /images/questions/trinity.jpg) */
@@ -47,6 +75,8 @@ export interface Article {
   body: string;
   featuredImg?: string | null;
   status?: string;
+  footnotes?: Footnote[];
+  bibliography?: BibliographyEntry[];
   author: string;
   tags: string[];
   publishedAt: string;

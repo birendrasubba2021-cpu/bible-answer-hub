@@ -102,6 +102,8 @@ async function main() {
         practicalApplication: q.practicalApplication,
         biblicalBasis: q.biblicalBasis as unknown as Prisma.InputJsonValue,
         references: q.references,
+        footnotes: (q.footnotes ?? []) as unknown as Prisma.InputJsonValue,
+        bibliography: (q.bibliography ?? []) as unknown as Prisma.InputJsonValue,
         topics: q.topics,
         publishedAt: new Date(q.publishedAt),
         departmentId: dept.id,

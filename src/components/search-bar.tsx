@@ -6,7 +6,7 @@ import { useState } from "react";
 
 export function SearchBar({
   size = "large",
-  placeholder = "Search 50,000+ Biblical Questions",
+  placeholder = "Search the theological library...",
   autoFocus = false,
   defaultValue = "",
   theme = "light",

@@ -9,13 +9,19 @@ const SECTIONS = [
   { id: "theological-explanation", label: "Theological Explanation" },
   { id: "misunderstandings", label: "Common Errors" },
   { id: "practical-application", label: "Pastoral Application" },
-  { id: "references", label: "Further Reading" },
+  { id: "notes", label: "Notes" },
+  { id: "bibliography", label: "Bibliography" },
 ] as const;
 
 export function AnswerTableOfContents() {
   const [active, setActive] = useState<string>("short-answer");
+  const [present, setPresent] = useState<string[]>([]);
 
   useEffect(() => {
+    setPresent(
+      SECTIONS.filter(({ id }) => document.getElementById(id)).map((s) => s.id),
+    );
+
     const observers: IntersectionObserver[] = [];
     SECTIONS.forEach(({ id }) => {
       const el = document.getElementById(id);
@@ -39,7 +45,9 @@ export function AnswerTableOfContents() {
           Contents
         </p>
         <ul className="mt-4 space-y-0.5">
-          {SECTIONS.map(({ id, label }) => (
+          {SECTIONS.filter(
+            ({ id }) => present.length === 0 || present.includes(id),
+          ).map(({ id, label }) => (
             <li key={id}>
               <a
                 href={`#${id}`}

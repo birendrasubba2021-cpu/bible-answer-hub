@@ -2,7 +2,14 @@ import { Prisma } from "@prisma/client";
 import { prisma } from "./prisma";
 import { departments, getDepartment } from "./departments";
 import { estimateReadMinutes } from "./article-markdown";
-import type { Department, QuestionAnswer, ScriptureRef, Article } from "./types";
+import type {
+  Department,
+  QuestionAnswer,
+  ScriptureRef,
+  Article,
+  Footnote,
+  BibliographyEntry,
+} from "./types";
 
 export { departments, getDepartment };
 export type { Department, QuestionAnswer, Article };
@@ -42,6 +49,8 @@ function toQuestionAnswer(row: QuestionRow): QuestionAnswer {
     practicalApplication: (row.practicalApplication as string[]) ?? [],
     biblicalBasis: (row.biblicalBasis as unknown as ScriptureRef[]) ?? [],
     references: (row.references as string[]) ?? [],
+    footnotes: (row.footnotes as unknown as Footnote[]) ?? [],
+    bibliography: (row.bibliography as unknown as BibliographyEntry[]) ?? [],
     relatedSlugs: row.relatedTo.map((r) => r.slug),
     author: row.author.name,
     featuredImage: row.featuredImage,
@@ -167,6 +176,8 @@ function toArticle(row: ArticleRow): Article {
     body: row.body,
     featuredImg: row.featuredImg,
     status: row.status,
+    footnotes: (row.footnotes as unknown as Footnote[]) ?? [],
+    bibliography: (row.bibliography as unknown as BibliographyEntry[]) ?? [],
     author: row.author.name,
     tags: row.tags.map((t) => t.name),
     publishedAt: row.publishedAt.toISOString(),

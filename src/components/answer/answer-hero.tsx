@@ -69,7 +69,11 @@ export function AnswerHero({
               departmentSlug={q.department}
               featuredImage={q.featuredImage}
               departmentName={dept?.name}
-              label="Bible Answer Hub"
+              caption={q.biblicalBasis?.[0]?.reference}
+              captionMeta={q.biblicalBasis?.[0]?.version}
+              title={q.question}
+              category={q.category}
+              topics={q.topics}
               size="answer"
               className="h-48 rounded-none sm:h-56 lg:mt-6 lg:h-full lg:min-h-[280px] lg:rounded-xl lg:ring-1 lg:ring-border"
             />

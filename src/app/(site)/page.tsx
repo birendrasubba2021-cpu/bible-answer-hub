@@ -115,6 +115,11 @@ export default async function Home() {
                   departmentSlug={featured.department}
                   featuredImage={featured.featuredImage}
                   label="Featured answer"
+                  caption={featured.biblicalBasis?.[0]?.reference}
+                  captionMeta={featured.biblicalBasis?.[0]?.version}
+                  title={featured.question}
+                  category={featured.category}
+                  topics={featured.topics}
                   size="hero"
                 />
                 <div className="border-t border-border bg-white p-6 sm:p-7">
@@ -213,6 +218,9 @@ export default async function Home() {
                     <BrandedThumbnail
                       departmentSlug="biblical-studies"
                       label="Featured article"
+                      caption={featuredArticle.title}
+                      title={featuredArticle.title}
+                      topics={featuredArticle.tags}
                       size="hero"
                     />
                   )}

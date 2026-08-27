@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { QuestionsExplorer } from "@/components/questions-explorer";
+import { PageHeader } from "@/components/ui/page-header";
 import { getAllQuestions } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Search",
-  description: "Search Bible Answer Hub for biblical answers to your questions.",
+  description: "Search the theological reference library for biblical answers.",
 };
 
 export default async function SearchPage({
@@ -17,22 +18,25 @@ export default async function SearchPage({
   const items = await getAllQuestions();
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6">
-      <header className="mb-8">
-        <p className="text-sm font-semibold uppercase tracking-wide text-gold-600">
-          Search
-        </p>
-        <h1 className="mt-1 font-serif text-4xl font-bold text-stone-900">
-          {q ? `Results for "${q}"` : "Search the Library"}
-        </h1>
-      </header>
-      <Suspense>
-        <QuestionsExplorer
-          items={items}
-          initialQuery={q}
-          initialDepartment={department}
+    <div className="bg-stone-50/80">
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
+        <PageHeader
+          eyebrow="Search"
+          title={q ? `Results for “${q}”` : "Search the Library"}
+          subtitle={
+            q
+              ? "Refine results by department or sort order below."
+              : "Enter a biblical or theological question to search the reference index."
+          }
         />
-      </Suspense>
+        <Suspense>
+          <QuestionsExplorer
+            items={items}
+            initialQuery={q}
+            initialDepartment={department}
+          />
+        </Suspense>
+      </div>
     </div>
   );
 }

@@ -17,6 +17,11 @@ export function QuestionCard({ q }: { q: QuestionAnswer }) {
         featuredImage={q.featuredImage}
         departmentName={dept?.name}
         label={q.trending ? "Frequently consulted" : undefined}
+        caption={q.biblicalBasis?.[0]?.reference}
+        captionMeta={q.biblicalBasis?.[0]?.version}
+        title={q.question}
+        category={q.category}
+        topics={q.topics}
         size="card"
       />
 
@@ -36,7 +41,7 @@ export function QuestionCard({ q }: { q: QuestionAnswer }) {
             {(q.views ?? 0).toLocaleString()} consultations
           </span>
           <span className="inline-flex items-center gap-1 font-semibold text-brand-700 transition group-hover:gap-2">
-            Read answer <ArrowUpRight className="h-4 w-4" />
+            Read full answer <ArrowUpRight className="h-4 w-4" />
           </span>
         </div>
       </div>
@@ -55,6 +60,9 @@ export function QuestionRow({ q }: { q: QuestionAnswer }) {
       <BrandedThumbnail
         departmentSlug={q.department}
         featuredImage={q.featuredImage}
+        title={q.question}
+        category={q.category}
+        topics={q.topics}
         size="row"
         showWatermark={false}
         className="rounded-lg"

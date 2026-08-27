@@ -142,6 +142,82 @@ h4,
   scroll-margin-top: 6rem;
 }
 
+/* ─── Citation apparatus (notes & bibliography) ─── */
+.footnote-marker {
+  font-family: var(--font-sans);
+  font-size: 0.62em;
+  font-weight: 700;
+  line-height: 0;
+  vertical-align: super;
+  margin-left: 0.12em;
+}
+
+.footnote-marker a {
+  color: var(--accent);
+  padding: 0 0.1em;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.footnote-marker a:hover {
+  color: var(--gold);
+  text-decoration: underline;
+}
+
+.citation-list {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: #3d3832;
+}
+
+.citation-list li {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--border);
+  scroll-margin-top: 6rem;
+}
+
+.citation-list li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.citation-list li:target .citation-body {
+  background: var(--gold-light);
+  box-shadow: 0 0 0 4px var(--gold-light);
+  border-radius: 2px;
+}
+
+.citation-number {
+  flex-shrink: 0;
+  min-width: 1.6rem;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  padding-top: 0.25rem;
+}
+
+/* Hanging indent — the defining feature of a bibliography. */
+.bibliography-list {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: #3d3832;
+}
+
+.bibliography-list li {
+  padding-left: 2rem;
+  text-indent: -2rem;
+  margin-bottom: 0.85rem;
+}
+
+.bibliography-list li:last-child {
+  margin-bottom: 0;
+}
+
 /* ─── Subtle page texture ─── */
 .bg-paper-texture {
   background-color: var(--paper);

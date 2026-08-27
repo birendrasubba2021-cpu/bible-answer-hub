@@ -27,6 +27,9 @@ export function ArticleCard({ article }: { article: Article }) {
         <BrandedThumbnail
           departmentSlug="biblical-studies"
           label="Article"
+          caption={article.title}
+          title={article.title}
+          topics={article.tags}
           size="article"
         />
       )}
@@ -48,7 +51,7 @@ export function ArticleCard({ article }: { article: Article }) {
             {article.readMinutes} min read
           </span>
           <span className="ml-auto inline-flex items-center gap-1 font-semibold text-brand-700 transition group-hover:gap-2">
-            Read <ArrowUpRight className="h-4 w-4" />
+            Read article <ArrowUpRight className="h-4 w-4" />
           </span>
         </div>
       </div>
@@ -120,6 +123,9 @@ export function ArticleHero({ article }: { article: Article }) {
               <BrandedThumbnail
                 departmentSlug="biblical-studies"
                 label="Article"
+                caption={article.title}
+                title={article.title}
+                topics={article.tags}
                 size="answer"
                 className="h-48 rounded-none sm:h-56 lg:mt-6 lg:h-full lg:min-h-[280px] lg:rounded-xl lg:ring-1 lg:ring-border"
               />
