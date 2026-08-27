@@ -73,7 +73,23 @@ export async function getQuestionBySlug(
     where: { slug },
     include: questionInclude,
   });
-  return row ? toQuestionAnswer(row) : null;
+  if (!row || row.status !== "PUBLISHED") return null;
+  return toQuestionAnswer(row);
+}
+
+/**
+ * Fetches a question regardless of publication status. Only for use behind the
+ * admin guard — the public site must go through getQuestionBySlug.
+ */
+export async function getQuestionBySlugUnfiltered(
+  slug: string,
+): Promise<{ question: QuestionAnswer; status: string } | null> {
+  const row = await prisma.question.findUnique({
+    where: { slug },
+    include: questionInclude,
+  });
+  if (!row) return null;
+  return { question: toQuestionAnswer(row), status: row.status };
 }
 
 export async function getTrendingQuestions(limit = 6): Promise<QuestionAnswer[]> {
@@ -122,7 +138,7 @@ export async function getRelatedQuestions(
 ): Promise<QuestionAnswer[]> {
   if (!q.relatedSlugs.length) return [];
   const rows = await prisma.question.findMany({
-    where: { slug: { in: q.relatedSlugs } },
+    where: { slug: { in: q.relatedSlugs }, status: "PUBLISHED" },
     include: questionInclude,
   });
   return rows.map(toQuestionAnswer);

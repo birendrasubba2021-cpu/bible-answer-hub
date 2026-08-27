@@ -13,15 +13,22 @@ const SECTIONS = [
   { id: "bibliography", label: "Bibliography" },
 ] as const;
 
-export function AnswerTableOfContents() {
+export function AnswerTableOfContents({
+  hasNotes = false,
+  hasBibliography = false,
+}: {
+  hasNotes?: boolean;
+  hasBibliography?: boolean;
+}) {
   const [active, setActive] = useState<string>("short-answer");
-  const [present, setPresent] = useState<string[]>([]);
+
+  const sections = SECTIONS.filter(({ id }) => {
+    if (id === "notes") return hasNotes;
+    if (id === "bibliography") return hasBibliography;
+    return true;
+  });
 
   useEffect(() => {
-    setPresent(
-      SECTIONS.filter(({ id }) => document.getElementById(id)).map((s) => s.id),
-    );
-
     const observers: IntersectionObserver[] = [];
     SECTIONS.forEach(({ id }) => {
       const el = document.getElementById(id);
@@ -45,9 +52,7 @@ export function AnswerTableOfContents() {
           Contents
         </p>
         <ul className="mt-4 space-y-0.5">
-          {SECTIONS.filter(
-            ({ id }) => present.length === 0 || present.includes(id),
-          ).map(({ id, label }) => (
+          {sections.map(({ id, label }) => (
             <li key={id}>
               <a
                 href={`#${id}`}

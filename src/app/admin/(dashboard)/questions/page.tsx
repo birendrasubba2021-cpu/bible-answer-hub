@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Pencil, Plus } from "lucide-react";
+import { Eye, Pencil, Plus } from "lucide-react";
 import { getAdminQuestions } from "@/lib/admin";
 import { setStatus } from "@/app/admin/actions";
 import { StatusBadge } from "@/components/admin/status-badge";
@@ -77,6 +77,13 @@ export default async function AdminQuestionsPage() {
                         </button>
                       </form>
                     )}
+                    <Link
+                      href={`/admin/preview/questions/${q.slug}`}
+                      title="Preview"
+                      className="rounded-md p-2 text-stone-400 transition hover:bg-brand-50 hover:text-brand-600"
+                    >
+                      <Eye className="h-4 w-4" />
+                    </Link>
                     <Link
                       href={`/admin/questions/${q.slug}/edit`}
                       title="Edit"
