@@ -1,8 +1,8 @@
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowUpRight, BookOpen, Eye, TrendingUp } from "lucide-react";
+import { ArrowUpRight, Eye } from "lucide-react";
 import type { QuestionAnswer } from "@/lib/types";
 import { getDepartment } from "@/lib/departments";
+import { BrandedThumbnail } from "@/components/ui/branded-thumbnail";
 
 export function QuestionCard({ q }: { q: QuestionAnswer }) {
   const dept = getDepartment(q.department);
@@ -10,48 +10,32 @@ export function QuestionCard({ q }: { q: QuestionAnswer }) {
   return (
     <Link
       href={`/questions/${q.slug}`}
-      className="group card-elevated flex flex-col overflow-hidden transition duration-300 hover:-translate-y-0.5"
+      className="group scholarly-card flex flex-col overflow-hidden transition duration-300"
     >
-      {/* Image area — shows featured image or themed placeholder */}
-      <div className="relative h-36 overflow-hidden bg-gradient-to-br from-brand-700 to-brand-900">
-        {q.featuredImage ? (
-          <Image
-            src={q.featuredImage}
-            alt=""
-            fill
-            className="object-cover transition duration-500 group-hover:scale-105"
-          />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center opacity-20">
-            <BookOpen className="h-16 w-16 text-white" />
-          </div>
-        )}
-        <div className="absolute inset-0 bg-gradient-to-t from-brand-900/80 via-transparent to-transparent" />
-        <div className="absolute bottom-3 left-3 flex flex-wrap gap-1.5">
-          <span className="rounded-md bg-white/95 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-brand-700 shadow-sm">
-            {dept?.name ?? q.department}
-          </span>
-          {q.trending && (
-            <span className="inline-flex items-center gap-0.5 rounded-md bg-gold-500 px-2 py-0.5 text-[10px] font-bold uppercase text-brand-900">
-              <TrendingUp className="h-3 w-3" /> Hot
-            </span>
-          )}
-        </div>
-      </div>
+      <BrandedThumbnail
+        departmentSlug={q.department}
+        featuredImage={q.featuredImage}
+        departmentName={dept?.name}
+        label={q.trending ? "Frequently consulted" : undefined}
+        size="card"
+      />
 
-      <div className="flex flex-1 flex-col p-5">
-        <h3 className="font-display text-lg font-bold leading-snug text-stone-900 transition group-hover:text-brand-700">
+      <div className="flex flex-1 flex-col border-x border-b border-border bg-white p-5 sm:p-6">
+        <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-brand-600">
+          {q.category}
+        </p>
+        <h3 className="mt-2 font-display text-lg font-bold leading-snug text-stone-900 transition group-hover:text-brand-700 sm:text-xl">
           {q.question}
         </h3>
-        <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-muted">
+        <p className="mt-3 line-clamp-3 flex-1 text-sm leading-relaxed text-stone-600">
           {q.shortAnswer}
         </p>
-        <div className="mt-4 flex items-center justify-between border-t border-border pt-4 text-xs">
-          <span className="inline-flex items-center gap-1 text-muted">
+        <div className="mt-5 flex items-center justify-between border-t border-border pt-4 text-xs text-stone-500">
+          <span className="inline-flex items-center gap-1.5">
             <Eye className="h-3.5 w-3.5" />
-            {(q.views ?? 0).toLocaleString()}
+            {(q.views ?? 0).toLocaleString()} consultations
           </span>
-          <span className="inline-flex items-center gap-1 font-semibold text-brand-600 transition group-hover:gap-2">
+          <span className="inline-flex items-center gap-1 font-semibold text-brand-700 transition group-hover:gap-2">
             Read answer <ArrowUpRight className="h-4 w-4" />
           </span>
         </div>
@@ -66,22 +50,26 @@ export function QuestionRow({ q }: { q: QuestionAnswer }) {
   return (
     <Link
       href={`/questions/${q.slug}`}
-      className="group flex items-start gap-4 rounded-2xl border border-transparent px-3 py-3.5 transition hover:border-border hover:bg-white hover:shadow-sm"
+      className="group flex items-center gap-4 rounded-xl border border-transparent px-2 py-3 transition hover:border-border hover:bg-stone-50/80 sm:gap-5 sm:px-3"
     >
-      <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-700 ring-1 ring-brand-100">
-        <BookOpen className="h-4 w-4" />
-      </span>
+      <BrandedThumbnail
+        departmentSlug={q.department}
+        featuredImage={q.featuredImage}
+        size="row"
+        showWatermark={false}
+        className="rounded-lg"
+      />
       <span className="min-w-0 flex-1">
         <span className="block font-display text-base font-semibold leading-snug text-stone-900 group-hover:text-brand-700">
           {q.question}
         </span>
-        <span className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted">
+        <span className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-stone-500">
           <span>{dept?.name ?? q.department}</span>
-          <span aria-hidden>•</span>
-          <span>{(q.views ?? 0).toLocaleString()} reads</span>
+          <span aria-hidden>·</span>
+          <span>{q.category}</span>
         </span>
       </span>
-      <ArrowUpRight className="mt-1 h-4 w-4 shrink-0 text-stone-300 transition group-hover:text-brand-600" />
+      <ArrowUpRight className="h-4 w-4 shrink-0 text-stone-300 transition group-hover:text-brand-600" />
     </Link>
   );
 }

@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
-import { Calendar, Eye, User } from "lucide-react";
 import type { Department } from "@/lib/types";
 import type { QuestionAnswer } from "@/lib/types";
+import { Calendar, Eye, User } from "lucide-react";
+import { BrandedThumbnail } from "@/components/ui/branded-thumbnail";
 
 export function AnswerHero({
   q,
@@ -11,74 +11,70 @@ export function AnswerHero({
   q: QuestionAnswer;
   dept?: Department;
 }) {
-  const hasImage = Boolean(q.featuredImage);
-
   return (
-    <header className="relative overflow-hidden border-b border-border bg-brand-700 text-white">
-      {hasImage ? (
-        <>
-          <Image
-            src={q.featuredImage!}
-            alt=""
-            fill
-            className="object-cover opacity-30"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-900/95 via-brand-800/90 to-brand-700/80" />
-        </>
-      ) : (
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(201,162,39,0.15),_transparent_50%)]" />
-      )}
+    <header className="border-b border-border bg-white">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="grid gap-0 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-8">
+          <div className="py-10 sm:py-12 lg:py-14">
+            <div className="flex flex-wrap items-center gap-2">
+              {dept && (
+                <Link
+                  href={`/departments/${dept.slug}`}
+                  className="rounded border border-brand-200 bg-brand-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-brand-800 transition hover:bg-brand-100"
+                >
+                  {dept.name}
+                </Link>
+              )}
+              <span className="rounded border border-border bg-stone-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-stone-600">
+                {q.category}
+              </span>
+              {q.difficulty && (
+                <span className="rounded border border-border px-2.5 py-1 text-[10px] font-medium capitalize text-stone-500">
+                  {q.difficulty}
+                </span>
+              )}
+            </div>
 
-      <div className="relative mx-auto max-w-5xl px-4 py-10 sm:px-6 sm:py-14">
-        <div className="flex flex-wrap items-center gap-2">
-          {dept && (
-            <Link
-              href={`/departments/${dept.slug}`}
-              className="rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-gold-400 ring-1 ring-white/15 transition hover:bg-white/15"
-            >
-              {dept.name}
-            </Link>
-          )}
-          <span className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-stone-200 ring-1 ring-white/10">
-            {q.category}
-          </span>
-          {q.difficulty && (
-            <span className="rounded-full bg-white/5 px-3 py-1 text-xs font-medium capitalize text-stone-300">
-              {q.difficulty}
-            </span>
-          )}
-          {q.trending && (
-            <span className="rounded-full bg-gold-500/20 px-3 py-1 text-xs font-semibold text-gold-300">
-              Trending
-            </span>
-          )}
+            <h1 className="mt-6 font-display text-3xl font-bold leading-[1.12] tracking-tight text-stone-900 sm:text-4xl lg:text-[2.65rem]">
+              {q.question}
+            </h1>
+
+            <dl className="mt-8 flex flex-wrap gap-x-8 gap-y-3 border-t border-border pt-6 text-sm text-stone-600">
+              <div className="flex items-center gap-2">
+                <User className="h-4 w-4 text-brand-600" />
+                <dt className="sr-only">Author</dt>
+                <dd>{q.author}</dd>
+              </div>
+              <div className="flex items-center gap-2">
+                <Eye className="h-4 w-4 text-brand-600" />
+                <dt className="sr-only">Views</dt>
+                <dd>{(q.views ?? 0).toLocaleString()} consultations</dd>
+              </div>
+              <div className="flex items-center gap-2">
+                <Calendar className="h-4 w-4 text-brand-600" />
+                <dt className="sr-only">Published</dt>
+                <dd>
+                  {new Date(q.publishedAt).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </dd>
+              </div>
+            </dl>
+          </div>
+
+          <div className="border-t border-border lg:border-t-0 lg:border-l lg:py-8">
+            <BrandedThumbnail
+              departmentSlug={q.department}
+              featuredImage={q.featuredImage}
+              departmentName={dept?.name}
+              label="Bible Answer Hub"
+              size="answer"
+              className="h-48 rounded-none sm:h-56 lg:mt-6 lg:h-full lg:min-h-[280px] lg:rounded-xl lg:ring-1 lg:ring-border"
+            />
+          </div>
         </div>
-
-        <h1 className="mt-5 font-display text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl lg:text-[2.75rem]">
-          {q.question}
-        </h1>
-
-        <dl className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm text-stone-300">
-          <div className="flex items-center gap-2">
-            <User className="h-4 w-4 text-gold-400" />
-            <dd>{q.author}</dd>
-          </div>
-          <div className="flex items-center gap-2">
-            <Eye className="h-4 w-4 text-gold-400" />
-            <dd>{(q.views ?? 0).toLocaleString()} views</dd>
-          </div>
-          <div className="flex items-center gap-2">
-            <Calendar className="h-4 w-4 text-gold-400" />
-            <dd>
-              {new Date(q.publishedAt).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </dd>
-          </div>
-        </dl>
       </div>
     </header>
   );

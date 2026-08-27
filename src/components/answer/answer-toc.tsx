@@ -1,16 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { List } from "lucide-react";
 
 const SECTIONS = [
-  { id: "short-answer", label: "Short Answer" },
+  { id: "short-answer", label: "Summary" },
   { id: "detailed-answer", label: "Detailed Answer" },
   { id: "biblical-basis", label: "Biblical Basis" },
-  { id: "theological-explanation", label: "Theology" },
-  { id: "misunderstandings", label: "Misunderstandings" },
-  { id: "practical-application", label: "Application" },
-  { id: "references", label: "References" },
+  { id: "theological-explanation", label: "Theological Explanation" },
+  { id: "misunderstandings", label: "Common Errors" },
+  { id: "practical-application", label: "Pastoral Application" },
+  { id: "references", label: "Further Reading" },
 ] as const;
 
 export function AnswerTableOfContents() {
@@ -34,24 +33,20 @@ export function AnswerTableOfContents() {
   }, []);
 
   return (
-    <nav
-      aria-label="On this page"
-      className="sticky top-24 hidden lg:block"
-    >
-      <div className="card-elevated p-5">
-        <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-muted">
-          <List className="h-3.5 w-3.5" />
-          On this page
+    <nav aria-label="Table of contents" className="sticky top-24 hidden lg:block">
+      <div className="scholarly-card bg-white p-5">
+        <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-stone-500">
+          Contents
         </p>
-        <ul className="mt-4 space-y-1 border-l-2 border-border pl-0">
+        <ul className="mt-4 space-y-0.5">
           {SECTIONS.map(({ id, label }) => (
             <li key={id}>
               <a
                 href={`#${id}`}
-                className={`block border-l-2 -ml-[2px] py-1.5 pl-4 text-sm transition ${
+                className={`block border-l-2 py-2 pl-4 text-sm transition ${
                   active === id
-                    ? "border-brand-600 font-semibold text-brand-700"
-                    : "border-transparent text-muted hover:border-stone-300 hover:text-stone-700"
+                    ? "border-brand-700 font-semibold text-brand-800"
+                    : "border-transparent text-stone-500 hover:border-stone-300 hover:text-stone-800"
                 }`}
               >
                 {label}

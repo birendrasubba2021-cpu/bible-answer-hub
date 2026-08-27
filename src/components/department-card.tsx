@@ -12,7 +12,7 @@ export function DepartmentCard({
   return (
     <Link
       href={`/departments/${dept.slug}`}
-      className="group card-elevated relative flex flex-col overflow-hidden transition duration-300 hover:-translate-y-1"
+      className="group scholarly-card flex flex-col overflow-hidden bg-white transition duration-300"
     >
       <span className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-gold-400 to-brand-500 opacity-0 transition group-hover:opacity-100" />
       <div className="p-6">

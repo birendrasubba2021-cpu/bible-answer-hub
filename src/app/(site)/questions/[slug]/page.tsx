@@ -104,8 +104,8 @@ export default async function QuestionPage({
         </nav>
       </div>
 
-      <div className="bg-paper-texture">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-10 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-14 lg:px-6 lg:py-14">
+      <div className="bg-stone-50/80">
+        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-10 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-12 lg:px-6 lg:py-14">
           <AnswerTableOfContents />
 
           <div className="min-w-0 space-y-8">
@@ -128,8 +128,7 @@ export default async function QuestionPage({
               id="biblical-basis"
               icon={<Quote className="h-5 w-5" />}
               title="Biblical Basis"
-              subtitle="Primary Scripture references"
-              variant="gold"
+              subtitle="Primary Scripture references cited in this answer"
             >
               <ScriptureTable refs={q.biblicalBasis} />
             </AnswerSection>
@@ -150,17 +149,16 @@ export default async function QuestionPage({
             <AnswerSection
               id="misunderstandings"
               icon={<TriangleAlert className="h-5 w-5" />}
-              title="Common Misunderstandings"
-              subtitle="Errors to avoid when teaching or discussing this topic"
-              variant="alert"
+              title="Common Errors"
+              subtitle="Misunderstandings to avoid in teaching and public discussion"
             >
-              <ol className="space-y-3">
+              <ol className="space-y-0 divide-y divide-border rounded-lg border border-border">
                 {q.commonMisunderstandings.map((m, i) => (
                   <li
                     key={i}
-                    className="flex gap-4 rounded-lg border border-amber-100 bg-amber-50/50 px-4 py-3 text-stone-700"
+                    className="flex gap-4 px-4 py-4 text-stone-700 sm:px-5"
                   >
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-amber-200/80 text-xs font-bold text-amber-900">
+                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border bg-stone-50 font-display text-xs font-bold text-brand-800">
                       {i + 1}
                     </span>
                     <span className="leading-relaxed">{m}</span>
@@ -172,17 +170,18 @@ export default async function QuestionPage({
             <AnswerSection
               id="practical-application"
               icon={<ListChecks className="h-5 w-5" />}
-              title="Practical Application"
-              subtitle="How to live this out in faith and ministry"
-              variant="success"
+              title="Pastoral Application"
+              subtitle="Faithful response in personal life, church ministry, and public witness"
             >
-              <ul className="space-y-3">
+              <ul className="space-y-0 divide-y divide-border rounded-lg border border-border">
                 {q.practicalApplication.map((m, i) => (
                   <li
                     key={i}
-                    className="flex gap-3 rounded-lg border border-emerald-100 bg-emerald-50/40 px-4 py-3"
+                    className="flex gap-3 px-4 py-4 sm:px-5"
                   >
-                    <span className="mt-0.5 text-emerald-600">✓</span>
+                    <span className="mt-1 font-display text-sm font-bold text-brand-700">
+                      {String.fromCharCode(97 + i)}.
+                    </span>
                     <span className="leading-relaxed text-stone-700">{m}</span>
                   </li>
                 ))}
@@ -208,19 +207,20 @@ export default async function QuestionPage({
             </AnswerSection>
 
             {/* Author */}
-            <div className="card-elevated flex items-center gap-5 p-6">
-              <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-600 text-white shadow-md">
-                <User className="h-7 w-7" />
+            <div className="scholarly-card flex flex-col gap-5 bg-white p-6 sm:flex-row sm:items-center sm:p-8">
+              <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-brand-100 bg-brand-50">
+                <User className="h-8 w-8 text-brand-700" />
               </span>
               <div>
-                <p className="text-xs font-bold uppercase tracking-widest text-muted">
-                  Answered by
+                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-stone-500">
+                  Author
                 </p>
-                <p className="mt-0.5 font-display text-lg font-bold text-stone-900">
+                <p className="mt-1 font-display text-xl font-bold text-stone-900">
                   {q.author}
                 </p>
-                <p className="text-sm text-muted">
-                  Apologist, Bible Teacher &amp; Theological Educator
+                <p className="mt-1 text-sm text-stone-600">
+                  B.Th., M.Div., M.Th. (New Testament) — Apologist and Bible
+                  teacher
                 </p>
               </div>
             </div>
