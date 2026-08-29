@@ -4,15 +4,18 @@ import { useEffect, useState } from "react";
 
 const SECTIONS = [
   { id: "short-answer", label: "Summary" },
-  { id: "detailed-answer", label: "Detailed Answer" },
-  { id: "biblical-basis", label: "Biblical Basis" },
-  { id: "theological-explanation", label: "Theological Explanation" },
-  { id: "misunderstandings", label: "Common Errors" },
-  { id: "practical-application", label: "Pastoral Application" },
+  { id: "detailed-answer", label: "Detailed answer" },
+  { id: "biblical-basis", label: "Biblical basis" },
+  { id: "theological-explanation", label: "Theological explanation" },
+  { id: "misunderstandings", label: "Common errors" },
+  { id: "practical-application", label: "Pastoral application" },
   { id: "notes", label: "Notes" },
   { id: "bibliography", label: "Bibliography" },
 ] as const;
 
+/**
+ * Britannica-style contents rail — a quiet list of jumps, not a card widget.
+ */
 export function AnswerTableOfContents({
   hasNotes = false,
   hasBibliography = false,
@@ -30,44 +33,44 @@ export function AnswerTableOfContents({
 
   useEffect(() => {
     const observers: IntersectionObserver[] = [];
-    SECTIONS.forEach(({ id }) => {
+    const ids = sections.map((s) => s.id);
+    ids.forEach((id) => {
       const el = document.getElementById(id);
       if (!el) return;
       const obs = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) setActive(id);
         },
-        { rootMargin: "-20% 0px -60% 0px", threshold: 0 },
+        { rootMargin: "-18% 0px -65% 0px", threshold: 0 },
       );
       obs.observe(el);
       observers.push(obs);
     });
     return () => observers.forEach((o) => o.disconnect());
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- re-run when note/bib presence changes
+  }, [hasNotes, hasBibliography]);
 
   return (
-    <nav aria-label="Table of contents" className="sticky top-24 hidden lg:block">
-      <div className="scholarly-card bg-white p-5">
-        <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-stone-500">
-          Contents
-        </p>
-        <ul className="mt-4 space-y-0.5">
-          {sections.map(({ id, label }) => (
-            <li key={id}>
-              <a
-                href={`#${id}`}
-                className={`block border-l-2 py-2 pl-4 text-sm transition ${
-                  active === id
-                    ? "border-brand-700 font-semibold text-brand-800"
-                    : "border-transparent text-stone-500 hover:border-stone-300 hover:text-stone-800"
-                }`}
-              >
-                {label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
+    <nav aria-label="Contents" className="sticky top-24 hidden lg:block">
+      <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-stone-500">
+        Contents
+      </p>
+      <ul className="mt-3 border-l border-stone-200">
+        {sections.map(({ id, label }) => (
+          <li key={id}>
+            <a
+              href={`#${id}`}
+              className={`block border-l-2 py-1.5 pl-3 -ml-px text-[13px] leading-snug transition ${
+                active === id
+                  ? "border-brand-700 font-semibold text-stone-900"
+                  : "border-transparent text-stone-500 hover:border-stone-300 hover:text-stone-800"
+              }`}
+            >
+              {label}
+            </a>
+          </li>
+        ))}
+      </ul>
     </nav>
   );
 }

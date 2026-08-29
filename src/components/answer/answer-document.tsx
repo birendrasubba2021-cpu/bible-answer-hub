@@ -1,13 +1,5 @@
 import Link from "next/link";
-import {
-  BookOpenCheck,
-  ChevronRight,
-  Lightbulb,
-  ListChecks,
-  Quote,
-  TriangleAlert,
-  User,
-} from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { AnswerHero } from "@/components/answer/answer-hero";
 import {
   AnswerSection,
@@ -19,14 +11,13 @@ import {
   NotesApparatus,
 } from "@/components/answer/citation-apparatus";
 import { ScriptureTable } from "@/components/answer/scripture-table";
-import { QuestionCard } from "@/components/question-card";
 import { renderWithFootnotes } from "@/lib/footnotes";
 import type { Department, QuestionAnswer } from "@/lib/types";
 
 /**
- * The full monograph layout for a single answer. Shared by the public question
- * page and the admin draft preview so that reviewers see exactly what readers
- * will see.
+ * Encyclopedia entry layout for a single answer — continuous reading column,
+ * contents rail, notes and bibliography at the end. Shared by the public page
+ * and the admin draft preview.
  */
 export function AnswerDocument({
   q,
@@ -39,18 +30,16 @@ export function AnswerDocument({
 }) {
   return (
     <>
-      <AnswerHero q={q} dept={dept} />
-
-      <div className="border-b border-border bg-paper">
-        <nav className="mx-auto flex max-w-5xl flex-wrap items-center gap-1 px-4 py-3 text-sm text-muted sm:px-6">
+      <div className="border-b border-stone-200 bg-white">
+        <nav className="mx-auto flex max-w-5xl flex-wrap items-center gap-1 px-4 py-2.5 text-[13px] text-stone-500 sm:px-6">
           <Link href="/" className="transition hover:text-brand-700">
             Home
           </Link>
-          <ChevronRight className="h-3.5 w-3.5" />
+          <ChevronRight className="h-3.5 w-3.5 text-stone-300" />
           <Link href="/questions" className="transition hover:text-brand-700">
             Questions
           </Link>
-          <ChevronRight className="h-3.5 w-3.5" />
+          <ChevronRight className="h-3.5 w-3.5 text-stone-300" />
           {dept && (
             <>
               <Link
@@ -59,15 +48,17 @@ export function AnswerDocument({
               >
                 {dept.name}
               </Link>
-              <ChevronRight className="h-3.5 w-3.5" />
+              <ChevronRight className="h-3.5 w-3.5 text-stone-300" />
             </>
           )}
           <span className="truncate text-stone-700">{q.category}</span>
         </nav>
       </div>
 
-      <div className="bg-stone-50/80">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-10 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-12 lg:px-6 lg:py-14">
+      <AnswerHero q={q} dept={dept} />
+
+      <div className="bg-white">
+        <div className="mx-auto grid max-w-5xl gap-12 px-4 py-10 lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-16 lg:px-6 lg:py-14">
           <AnswerTableOfContents
             hasNotes={(q.footnotes ?? []).length > 0}
             hasBibliography={
@@ -75,15 +66,10 @@ export function AnswerDocument({
             }
           />
 
-          <div className="min-w-0 space-y-8">
+          <article className="encyclopedia-article min-w-0">
             <ShortAnswerCallout text={q.shortAnswer} />
 
-            <AnswerSection
-              id="detailed-answer"
-              icon={<BookOpenCheck className="h-5 w-5" />}
-              title="Detailed Answer"
-              subtitle="A thorough biblical explanation"
-            >
+            <AnswerSection id="detailed-answer" title="Detailed answer">
               <div className="prose-answer">
                 {q.detailedAnswer.map((p, i) => (
                   <p key={i}>{renderWithFootnotes(p, `da-${i}`)}</p>
@@ -91,20 +77,13 @@ export function AnswerDocument({
               </div>
             </AnswerSection>
 
-            <AnswerSection
-              id="biblical-basis"
-              icon={<Quote className="h-5 w-5" />}
-              title="Biblical Basis"
-              subtitle="Primary Scripture references cited in this answer"
-            >
+            <AnswerSection id="biblical-basis" title="Biblical basis">
               <ScriptureTable refs={q.biblicalBasis} />
             </AnswerSection>
 
             <AnswerSection
               id="theological-explanation"
-              icon={<Lightbulb className="h-5 w-5" />}
-              title="Theological Explanation"
-              subtitle="How this fits into Christian doctrine"
+              title="Theological explanation"
             >
               <div className="prose-answer">
                 {q.theologicalExplanation.map((p, i) => (
@@ -113,22 +92,12 @@ export function AnswerDocument({
               </div>
             </AnswerSection>
 
-            <AnswerSection
-              id="misunderstandings"
-              icon={<TriangleAlert className="h-5 w-5" />}
-              title="Common Errors"
-              subtitle="Misunderstandings to avoid in teaching and public discussion"
-            >
-              <ol className="space-y-0 divide-y divide-border rounded-lg border border-border">
+            <AnswerSection id="misunderstandings" title="Common errors">
+              <ol className="encyclopedia-list">
                 {q.commonMisunderstandings.map((m, i) => (
-                  <li
-                    key={i}
-                    className="flex gap-4 px-4 py-4 text-stone-700 sm:px-5"
-                  >
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-border bg-stone-50 font-display text-xs font-bold text-brand-800">
-                      {i + 1}
-                    </span>
-                    <span className="leading-relaxed">{m}</span>
+                  <li key={i}>
+                    <span className="encyclopedia-list-marker">{i + 1}.</span>
+                    <span>{m}</span>
                   </li>
                 ))}
               </ol>
@@ -136,20 +105,18 @@ export function AnswerDocument({
 
             <AnswerSection
               id="practical-application"
-              icon={<ListChecks className="h-5 w-5" />}
-              title="Pastoral Application"
-              subtitle="Faithful response in personal life, church ministry, and public witness"
+              title="Pastoral application"
             >
-              <ul className="space-y-0 divide-y divide-border rounded-lg border border-border">
+              <ol className="encyclopedia-list" style={{ listStyle: "none" }}>
                 {q.practicalApplication.map((m, i) => (
-                  <li key={i} className="flex gap-3 px-4 py-4 sm:px-5">
-                    <span className="mt-1 font-display text-sm font-bold text-brand-700">
+                  <li key={i}>
+                    <span className="encyclopedia-list-marker">
                       {String.fromCharCode(97 + i)}.
                     </span>
-                    <span className="leading-relaxed text-stone-700">{m}</span>
+                    <span>{m}</span>
                   </li>
                 ))}
-              </ul>
+              </ol>
             </AnswerSection>
 
             <NotesApparatus notes={q.footnotes ?? []} />
@@ -159,40 +126,42 @@ export function AnswerDocument({
               fallback={q.references}
             />
 
-            <div className="scholarly-card flex flex-col gap-5 bg-white p-6 sm:flex-row sm:items-center sm:p-8">
-              <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border border-brand-100 bg-brand-50">
-                <User className="h-8 w-8 text-brand-700" />
-              </span>
-              <div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-stone-500">
-                  Author
-                </p>
-                <p className="mt-1 font-display text-xl font-bold text-stone-900">
-                  {q.author}
-                </p>
-                <p className="mt-1 text-sm text-stone-600">
-                  B.Th., M.Div., M.Th. (New Testament) — Apologist and Bible
-                  teacher
-                </p>
-              </div>
-            </div>
+            <footer className="mt-14 border-t border-stone-200 pt-8">
+              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-stone-500">
+                About the author
+              </p>
+              <p className="mt-2 font-display text-lg font-semibold text-stone-900">
+                {q.author}
+              </p>
+              <p className="mt-1 text-sm leading-relaxed text-stone-600">
+                B.Th., M.Div., M.Th. (New Testament). Apologist and Bible
+                teacher.
+              </p>
+            </footer>
 
             {related.length > 0 && (
-              <section className="pt-4">
-                <h2 className="font-display text-2xl font-bold text-stone-900">
-                  Related Questions
-                </h2>
-                <p className="mt-1 text-sm text-muted">
-                  Continue exploring this topic
-                </p>
-                <div className="mt-6 grid gap-5 sm:grid-cols-2">
+              <section className="mt-12 border-t border-stone-200 pt-8">
+                <h2 className="encyclopedia-heading">Related articles</h2>
+                <ul className="mt-5 divide-y divide-stone-200 border-y border-stone-200">
                   {related.map((r) => (
-                    <QuestionCard key={r.slug} q={r} />
+                    <li key={r.slug}>
+                      <Link
+                        href={`/questions/${r.slug}`}
+                        className="group flex flex-col gap-1 py-4 transition sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+                      >
+                        <span className="font-display text-base font-semibold text-stone-900 group-hover:text-brand-700">
+                          {r.question}
+                        </span>
+                        <span className="shrink-0 text-xs uppercase tracking-[0.12em] text-stone-500">
+                          {r.category}
+                        </span>
+                      </Link>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </section>
             )}
-          </div>
+          </article>
         </div>
       </div>
     </>

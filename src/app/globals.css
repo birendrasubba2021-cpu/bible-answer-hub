@@ -67,17 +67,93 @@ h4,
   font-family: var(--font-display), Georgia, "Times New Roman", serif;
 }
 
-/* ─── Reading typography ─── */
-.prose-answer {
+/* ─── Encyclopedia article (Britannica-style continuous entry) ─── */
+.encyclopedia-article {
+  max-width: 42rem;
+}
+
+.encyclopedia-section {
+  scroll-margin-top: 6rem;
+  margin-top: 2.75rem;
+}
+
+.encyclopedia-section:first-child {
+  margin-top: 0;
+}
+
+.encyclopedia-heading {
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: #0c0a09;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid #e7e5e4;
+}
+
+.encyclopedia-lead {
+  font-family: var(--font-display), Georgia, "Times New Roman", serif;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.65;
+  color: #1c1917;
+}
+
+@media (min-width: 640px) {
+  .encyclopedia-lead {
+    font-size: 1.3rem;
+    line-height: 1.7;
+  }
+
+  .encyclopedia-heading {
+    font-size: 1.5rem;
+  }
+}
+
+.encyclopedia-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   font-family: var(--font-serif), Georgia, serif;
   font-size: 1.0625rem;
-  line-height: 1.85;
+  line-height: 1.8;
   color: #3d3832;
 }
 
+.encyclopedia-list li {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.65rem 0;
+  border-top: 1px solid #f0eeea;
+}
+
+.encyclopedia-list li:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.encyclopedia-list-marker {
+  flex-shrink: 0;
+  min-width: 1.35rem;
+  font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #1e3a5f;
+  padding-top: 0.2rem;
+}
+
+/* ─── Reading typography ─── */
+.prose-answer {
+  font-family: var(--font-serif), Georgia, serif;
+  font-size: 1.1rem;
+  line-height: 1.9;
+  color: #292524;
+}
+
 .prose-answer p {
-  margin-bottom: 1.25rem;
-  text-align: justify;
+  margin-bottom: 1.35rem;
+  text-align: left;
   hyphens: auto;
 }
 
@@ -174,8 +250,8 @@ h4,
 .citation-list li {
   display: flex;
   gap: 0.75rem;
-  padding: 0.6rem 0;
-  border-top: 1px solid var(--border);
+  padding: 0.7rem 0;
+  border-top: 1px solid #f0eeea;
   scroll-margin-top: 6rem;
 }
 
