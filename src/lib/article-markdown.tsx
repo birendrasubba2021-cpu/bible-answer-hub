@@ -140,6 +140,24 @@ export function renderArticleMarkdown(body: string): React.ReactNode[] {
       continue;
     }
 
+    if (/^[-*]\s/.test(line)) {
+      const items: string[] = [];
+      while (i < lines.length && /^[-*]\s/.test(lines[i])) {
+        items.push(lines[i].replace(/^[-*]\s/, ""));
+        i += 1;
+      }
+      nodes.push(
+        <ul key={key++} className="my-6 list-disc space-y-3 pl-6 marker:text-brand-700">
+          {items.map((item, idx) => (
+            <li key={idx} className="pl-1 leading-relaxed">
+              {renderInline(item)}
+            </li>
+          ))}
+        </ul>,
+      );
+      continue;
+    }
+
     if (line.trim() === "") {
       i += 1;
       continue;
@@ -147,7 +165,12 @@ export function renderArticleMarkdown(body: string): React.ReactNode[] {
 
     const paragraphLines: string[] = [];
     while (i < lines.length && lines[i].trim() !== "" && !lines[i].startsWith("#")) {
-      if (lines[i].match(IMAGE_RE) || /^\d+\.\s/.test(lines[i])) break;
+      if (
+        lines[i].match(IMAGE_RE) ||
+        /^\d+\.\s/.test(lines[i]) ||
+        /^[-*]\s/.test(lines[i])
+      )
+        break;
       paragraphLines.push(lines[i]);
       i += 1;
     }

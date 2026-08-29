@@ -2,10 +2,13 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { createArticle } from "@/app/admin/actions";
 import { ArticleForm } from "@/components/admin/article-form";
+import { getDepartmentOptions } from "@/lib/admin";
 
 export const dynamic = "force-dynamic";
 
-export default function NewArticlePage() {
+export default async function NewArticlePage() {
+  const departments = await getDepartmentOptions();
+
   return (
     <div>
       <Link
@@ -18,10 +21,14 @@ export default function NewArticlePage() {
         New Article
       </h1>
       <p className="mt-1 mb-6 text-stone-500">
-        Write long-form teaching. Use ## for section headings. Save as draft
-        first, then publish.
+        Write long-form teaching. Choose a department when the article belongs
+        to a field of study. Use ## for section headings.
       </p>
-      <ArticleForm action={createArticle} submitLabel="Create article" />
+      <ArticleForm
+        action={createArticle}
+        departments={departments}
+        submitLabel="Create article"
+      />
     </div>
   );
 }

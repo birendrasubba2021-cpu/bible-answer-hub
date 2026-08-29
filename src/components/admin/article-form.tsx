@@ -20,12 +20,14 @@ export function ArticleForm({
   action,
   initial,
   contentSlug,
+  departments = [],
   submitLabel = "Save article",
 }: {
   action: FormAction;
   initial?: ArticleEditData;
   /** URL slug — used to show the correct image folder */
   contentSlug?: string;
+  departments?: { id: string; slug: string; name: string }[];
   submitLabel?: string;
 }) {
   const slug = contentSlug ?? initial?.slug;
@@ -98,6 +100,24 @@ export function ArticleForm({
             placeholder="Abraham, Genesis, Covenant"
             className={inputCls}
           />
+        </Field>
+
+        <Field
+          label="Department"
+          hint="Assign the article to a field of study (e.g. Religions & Cults)."
+        >
+          <select
+            name="departmentId"
+            defaultValue={initial?.departmentId ?? ""}
+            className={inputCls}
+          >
+            <option value="">— None —</option>
+            {departments.map((d) => (
+              <option key={d.id} value={d.id}>
+                {d.name}
+              </option>
+            ))}
+          </select>
         </Field>
 
         <Field label="Status">

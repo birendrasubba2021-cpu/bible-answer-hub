@@ -3,9 +3,13 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ChevronRight } from "lucide-react";
 import { DepartmentIcon } from "@/components/department-icon";
+import { ArticleCard } from "@/components/article/article-card";
 import { QuestionCard } from "@/components/question-card";
 import { departments, getDepartment } from "@/lib/departments";
-import { getQuestionsByDepartment } from "@/lib/content";
+import {
+  getArticlesByDepartment,
+  getQuestionsByDepartment,
+} from "@/lib/content";
 
 export function generateStaticParams() {
   return departments.map((d) => ({ slug: d.slug }));
@@ -34,7 +38,10 @@ export default async function DepartmentPage({
   const dept = getDepartment(slug);
   if (!dept) notFound();
 
-  const deptQuestions = await getQuestionsByDepartment(slug);
+  const [deptQuestions, deptArticles] = await Promise.all([
+    getQuestionsByDepartment(slug),
+    getArticlesByDepartment(slug),
+  ]);
 
   return (
     <div className="bg-stone-50/80">
@@ -86,6 +93,22 @@ export default async function DepartmentPage({
           </div>
         </section>
 
+        {deptArticles.length > 0 && (
+          <section className="mt-12">
+            <h2 className="font-display text-2xl font-bold text-stone-900">
+              Scholarly Articles
+            </h2>
+            <p className="mt-1 text-sm text-stone-600">
+              Long-form studies in this department.
+            </p>
+            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {deptArticles.map((article) => (
+                <ArticleCard key={article.slug} article={article} />
+              ))}
+            </div>
+          </section>
+        )}
+
         <section className="mt-12">
           <h2 className="font-display text-2xl font-bold text-stone-900">
             Published Answers
@@ -102,7 +125,9 @@ export default async function DepartmentPage({
           ) : (
             <div className="scholarly-card mt-6 border-dashed bg-white p-12 text-center">
               <p className="font-display text-xl font-semibold text-stone-800">
-                Entries forthcoming
+                {deptArticles.length > 0
+                  ? "Answers forthcoming"
+                  : "Entries forthcoming"}
               </p>
               <p className="mt-2 text-sm leading-relaxed text-stone-500">
                 This department is being populated. Consult the{" "}

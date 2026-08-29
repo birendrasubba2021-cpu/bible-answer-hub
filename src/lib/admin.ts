@@ -156,6 +156,16 @@ export interface ArticleEditData {
   featuredImg: string;
   tags: string;
   status: string;
+  departmentId: string;
+}
+
+export async function getDepartmentOptions(): Promise<
+  { id: string; slug: string; name: string }[]
+> {
+  return prisma.department.findMany({
+    select: { id: true, slug: true, name: true },
+    orderBy: { order: "asc" },
+  });
 }
 
 export async function getArticleEditData(
@@ -174,5 +184,6 @@ export async function getArticleEditData(
     featuredImg: r.featuredImg ?? "",
     tags: r.tags.map((t) => t.name).join(", "),
     status: r.status,
+    departmentId: r.departmentId ?? "",
   };
 }

@@ -49,6 +49,7 @@ model Department {
   order       Int        @default(0)
   categories  Category[]
   questions   Question[]
+  articles    Article[]
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
 }
@@ -122,12 +123,15 @@ model Article {
   status      ContentStatus @default(PUBLISHED)
   author      Author        @relation(fields: [authorId], references: [id])
   authorId    String
+  department   Department?  @relation(fields: [departmentId], references: [id])
+  departmentId String?
   tags        Tag[]
   publishedAt DateTime      @default(now())
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
 
   @@index([authorId])
+  @@index([departmentId])
 }
 
 model Video {

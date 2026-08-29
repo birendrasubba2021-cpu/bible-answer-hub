@@ -79,6 +79,9 @@ export interface Article {
   bibliography?: BibliographyEntry[];
   author: string;
   tags: string[];
+  /** Department slug when the article belongs to a field of study. */
+  department?: string | null;
+  departmentName?: string | null;
   publishedAt: string;
   readMinutes: number;
 }

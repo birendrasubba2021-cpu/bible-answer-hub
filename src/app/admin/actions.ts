@@ -310,12 +310,14 @@ export async function setStatus(formData: FormData) {
 
 // ---------- articles ----------
 function readArticleData(formData: FormData) {
+  const departmentId = String(formData.get("departmentId") ?? "").trim();
   return {
     title: String(formData.get("title") ?? "").trim(),
     excerpt: String(formData.get("excerpt") ?? "").trim(),
     body: String(formData.get("body") ?? "").trim(),
     featuredImg: String(formData.get("featuredImg") ?? "").trim(),
     tags: csv(formData.get("tags")),
+    departmentId: departmentId || null,
     status:
       STATUS[String(formData.get("status") ?? "DRAFT")] ?? ContentStatus.DRAFT,
   };
@@ -344,6 +346,7 @@ export async function createArticle(
       featuredImg: d.featuredImg || null,
       status: d.status,
       authorId,
+      departmentId: d.departmentId,
       tags: { connect: tagConnect },
     },
   });
@@ -372,6 +375,7 @@ export async function updateArticle(
       body: d.body,
       featuredImg: d.featuredImg || null,
       status: d.status,
+      departmentId: d.departmentId,
       tags: { set: tagConnect },
     },
   });

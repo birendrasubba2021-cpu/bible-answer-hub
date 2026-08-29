@@ -25,7 +25,8 @@ export function ArticleCard({ article }: { article: Article }) {
         </div>
       ) : (
         <BrandedThumbnail
-          departmentSlug="biblical-studies"
+          departmentSlug={article.department ?? "biblical-studies"}
+          departmentName={article.departmentName ?? undefined}
           label="Article"
           caption={article.title}
           title={article.title}
@@ -66,12 +67,21 @@ export function ArticleHero({ article }: { article: Article }) {
         <div className="grid gap-0 lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-8">
           <div className="py-10 sm:py-12 lg:py-14">
             <div className="flex flex-wrap items-center gap-2">
-              <Link
-                href="/articles"
-                className="rounded border border-brand-200 bg-brand-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-brand-800"
-              >
-                Articles
-              </Link>
+              {article.department && article.departmentName ? (
+                <Link
+                  href={`/departments/${article.department}`}
+                  className="rounded border border-brand-200 bg-brand-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-brand-800"
+                >
+                  {article.departmentName}
+                </Link>
+              ) : (
+                <Link
+                  href="/articles"
+                  className="rounded border border-brand-200 bg-brand-50 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-brand-800"
+                >
+                  Articles
+                </Link>
+              )}
               {article.tags.slice(0, 3).map((tag) => (
                 <span
                   key={tag}
@@ -121,12 +131,15 @@ export function ArticleHero({ article }: { article: Article }) {
               </div>
             ) : (
               <BrandedThumbnail
-                departmentSlug="biblical-studies"
+                departmentSlug={article.department ?? "biblical-studies"}
+                departmentName={article.departmentName ?? undefined}
                 label="Article"
-                caption={article.title}
+                caption={
+                  article.departmentName ?? article.tags[0] ?? "Article"
+                }
                 title={article.title}
                 topics={article.tags}
-                size="answer"
+                size="card"
                 className="h-48 rounded-none sm:h-56 lg:mt-6 lg:h-full lg:min-h-[280px] lg:rounded-xl lg:ring-1 lg:ring-border"
               />
             )}

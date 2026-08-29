@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { notFound } from "next/navigation";
-import { getArticleEditData } from "@/lib/admin";
+import { getArticleEditData, getDepartmentOptions } from "@/lib/admin";
 import { updateArticle } from "@/app/admin/actions";
 import { ArticleForm } from "@/components/admin/article-form";
 
@@ -13,7 +13,10 @@ export default async function EditArticlePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const initial = await getArticleEditData(slug);
+  const [initial, departments] = await Promise.all([
+    getArticleEditData(slug),
+    getDepartmentOptions(),
+  ]);
   if (!initial) notFound();
 
   const boundUpdate = updateArticle.bind(null, slug);
@@ -34,6 +37,7 @@ export default async function EditArticlePage({
         action={boundUpdate}
         initial={initial}
         contentSlug={slug}
+        departments={departments}
         submitLabel="Save changes"
       />
     </div>

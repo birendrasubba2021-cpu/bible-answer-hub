@@ -180,6 +180,7 @@ export async function getDepartmentCounts(): Promise<Record<string, number>> {
 const articleInclude = {
   author: { select: { name: true } },
   tags: { select: { name: true } },
+  department: { select: { slug: true, name: true } },
 } satisfies Prisma.ArticleInclude;
 
 type ArticleRow = Prisma.ArticleGetPayload<{ include: typeof articleInclude }>;
@@ -196,9 +197,22 @@ function toArticle(row: ArticleRow): Article {
     bibliography: (row.bibliography as unknown as BibliographyEntry[]) ?? [],
     author: row.author.name,
     tags: row.tags.map((t) => t.name),
+    department: row.department?.slug ?? null,
+    departmentName: row.department?.name ?? null,
     publishedAt: row.publishedAt.toISOString(),
     readMinutes: estimateReadMinutes(row.body),
   };
+}
+
+export async function getArticlesByDepartment(
+  deptSlug: string,
+): Promise<Article[]> {
+  const rows = await prisma.article.findMany({
+    where: { status: "PUBLISHED", department: { slug: deptSlug } },
+    include: articleInclude,
+    orderBy: { publishedAt: "desc" },
+  });
+  return rows.map(toArticle);
 }
 
 export async function getAllArticles(): Promise<Article[]> {
