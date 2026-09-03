@@ -29,15 +29,27 @@ export function estimateReadMinutes(body: string): number {
   return Math.max(1, Math.ceil(words / 220));
 }
 
-/** Parse *italic* markers inside plain text. */
+/** Parse **bold** and *italic* markers inside plain text. */
 function renderInline(text: string): React.ReactNode[] {
-  const parts = text.split(/(\*[^*]+\*)/g);
+  const parts = text.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g);
   return parts.map((part, i) => {
-    if (part.startsWith("*") && part.endsWith("*")) {
+    if (part.startsWith("**") && part.endsWith("**") && part.length > 4) {
+      return <strong key={i}>{part.slice(2, -2)}</strong>;
+    }
+    if (part.startsWith("*") && part.endsWith("*") && part.length > 2) {
       return <em key={i}>{part.slice(1, -1)}</em>;
     }
     return part;
   });
+}
+
+function parseTableRow(line: string): string[] {
+  const trimmed = line.trim().replace(/^\|/, "").replace(/\|$/, "");
+  return trimmed.split("|").map((cell) => cell.trim());
+}
+
+function isTableSeparator(line: string): boolean {
+  return /^\|?[\s:-|]+\|?$/.test(line.trim()) && line.includes("-");
 }
 
 const IMAGE_RE = /^!\[(.*?)\]\((.*?)\)$/;
@@ -51,6 +63,11 @@ export function renderArticleMarkdown(body: string): React.ReactNode[] {
   while (i < lines.length) {
     const line = lines[i];
 
+    if (/^---+$/.test(line.trim())) {
+      i += 1;
+      continue;
+    }
+
     if (line.startsWith("## ")) {
       const label = line.slice(3).trim();
       nodes.push(
@@ -59,7 +76,7 @@ export function renderArticleMarkdown(body: string): React.ReactNode[] {
           id={slugifyHeading(label)}
           className="answer-section mt-12 scroll-mt-28 font-display text-2xl font-bold text-stone-900 first:mt-0 sm:text-[1.75rem]"
         >
-          {label}
+          {renderInline(label)}
         </h2>,
       );
       i += 1;
@@ -74,10 +91,76 @@ export function renderArticleMarkdown(body: string): React.ReactNode[] {
           id={slugifyHeading(label)}
           className="answer-section mt-8 scroll-mt-28 font-display text-xl font-bold text-stone-900"
         >
-          {label}
+          {renderInline(label)}
         </h3>,
       );
       i += 1;
+      continue;
+    }
+
+    if (line.startsWith(">")) {
+      const quoteLines: string[] = [];
+      while (i < lines.length && lines[i].startsWith(">")) {
+        quoteLines.push(lines[i].replace(/^>\s?/, ""));
+        i += 1;
+      }
+      nodes.push(
+        <blockquote
+          key={key++}
+          className="my-6 border-l-4 border-brand-600 bg-brand-50/40 px-5 py-4 font-display text-lg leading-relaxed text-stone-800"
+        >
+          {renderInline(quoteLines.join(" "))}
+        </blockquote>,
+      );
+      continue;
+    }
+
+    if (
+      line.includes("|") &&
+      i + 1 < lines.length &&
+      isTableSeparator(lines[i + 1])
+    ) {
+      const headers = parseTableRow(line);
+      i += 2; // skip header + separator
+      const rows: string[][] = [];
+      while (i < lines.length && lines[i].includes("|") && lines[i].trim() !== "") {
+        rows.push(parseTableRow(lines[i]));
+        i += 1;
+      }
+      nodes.push(
+        <div key={key++} className="my-8 overflow-x-auto rounded-xl border border-border bg-white shadow-sm">
+          <table className="w-full min-w-[640px] border-collapse text-left text-sm">
+            <thead>
+              <tr className="border-b border-border bg-brand-50/60">
+                {headers.map((h, hi) => (
+                  <th
+                    key={hi}
+                    className="px-3 py-3 font-display text-xs font-bold uppercase tracking-wide text-brand-900 sm:px-4"
+                  >
+                    {renderInline(h)}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {rows.map((row, ri) => (
+                <tr key={ri} className="border-b border-border last:border-0">
+                  {row.map((cell, ci) => (
+                    <td
+                      key={ci}
+                      className={`px-3 py-3 align-top leading-relaxed text-stone-700 sm:px-4 ${
+                        ci === 0 ? "font-semibold text-stone-900" : ""
+                      }`}
+                    >
+                      {renderInline(cell)}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>,
+      );
       continue;
     }
 
@@ -168,7 +251,12 @@ export function renderArticleMarkdown(body: string): React.ReactNode[] {
       if (
         lines[i].match(IMAGE_RE) ||
         /^\d+\.\s/.test(lines[i]) ||
-        /^[-*]\s/.test(lines[i])
+        /^[-*]\s/.test(lines[i]) ||
+        lines[i].startsWith(">") ||
+        /^---+$/.test(lines[i].trim()) ||
+        (lines[i].includes("|") &&
+          i + 1 < lines.length &&
+          isTableSeparator(lines[i + 1]))
       )
         break;
       paragraphLines.push(lines[i]);
