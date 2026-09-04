@@ -48,8 +48,15 @@ function parseTableRow(line: string): string[] {
   return trimmed.split("|").map((cell) => cell.trim());
 }
 
+function isPipeRow(line: string): boolean {
+  const t = line.trim();
+  return t.startsWith("|") && t.includes("|", 1);
+}
+
 function isTableSeparator(line: string): boolean {
-  return /^\|?[\s:-|]+\|?$/.test(line.trim()) && line.includes("-");
+  const t = line.trim();
+  if (!isPipeRow(t) && !t.includes("-")) return false;
+  return /^[\s|:-]+$/.test(t) && t.includes("-");
 }
 
 const IMAGE_RE = /^!\[(.*?)\]\((.*?)\)$/;
@@ -115,16 +122,14 @@ export function renderArticleMarkdown(body: string): React.ReactNode[] {
       continue;
     }
 
-    if (
-      line.includes("|") &&
-      i + 1 < lines.length &&
-      isTableSeparator(lines[i + 1])
-    ) {
-      const headers = parseTableRow(line);
-      i += 2; // skip header + separator
+    if (isPipeRow(line) && i + 1 < lines.length && isPipeRow(lines[i + 1])) {
+      const headerLine = line;
+      i += 1;
+      if (isTableSeparator(lines[i])) i += 1;
+      const headers = parseTableRow(headerLine);
       const rows: string[][] = [];
-      while (i < lines.length && lines[i].includes("|") && lines[i].trim() !== "") {
-        rows.push(parseTableRow(lines[i]));
+      while (i < lines.length && isPipeRow(lines[i])) {
+        if (!isTableSeparator(lines[i])) rows.push(parseTableRow(lines[i]));
         i += 1;
       }
       nodes.push(
@@ -254,9 +259,7 @@ export function renderArticleMarkdown(body: string): React.ReactNode[] {
         /^[-*]\s/.test(lines[i]) ||
         lines[i].startsWith(">") ||
         /^---+$/.test(lines[i].trim()) ||
-        (lines[i].includes("|") &&
-          i + 1 < lines.length &&
-          isTableSeparator(lines[i + 1]))
+        isPipeRow(lines[i])
       )
         break;
       paragraphLines.push(lines[i]);
