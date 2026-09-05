@@ -154,6 +154,10 @@ export interface ArticleEditData {
   excerpt: string;
   body: string;
   featuredImg: string;
+  thumbnailTitle: string;
+  thumbnailSubtitle: string;
+  thumbnailTheme: string;
+  thumbnailPosition: string;
   tags: string;
   status: string;
   departmentId: string;
@@ -182,6 +186,11 @@ export async function getArticleEditData(
     excerpt: r.excerpt,
     body: r.body,
     featuredImg: r.featuredImg ?? "",
+    thumbnailTitle: (r.thumbnail as { title?: string } | null)?.title ?? "",
+    thumbnailSubtitle: (r.thumbnail as { subtitle?: string } | null)?.subtitle ?? "",
+    thumbnailTheme: (r.thumbnail as { theme?: string } | null)?.theme ?? "",
+    thumbnailPosition:
+      (r.thumbnail as { position?: string } | null)?.position ?? "center",
     tags: r.tags.map((t) => t.name).join(", "),
     status: r.status,
     departmentId: r.departmentId ?? "",

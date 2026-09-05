@@ -82,6 +82,16 @@ export interface Article {
   /** Department slug when the article belongs to a field of study. */
   department?: string | null;
   departmentName?: string | null;
+  /**
+   * Optional editorial thumbnail overrides. When omitted, the plate is
+   * derived automatically from title, tags, category, and department.
+   */
+  thumbnail?: {
+    title?: string | null;
+    subtitle?: string | null;
+    theme?: string | null;
+    position?: string | null;
+  } | null;
   publishedAt: string;
   readMinutes: number;
 }

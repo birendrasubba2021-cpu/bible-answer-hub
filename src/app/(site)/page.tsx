@@ -5,6 +5,7 @@ import { SearchBar } from "@/components/search-bar";
 import { QuestionCard, QuestionRow } from "@/components/question-card";
 import { DepartmentCard } from "@/components/department-card";
 import { ArticleCard } from "@/components/article/article-card";
+import { ArticleThumbnail } from "@/components/article/article-thumbnail";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { BrandedThumbnail } from "@/components/ui/branded-thumbnail";
 import { departments } from "@/lib/departments";
@@ -194,38 +195,22 @@ export default async function Home() {
                   href={`/articles/${featuredArticle.slug}`}
                   className="group scholarly-card overflow-hidden bg-white"
                 >
-                  {featuredArticle.featuredImg ? (
-                    <div className="relative h-64 sm:h-80">
-                      <Image
-                        src={featuredArticle.featuredImg}
-                        alt=""
-                        fill
-                        priority
-                        sizes="(min-width: 1024px) 55vw, 100vw"
-                        className="object-cover transition duration-500 group-hover:scale-[1.02]"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-brand-900/90 via-brand-900/30 to-transparent" />
-                      <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8">
-                        <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-gold-300">
-                          Featured article
-                        </span>
-                        <h3 className="mt-2 font-display text-2xl font-bold leading-snug text-white sm:text-3xl">
-                          {featuredArticle.title}
-                        </h3>
-                      </div>
-                    </div>
-                  ) : (
-                    <BrandedThumbnail
-                      departmentSlug="biblical-studies"
-                      label="Featured article"
-                      caption={featuredArticle.title}
-                      title={featuredArticle.title}
-                      topics={featuredArticle.tags}
-                      size="hero"
-                    />
-                  )}
+                  <ArticleThumbnail
+                    title={featuredArticle.title}
+                    department={featuredArticle.department}
+                    departmentName={featuredArticle.departmentName}
+                    tags={featuredArticle.tags}
+                    slug={featuredArticle.slug}
+                    featuredImage={featuredArticle.featuredImg}
+                    thumbnail={featuredArticle.thumbnail}
+                    size="hero"
+                    label="Featured article"
+                  />
                   <div className="border-t border-border p-6 sm:p-7">
-                    <p className="line-clamp-2 text-sm leading-relaxed text-stone-600">
+                    <h3 className="font-display text-2xl font-bold leading-snug text-stone-900 transition group-hover:text-brand-700">
+                      {featuredArticle.title}
+                    </h3>
+                    <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-stone-600">
                       {featuredArticle.excerpt}
                     </p>
                     <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700">

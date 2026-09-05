@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice">
+  <rect width="800" height="450" fill="#0C1424"/>
+  <g fill="none" stroke="#D4B45A" stroke-width="1.6" opacity="0.34" transform="translate(575 200)">
+    <polygon points="0,-78 68,42 -68,42"/>
+    <polygon points="0,78 68,-42 -68,-42"/>
+  </g>
+</svg>

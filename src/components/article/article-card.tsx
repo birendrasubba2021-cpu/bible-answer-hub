@@ -1,48 +1,34 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Calendar, Clock, User } from "lucide-react";
 import type { Article } from "@/lib/types";
-import { BrandedThumbnail } from "@/components/ui/branded-thumbnail";
+import { ArticleThumbnail } from "@/components/article/article-thumbnail";
 
 export function ArticleCard({ article }: { article: Article }) {
   return (
     <Link
       href={`/articles/${article.slug}`}
-      className="group scholarly-card flex flex-col overflow-hidden bg-white transition duration-300"
+      className="group scholarly-card flex h-full flex-col overflow-hidden bg-white transition duration-300"
     >
-      {article.featuredImg ? (
-        <div className="relative h-44 overflow-hidden">
-          <Image
-            src={article.featuredImg}
-            alt=""
-            fill
-            className="object-cover transition duration-500 group-hover:scale-[1.02]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-900/75 to-transparent" />
-          <span className="absolute left-3 top-3 rounded border border-white/25 bg-black/25 px-2 py-0.5 text-[9px] font-bold uppercase tracking-[0.12em] text-white backdrop-blur-sm">
-            Article
-          </span>
-        </div>
-      ) : (
-        <BrandedThumbnail
-          departmentSlug={article.department ?? "biblical-studies"}
-          departmentName={article.departmentName ?? undefined}
-          label="Article"
-          caption={article.title}
-          title={article.title}
-          topics={article.tags}
-          size="article"
-        />
-      )}
+      <ArticleThumbnail
+        title={article.title}
+        department={article.department}
+        departmentName={article.departmentName}
+        tags={article.tags}
+        slug={article.slug}
+        featuredImage={article.featuredImg}
+        thumbnail={article.thumbnail}
+        size="card"
+        label="Article"
+      />
 
-      <div className="flex flex-1 flex-col border-x border-b border-border p-5 sm:p-6">
-        <h3 className="font-display text-lg font-bold leading-snug text-stone-900 transition group-hover:text-brand-700">
+      <div className="flex flex-1 flex-col border-x border-b border-border px-5 pb-5 pt-4 sm:px-6 sm:pb-6 sm:pt-5">
+        <h3 className="line-clamp-3 font-display text-[1.05rem] font-bold leading-snug text-stone-900 transition group-hover:text-brand-700 sm:text-lg">
           {article.title}
         </h3>
         <p className="mt-2 line-clamp-3 flex-1 text-sm leading-relaxed text-stone-600">
           {article.excerpt}
         </p>
-        <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-border pt-4 text-xs text-stone-500">
+        <div className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 border-t border-border pt-3.5 text-xs text-stone-500">
           <span className="inline-flex items-center gap-1">
             <User className="h-3.5 w-3.5" />
             {article.author}
@@ -51,7 +37,7 @@ export function ArticleCard({ article }: { article: Article }) {
             <Clock className="h-3.5 w-3.5" />
             {article.readMinutes} min read
           </span>
-          <span className="ml-auto inline-flex items-center gap-1 font-semibold text-brand-700 transition group-hover:gap-2">
+          <span className="ml-auto inline-flex items-center gap-1 font-semibold text-brand-700 transition group-hover:gap-1.5">
             Read article <ArrowUpRight className="h-4 w-4" />
           </span>
         </div>
@@ -119,30 +105,17 @@ export function ArticleHero({ article }: { article: Article }) {
           </div>
 
           <div className="border-t border-border lg:border-t-0 lg:border-l lg:py-8">
-            {article.featuredImg ? (
-              <div className="relative h-48 sm:h-56 lg:mt-6 lg:h-full lg:min-h-[280px] lg:rounded-xl lg:ring-1 lg:ring-border">
-                <Image
-                  src={article.featuredImg}
-                  alt=""
-                  fill
-                  priority
-                  className="object-cover lg:rounded-xl"
-                />
-              </div>
-            ) : (
-              <BrandedThumbnail
-                departmentSlug={article.department ?? "biblical-studies"}
-                departmentName={article.departmentName ?? undefined}
-                label="Article"
-                caption={
-                  article.departmentName ?? article.tags[0] ?? "Article"
-                }
-                title={article.title}
-                topics={article.tags}
-                size="card"
-                className="h-48 rounded-none sm:h-56 lg:mt-6 lg:h-full lg:min-h-[280px] lg:rounded-xl lg:ring-1 lg:ring-border"
-              />
-            )}
+            <ArticleThumbnail
+              title={article.title}
+              department={article.department}
+              departmentName={article.departmentName}
+              tags={article.tags}
+              slug={article.slug}
+              featuredImage={article.featuredImg}
+              thumbnail={article.thumbnail}
+              size="panel"
+              className="lg:mt-6 lg:rounded-xl lg:ring-1 lg:ring-border"
+            />
           </div>
         </div>
       </div>

@@ -118,6 +118,7 @@ model Article {
   excerpt     String
   body        String        @db.Text
   featuredImg String?
+  thumbnail    Json?        // { title, subtitle, theme, position }
   footnotes    Json?        // { id, text }[]
   bibliography Json?        // { author, title, publication, detail }[]
   status      ContentStatus @default(PUBLISHED)

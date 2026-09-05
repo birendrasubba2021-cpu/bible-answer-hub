@@ -192,6 +192,7 @@ function toArticle(row: ArticleRow): Article {
     excerpt: row.excerpt,
     body: row.body,
     featuredImg: row.featuredImg,
+    thumbnail: (row.thumbnail as Article["thumbnail"]) ?? null,
     status: row.status,
     footnotes: (row.footnotes as unknown as Footnote[]) ?? [],
     bibliography: (row.bibliography as unknown as BibliographyEntry[]) ?? [],

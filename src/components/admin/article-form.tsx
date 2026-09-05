@@ -83,7 +83,7 @@ export function ArticleForm({
 
         <Field
           label="Featured image path"
-          hint="Put hero.jpg in this article's folder (see guide above)."
+          hint="Optional photo. If empty, a scholarly cover is generated from the title, tags, and department."
         >
           <input
             name="featuredImg"
@@ -92,6 +92,71 @@ export function ArticleForm({
             className={inputCls}
           />
         </Field>
+
+        <Field
+          label="Thumbnail title override"
+          hint="Leave blank to auto-generate a short cover title (not the full article title)."
+        >
+          <input
+            name="thumbnailTitle"
+            defaultValue={initial?.thumbnailTitle}
+            placeholder="HINDUISM"
+            className={inputCls}
+          />
+        </Field>
+
+        <Field
+          label="Thumbnail subtitle override"
+          hint="Leave blank to auto-generate, e.g. Origins • Scriptures • Worldview"
+        >
+          <input
+            name="thumbnailSubtitle"
+            defaultValue={initial?.thumbnailSubtitle}
+            placeholder="Origins • Scriptures • Worldview"
+            className={inputCls}
+          />
+        </Field>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field label="Thumbnail theme" hint="Automatic if unset.">
+            <select
+              name="thumbnailTheme"
+              defaultValue={initial?.thumbnailTheme ?? ""}
+              className={inputCls}
+            >
+              <option value="">Automatic from content</option>
+              <option value="hinduism">Hinduism</option>
+              <option value="vedanta">Vedānta / Indian philosophy</option>
+              <option value="world-religions">World religions</option>
+              <option value="islam">Islam</option>
+              <option value="buddhism">Buddhism</option>
+              <option value="judaism">Judaism</option>
+              <option value="sikhism">Sikhism</option>
+              <option value="cults">Cults / false teaching</option>
+              <option value="christian-comparative">Christian comparative</option>
+              <option value="christianity">Christianity</option>
+              <option value="biblical-studies">Biblical studies</option>
+              <option value="theology">Theology</option>
+              <option value="church-history">Church history</option>
+              <option value="biblical-languages">Biblical languages</option>
+              <option value="apologetics">Apologetics</option>
+              <option value="ethics">Ethics / ministry</option>
+              <option value="ministry">Mission / ministry</option>
+              <option value="default">Default scholarly</option>
+            </select>
+          </Field>
+          <Field label="Image position" hint="Used when a featured photo is set.">
+            <select
+              name="thumbnailPosition"
+              defaultValue={initial?.thumbnailPosition ?? "center"}
+              className={inputCls}
+            >
+              <option value="center">Center</option>
+              <option value="left">Left</option>
+              <option value="right">Right</option>
+            </select>
+          </Field>
+        </div>
 
         <Field label="Tags" hint="Comma-separated, e.g. Abraham, Genesis, Covenant">
           <input

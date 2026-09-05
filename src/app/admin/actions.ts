@@ -4,7 +4,7 @@ import { createHash, timingSafeEqual } from "crypto";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { ContentStatus, Difficulty } from "@prisma/client";
+import { ContentStatus, Difficulty, Prisma } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import {
   SESSION_COOKIE,
@@ -311,6 +311,16 @@ export async function setStatus(formData: FormData) {
 // ---------- articles ----------
 function readArticleData(formData: FormData) {
   const departmentId = String(formData.get("departmentId") ?? "").trim();
+  const thumbnailTitle = String(formData.get("thumbnailTitle") ?? "").trim();
+  const thumbnailSubtitle = String(formData.get("thumbnailSubtitle") ?? "").trim();
+  const thumbnailTheme = String(formData.get("thumbnailTheme") ?? "").trim();
+  const thumbnailPosition = String(formData.get("thumbnailPosition") ?? "").trim();
+  const hasThumbnail =
+    Boolean(thumbnailTitle) ||
+    Boolean(thumbnailSubtitle) ||
+    Boolean(thumbnailTheme) ||
+    (thumbnailPosition && thumbnailPosition !== "center");
+
   return {
     title: String(formData.get("title") ?? "").trim(),
     excerpt: String(formData.get("excerpt") ?? "").trim(),
@@ -318,6 +328,14 @@ function readArticleData(formData: FormData) {
     featuredImg: String(formData.get("featuredImg") ?? "").trim(),
     tags: csv(formData.get("tags")),
     departmentId: departmentId || null,
+    thumbnail: hasThumbnail
+      ? {
+          title: thumbnailTitle || null,
+          subtitle: thumbnailSubtitle || null,
+          theme: thumbnailTheme || null,
+          position: thumbnailPosition || "center",
+        }
+      : null,
     status:
       STATUS[String(formData.get("status") ?? "DRAFT")] ?? ContentStatus.DRAFT,
   };
@@ -344,6 +362,7 @@ export async function createArticle(
       excerpt: d.excerpt,
       body: d.body,
       featuredImg: d.featuredImg || null,
+      thumbnail: d.thumbnail ?? Prisma.JsonNull,
       status: d.status,
       authorId,
       departmentId: d.departmentId,
@@ -374,6 +393,7 @@ export async function updateArticle(
       excerpt: d.excerpt,
       body: d.body,
       featuredImg: d.featuredImg || null,
+      thumbnail: d.thumbnail ?? Prisma.JsonNull,
       status: d.status,
       departmentId: d.departmentId,
       tags: { set: tagConnect },
